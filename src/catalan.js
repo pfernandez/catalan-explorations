@@ -2,7 +2,7 @@
 
 const RESET = '\x1b[0m';
 
-const pastelColors = [205, 198, 165, 135, 99]; // More contrast: pink → purple path
+const pastelColors = [205, 198, 165, 135, 99];
 
 function colorByPath(path) {
   const depth = path.length;
@@ -12,7 +12,8 @@ function colorByPath(path) {
 
 function generateColored(n, path = []) {
   if (n === 0) {
-    return ['()'];
+    return [''];  // produces singly nested with duplicates
+    return ['()'];  // produces on empty and pairs
   }
   const result = [];
   for (let k = 0; k < n; k++) {
