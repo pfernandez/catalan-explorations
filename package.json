@@ -6,7 +6,9 @@
   "scripts": {
     "start": "npx http-server -o",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "print:catalan": "node src/catalan.js 3 --center --match='()()'"
+    "print": "node src/catalan.js 3 --center --match='()()'",
+    "print:left": "node src/catalan.js 3 --center --match='()()' --stop-left",
+    "print:right": "node src/catalan.js 3 --center --match='()()' --stop-right"
   },
   "author": "Paul Fernandez",
   "license": "UNLICENSED"

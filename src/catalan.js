@@ -16,8 +16,16 @@ function generateColored(n, path = []) {
   }
   const result = [];
   for (let k = 0; k < n; k++) {
-    const lefts = generateColored(k, [...path, 0]);
-    const rights = generateColored(n - 1 - k, [...path, 1]);
+    const leftSize = k;
+    const rightSize = n - 1 - k;
+
+    if (n > 1) {  // Only apply pruning when n > 1
+      if (stopLeft && leftSize === 0) continue;
+      if (stopRight && rightSize === 0) continue;
+    }
+
+    const lefts = generateColored(leftSize, [...path, 0]);
+    const rights = generateColored(rightSize, [...path, 1]);
     for (const left of lefts) {
       for (const right of rights) {
         const color = colorByPath(path);
@@ -67,5 +75,7 @@ const maxN = process.argv[2] ? parseInt(process.argv[2], 10) : 3;
 const matchArg = process.argv.find(arg => arg.startsWith('--match='));
 const matchPattern = matchArg ? matchArg.split('=')[1] : null;
 const centerArg = process.argv.includes('--center');
+const stopLeft = process.argv.includes('--stop-left');
+const stopRight = process.argv.includes('--stop-right');
 
 catalanPyramidColored(maxN, matchPattern, centerArg);
