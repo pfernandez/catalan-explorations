@@ -1,7 +1,25 @@
 #!/usr/bin/env node
 
-const RESET = '\x1b[0m';
+// --- CLI args ---
+const startNArg = process.argv.find(arg => arg.startsWith('--startN='));
+const maxNArg = process.argv.find(arg => arg.startsWith('--maxN='));
+const startN = startNArg ? parseInt(startNArg.split('=')[1]) : 1;
+const maxN = maxNArg ? parseInt(maxNArg.split('=')[1]) : 3 + startN;
+const matchArg = process.argv.find(arg => arg.startsWith('--match='));
+const matchPattern = matchArg ? matchArg.split('=')[1] : null;
+const centered = process.argv.includes('--center');
+const stopLeft = process.argv.includes('--stop-left');
+const stopRight = process.argv.includes('--stop-right');
+const allowDuplicates = true;  //!(stopLeft || stopRight)
 
+console.log(
+  'Running simulation...\n', 
+  { startN, maxN, matchPattern, centered, stopLeft, stopRight, allowDuplicates },
+  '\n'
+);
+
+// Colors
+const RESET = '\x1b[0m';
 const pastelColors = [205, 198, 165, 135, 99];
 
 function colorByPath(path) {
@@ -11,11 +29,10 @@ function colorByPath(path) {
 }
 
 function generateColored(n, path = []) {
-  if (n === 0) {
-    return [''];  // produces singly nested with duplicates
-    return ['()'];  // produces on empty and pairs
-  }
-  const result = [];
+  if (n < startN) return ['']
+  if (n === startN) return ['()']
+
+  const result = allowDuplicates ? [] : new Set();
   for (let k = 0; k < n; k++) {
     const leftSize = k;
     const rightSize = n - 1 - k;
@@ -29,8 +46,12 @@ function generateColored(n, path = []) {
     const rights = generateColored(rightSize, [...path, 1]);
     for (const left of lefts) {
       for (const right of rights) {
+        const parens = left + right
         const color = colorByPath(path);
-        result.push(`${color}(${RESET}${left}${right}${color})${RESET}`);
+        const form = `${color}(${RESET}${parens}${color})${RESET}`
+        allowDuplicates ? result.push(form) : result.add(form);
+
+        console.log(form)
       }
     }
   }
@@ -42,27 +63,22 @@ function getVisibleLength(str) {
   return str.replace(/\x1b\[[0-9;]*m/g, '').length;
 }
 
-
-function catalanPyramidColored(maxN = 3, match = null, center = false) {
+function catalanPyramidColored() {
   const rows = [];
 
   for (let n = 0; n <= maxN; n++) {
-    let forms = generateColored(n);
-    if (match) {
-      const regex = new RegExp(match);
-      forms = forms.filter(f => f.replace(/\x1b\[[0-9;]*m/g, '').match(regex));
-    }
+    const forms = generateColored(n)
+    const count = forms.length;
     if (forms.length > 0) {
-      const row = `n=${n}: ${forms.join(' ')}`;
+      const row = `n=${n}, c=${count}: ${forms.join(' ')}`;
       rows.push(row);
     }
   }
 
-  // Compute max visible width
   const maxWidth = Math.max(...rows.map(r => getVisibleLength(r)));
 
   rows.forEach(row => {
-    if (center) {
+    if (centered) {
       const padding = Math.floor((maxWidth - getVisibleLength(row)) / 2);
       console.log(' '.repeat(padding) + row);
     } else {
@@ -71,12 +87,4 @@ function catalanPyramidColored(maxN = 3, match = null, center = false) {
   });
 }
 
-// --- CLI args ---
-const maxN = process.argv[2] ? parseInt(process.argv[2], 10) : 3;
-const matchArg = process.argv.find(arg => arg.startsWith('--match='));
-const matchPattern = matchArg ? matchArg.split('=')[1] : null;
-const centerArg = process.argv.includes('--center');
-const stopLeft = process.argv.includes('--stop-left');
-const stopRight = process.argv.includes('--stop-right');
-
-catalanPyramidColored(maxN, matchPattern, centerArg);
+catalanPyramidColored();

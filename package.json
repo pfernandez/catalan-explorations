@@ -6,10 +6,12 @@
   "scripts": {
     "start": "npx http-server -o",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "print": "node src/catalan.js 3 --center --match='()()'",
-    "print:strict": "node src/catalan-test.js",
-    "print:left": "node src/catalan.js 3 --center --match='()()' --stop-left",
-    "print:right": "node src/catalan.js 3 --center --match='()()' --stop-right"
+    "print": "node src/catalan.js --center --match='()()'",
+    "print:left": "node src/catalan.js --center --match='()()' --stop-left",
+    "print:right": "node src/catalan.js --center --match='()()' --stop-right",
+    "print:pairs": "node src/catalan.js --center --match='()()' --startN=0",
+    "print:pairs:left": "node src/catalan.js --center --match='()()' --startN=0 --stop-left",
+    "print:pairs:right": "node src/catalan.js --center --match='()()' --startN=0 --stop-right"
   },
   "author": "Paul Fernandez",
   "license": "UNLICENSED"
