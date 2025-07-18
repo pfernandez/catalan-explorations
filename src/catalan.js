@@ -66,5 +66,6 @@ function catalanPyramidColored(maxN = 3, match = null, center = false) {
 const maxN = process.argv[2] ? parseInt(process.argv[2], 10) : 3;
 const matchArg = process.argv.find(arg => arg.startsWith('--match='));
 const matchPattern = matchArg ? matchArg.split('=')[1] : null;
+const centerArg = process.argv.includes('--center');
 
-catalanPyramidColored(maxN, matchPattern);
+catalanPyramidColored(maxN, matchPattern, centerArg);
