@@ -22,36 +22,40 @@ console.log(
 const RESET = '\x1b[0m';
 const pastelColors = [205, 198, 165, 135, 99];
 
-function colorByPath(path) {
+function append(list, form) {
+  return allowDuplicates ? list.push(form) : list.add(form);
+}
+
+function colorByPath(form, path) {
   const depth = path.length;
   const idx = Math.min(depth, pastelColors.length - 1);
-  return `\x1b[38;5;${pastelColors[idx]}m`;
+  const color = `\x1b[38;5;${pastelColors[idx]}m`;
+  return `${color}(${RESET}${form}${color})${RESET}`
 }
 
 function generateColored(n, path = []) {
-  if (n < startN) return ['']
-  if (n === startN) return ['()']
-
   const result = allowDuplicates ? [] : new Set();
-  for (let k = 0; k < n; k++) {
-    const leftSize = k;
-    const rightSize = n - 1 - k;
 
-    if (n > 1) {  // Only apply pruning when n > 1
-      if (stopLeft && leftSize === 0) continue;
-      if (stopRight && rightSize === 0) continue;
-    }
+  if (n < startN) append(result, '')
+  else if (n === startN) append(result, '()')
+  else {
+    for (let k = 0; k < n; k++) {
+      const leftSize = k;
+      const rightSize = n - 1 - k;
 
-    const lefts = generateColored(leftSize, [...path, 0]);
-    const rights = generateColored(rightSize, [...path, 1]);
-    for (const left of lefts) {
-      for (const right of rights) {
-        const parens = left + right
-        const color = colorByPath(path);
-        const form = `${color}(${RESET}${parens}${color})${RESET}`
-        allowDuplicates ? result.push(form) : result.add(form);
+      if (n > 1) {  // Only apply pruning when n > 1
+        if (stopLeft && leftSize === 0) continue;
+        if (stopRight && rightSize === 0) continue;
+      }
 
-        console.log(form)
+      const lefts = generateColored(leftSize, [...path, 0]);
+      const rights = generateColored(rightSize, [...path, 1]);
+
+      for (const left of lefts) {
+        for (const right of rights) {
+          const form = colorByPath(left + right, path);
+          append(result, form)
+        }
       }
     }
   }
