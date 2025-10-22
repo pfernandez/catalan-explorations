@@ -1,4 +1,4 @@
-import { dyck, pairs } from './catalan.js';
+import { dyck, pairs, motzkin } from './catalan.js';
 import { colorizeParens } from './colorize.js'
 
 // --- CLI args ---
@@ -7,6 +7,7 @@ const simulation = simulationArg ? simulationArg.split('=')[1] : 'dyck';
 const maxNArg = process.argv.find(arg => arg.startsWith('--maxN='));
 const maxN = maxNArg ? parseInt(maxNArg.split('=')[1]) : 3;
 const centered = process.argv.includes('--center');
+const includeSpine = process.argv.includes('--spine');
 
 function getVisibleLength(str) {
   // Remove ANSI escape codes to measure printable width
@@ -30,7 +31,34 @@ console.log(
 const rows = [];
 
 for (let n = 0; n <= maxN; n++) {
-  const forms = simulation === 'pairs' ? pairs(n) : dyck(n);
+  let forms = simulation === 'pairs' ? pairs(n)
+             : simulation === 'motzkin' ? motzkin(n)
+             : dyck(n);
+  if ((simulation === 'pairs' || simulation === 'motzkin') && includeSpine && n > 0) {
+    // Spine depth is n+1: e.g., n=1 -> (()), n=2 -> ((()))
+    const spine = '('.repeat(n + 1) + ')'.repeat(n + 1);
+    const idx = forms.indexOf(spine);
+    if (centered) {
+      const mid = Math.floor(forms.length / 2);
+      if (idx === -1) {
+        forms = [...forms.slice(0, mid), spine, ...forms.slice(mid)];
+      } else if (idx !== mid) {
+        const reordered = forms.slice();
+        reordered.splice(idx, 1);
+        reordered.splice(mid, 0, spine);
+        forms = reordered;
+      }
+    } else {
+      // Show spine first when not centered
+      if (idx === -1) {
+        forms = [spine, ...forms];
+      } else if (idx !== 0) {
+        const reordered = forms.slice();
+        reordered.splice(idx, 1);
+        forms = [spine, ...reordered];
+      }
+    }
+  }
   const count = forms.length;
   if (forms.length > 0) {
     const coloredForms = forms.map(colorizeParens);
@@ -50,4 +78,3 @@ rows.forEach(row => {
     console.log(row);
   }
 });
-

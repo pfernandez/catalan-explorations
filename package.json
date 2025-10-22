@@ -7,7 +7,13 @@
     "dyck": "node src/index.js --simulation=dyck",
     "dyck:center": "node src/index.js --center --simulation=dyck",
     "pairs": "node src/index.js --simulation=pairs",
-    "pairs:center": "node src/index.js --center --simulation=pairs"
+    "pairs:center": "node src/index.js --center --simulation=pairs",
+    "pairs:spine": "node src/index.js --simulation=pairs --spine",
+    "pairs:spine:center": "node src/index.js --center --simulation=pairs --spine",
+    "motzkin": "node src/index.js --simulation=motzkin",
+    "motzkin:center": "node src/index.js --center --simulation=motzkin",
+    "motzkin:spine": "node src/index.js --simulation=motzkin --spine",
+    "motzkin:spine:center": "node src/index.js --center --simulation=motzkin --spine"
   },
   "author": "Paul Fernandez",
   "license": "UNLICENSED"
