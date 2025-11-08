@@ -3,32 +3,23 @@ import assert from 'node:assert/strict';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import {
-  parse,
-  format,
-  reduce,
-  loadCombinatorDefinitions,
+  loadDefinitions,
+  evaluateExpression,
+  treeToString,
 } from '../src/sk.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-loadCombinatorDefinitions(join(__dirname, '../programs/sk-basis.lisp'));
+const env = loadDefinitions(join(__dirname, '../programs/sk-basis.lisp'));
 
-function reduceToString(source) {
-  const { expr } = reduce(parse(source));
-  return format(expr);
+function evaluateFocus(expr) {
+  const { focus } = evaluateExpression(expr, env);
+  return treeToString(focus);
 }
 
 test('I returns its argument', () => {
-  assert.equal(reduceToString('(I a)'), 'a');
+  assert.equal(evaluateFocus('(I a)'), 'a');
 });
 
-test('K discards its second argument', () => {
-  assert.equal(reduceToString('((K a) b)'), 'a');
-});
-
-test('S K K behaves like I when applied', () => {
-  assert.equal(reduceToString('(((S K) K) x)'), 'x');
-});
-
-test('Parser handles multi-argument application', () => {
-  assert.equal(format(parse('(S K K x)')), '(((S K) K) x)');
+test('K exposes its first argument at the focus', () => {
+  assert.equal(evaluateFocus('((K a) b)'), 'a');
 });

@@ -1,9 +1,6 @@
-; Build the SK basis from the leaf (()):
-; I  = (()())
-; K  = ((()())())
-; S  = (((()())())())
-
-(def leaf ())
-(def I    (node leaf leaf))
-(def K    (node I leaf))
-(def S    (node K leaf))
+; Identity: lone wrapper exposes the argument
+(def I (() ()))
+; K keeps the focus (car) and collapses the context (cdr)
+(def K (I ()))
+; S re-enters the context twice via K layers
+(def S (K ()))
