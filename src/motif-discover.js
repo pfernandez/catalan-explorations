@@ -4,11 +4,13 @@ import { fileURLToPath } from 'node:url';
 /**
  * motif-discover.js
  *
- * Discover recurrent "motifs" in the local-collapse dynamics on small Catalan trees.
+ * Discover recurrent "motifs" in the local-collapse dynamics on small Catalan
+ * trees.
  *
  * This version:
  * - generates ONLY primitive Dyck words (one outer pair)
- * - uses a FLEXIBLE Dyck→tree parser (right-assoc fallback) so all valid Dyck words parse
+ * - uses a FLEXIBLE Dyck→tree parser (right-assoc fallback) so all valid Dyck
+ *   words parse
  * - keeps a floor (MIN_MOTIF_SIZE) so mid-sized shapes survive
  * - uses stochastic deepest-first (ε-greedy)
  * - optional η-normalization: (() x) -> x  (--no-eta to disable)
