@@ -1,41 +1,10 @@
 import { fileURLToPath } from 'node:url';
+import { dyck, pairs } from './catalan.js';
 
-// === Generate all Dyck words (well-formed parentheses strings) ===
-export function generateDyckWords(n) {
-  const result = [];
-
-  function backtrack(currentString, openCount, closeCount) {
-    if (currentString.length === 2 * n) {
-      result.push(currentString);
-      return;
-    }
-    if (openCount < n) {
-      backtrack(currentString + '(', openCount + 1, closeCount);
-    }
-    if (closeCount < openCount) {
-      backtrack(currentString + ')', openCount, closeCount + 1);
-    }
-  }
-
-  backtrack("", 0, 0);
-  return result;
-}
-
-// === Generate all Catalan binary trees (explicit structural form) ===
-export function generateCatalanTrees(n) {
-  if (n === 0) return ['()'];
-  const result = [];
-  for (let i = 0; i < n; i++) {
-    const left = generateCatalanTrees(i);
-    const right = generateCatalanTrees(n - 1 - i);
-    for (const l of left) {
-      for (const r of right) {
-        result.push(`(${l}${r})`);
-      }
-    }
-  }
-  return result;
-}
+// Re-export canonical generators so the bijection module stays the single entry-point
+// for Dyck words / Catalan trees in other tooling.
+export const generateDyckWords = dyck;
+export const generateCatalanTrees = pairs;
 
 // === Parse a Dyck word into a tree structure ===
 export function dyckToTree(s) {
