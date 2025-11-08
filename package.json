@@ -14,7 +14,8 @@
     "motzkin": "node src/index.js --simulation=motzkin",
     "motzkin:center": "node src/index.js --center --simulation=motzkin",
     "motzkin:spine": "node src/index.js --simulation=motzkin --spine",
-    "motzkin:spine:center": "node src/index.js --center --simulation=motzkin --spine"
+    "motzkin:spine:center": "node src/index.js --center --simulation=motzkin --spine",
+    "test": "node tests/*"
   },
   "author": "Paul Fernandez",
   "license": "UNLICENSED"

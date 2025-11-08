@@ -1,5 +1,7 @@
+import { fileURLToPath } from 'node:url';
+
 // === Generate all Dyck words (well-formed parentheses strings) ===
-function generateDyckWords(n) {
+export function generateDyckWords(n) {
   const result = [];
 
   function backtrack(currentString, openCount, closeCount) {
@@ -20,7 +22,7 @@ function generateDyckWords(n) {
 }
 
 // === Generate all Catalan binary trees (explicit structural form) ===
-function generateCatalanTrees(n) {
+export function generateCatalanTrees(n) {
   if (n === 0) return ['()'];
   const result = [];
   for (let i = 0; i < n; i++) {
@@ -36,46 +38,62 @@ function generateCatalanTrees(n) {
 }
 
 // === Parse a Dyck word into a tree structure ===
-function dyckToTree(s) {
-  if (s === '()') return null;
+export function dyckToTree(s) {
+  if (s.length === 0) return null;
+  if (s[0] !== '(') {
+    throw new Error(`Invalid Dyck word: ${s}`);
+  }
+
   let balance = 0;
-  for (let i = 1; i < s.length - 1; i++) {  // Skip outermost ()
-    if (s[i] === '(') balance++;
-    else balance--;
+  for (let i = 0; i < s.length; i++) {
+    const char = s[i];
+    if (char === '(') balance++;
+    else if (char === ')') balance--;
+    else throw new Error(`Invalid character in Dyck word: ${char}`);
+
+    if (balance < 0) {
+      throw new Error(`Invalid Dyck word: ${s}`);
+    }
     if (balance === 0) {
-      const left = s.slice(1, i + 1);
-      const right = s.slice(i + 1, s.length - 1);
+      const left = s.slice(1, i);
+      const right = s.slice(i + 1);
       return { left: dyckToTree(left), right: dyckToTree(right) };
     }
   }
-  return null;
+
+  throw new Error(`Invalid Dyck word: ${s}`);
 }
 
 // === Render a tree structure back into nested parens ===
-function renderTree(tree) {
+export function renderTree(tree) {
   if (tree === null) return '()';
   return `(${renderTree(tree.left)}${renderTree(tree.right)})`;
 }
 
-// === Run unified comparison ===
-const maxN = 4;
+function runCli() {
+  const maxN = 4;
 
-for (let n = 0; n <= maxN; n++) {
-  const dyckWords = generateDyckWords(n);
-  const catalanTrees = generateCatalanTrees(n);
+  for (let n = 0; n <= maxN; n++) {
+    const dyckWords = generateDyckWords(n);
+    const catalanTrees = generateCatalanTrees(n);
 
-  console.log(`\n=== n = ${n} ===`);
-  console.log(`Dyck words (C${n} = ${dyckWords.length}):`);
-  console.log(dyckWords.join(', '));
+    console.log(`\n=== n = ${n} ===`);
+    console.log(`Dyck words (C${n} = ${dyckWords.length}):`);
+    console.log(dyckWords.join(', '));
 
-  console.log(`Catalan trees (C${n} = ${catalanTrees.length}):`);
-  console.log(catalanTrees.join(', '));
+    console.log(`Catalan trees (C${n} = ${catalanTrees.length}):`);
+    console.log(catalanTrees.join(', '));
 
-  console.log(`Bijection (Dyck → Tree):`);
-  dyckWords.forEach((word, i) => {
-    const tree = dyckToTree(word);
-    const rendered = renderTree(tree);
-    console.log(`  [${i}] ${word} → ${rendered}`);
-  });
+    console.log(`Bijection (Dyck → Tree):`);
+    dyckWords.forEach((word, i) => {
+      const tree = dyckToTree(word);
+      const rendered = renderTree(tree);
+      console.log(`  [${i}] ${word} → ${rendered}`);
+    });
+  }
 }
 
+const currentFile = fileURLToPath(import.meta.url);
+if (process.argv[1] === currentFile) {
+  runCli();
+}
