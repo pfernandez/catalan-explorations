@@ -6,6 +6,9 @@ import {
   loadDefinitions,
   evaluateExpression,
   treeToString,
+  structuralPotential,
+  parseSexpr,
+  sexprToTree,
 } from '../src/sk.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -22,4 +25,26 @@ test('I returns its argument', () => {
 
 test('K exposes its first argument at the focus', () => {
   assert.equal(evaluateFocus('((K a) b)'), 'a');
+});
+
+test('S duplicates the context at the focus', () => {
+  assert.equal(evaluateFocus('(((S a) b) c)'), '((a c)(b c))');
+});
+
+test('structural potential counts internal pairs (gravitational U)', () => {
+  const expr = '(() (() ()))';
+  const tree = sexprToTree(parseSexpr(expr));
+  assert.equal(structuralPotential(tree), 2);
+});
+
+test('gravity trace describes why (() x) collapses to x', () => {
+  const logs = [];
+  evaluateExpression('(I x)', env, {
+    traceGravity: true,
+    logger: message => logs.push(message),
+  });
+  assert.ok(
+    logs.some(line => line.includes('before: L=1, R=0')),
+    `expected gravity trace to mention pre-collapse structural potentials, saw: ${logs.join('\n')}`,
+  );
 });

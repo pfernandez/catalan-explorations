@@ -38,6 +38,15 @@ function makeSymbol(name) {
   return { kind: 'symbol', name };
 }
 
+/** Count the number of internal pairs (structural potential / U) in a tree. */
+function structuralPotential(node) {
+  if (!node || isEmpty(node) || node.kind === 'symbol') return 0;
+  if (node.kind === 'pair') {
+    return 1 + structuralPotential(node.left) + structuralPotential(node.right);
+  }
+  return 0;
+}
+
 /** Deep-clone a tree so named definitions can be reused safely. */
 function cloneTree(node) {
   if (!node || isEmpty(node)) return EMPTY;
@@ -52,11 +61,27 @@ function cloneTree(node) {
  * Apply the Catalan rule recursively: drop neutral wrappers `(() x) → x`.
  * Any remaining structure is rebuilt as a pair of collapsed children.
  */
-function collapse(node) {
+function collapse(node, options = {}) {
   if (!node || isEmpty(node)) return EMPTY;
+
   if (node.kind === 'pair') {
-    const left = collapse(node.left);
-    const right = collapse(node.right);
+    const leftOriginal = node.left;
+    const rightOriginal = node.right;
+    const left = collapse(leftOriginal, options);
+    const right = collapse(rightOriginal, options);
+
+    if (options.traceGravity && isEmpty(left)) {
+      const logger = options.logger ?? console.log;
+      const leftOriginalPotential = structuralPotential(leftOriginal);
+      const rightOriginalPotential = structuralPotential(rightOriginal);
+      const leftCollapsedPotential = structuralPotential(left);
+      const rightCollapsedPotential = structuralPotential(right);
+      const snapshot = `(${treeToString(leftOriginal)} ${treeToString(rightOriginal)})`;
+      logger(
+        `[gravity] ${snapshot} -> left collapsed (U_after=${leftCollapsedPotential}) so right survives (before: L=${leftOriginalPotential}, R=${rightOriginalPotential}; after: L=${leftCollapsedPotential}, R=${rightCollapsedPotential})`,
+      );
+    }
+
     if (isEmpty(left)) {
       return right;
     }
@@ -169,26 +194,26 @@ function loadDefinitions(path) {
 }
 
 /** Parse, substitute, collapse, and return both the collapsed tree and focus. */
-function evaluateExpression(exprSource, env) {
+function evaluateExpression(exprSource, env, options = {}) {
   const parsed = parseSexpr(exprSource);
   const tree = sexprToTree(parsed);
   const expanded = substituteDefinitions(tree, env);
-  const collapsed = collapse(expanded);
+  const collapsed = collapse(expanded, options);
   const resultFocus = focus(collapsed);
   return { collapsed, focus: resultFocus };
 }
 
 /** Demo runner: load definitions, evaluate sample expressions, show collapse. */
 function runCli() {
-  const defsArg = process.argv.find(arg => arg.startsWith('--defs='));
+  const args = process.argv.slice(2);
+  const defsArg = args.find(arg => arg.startsWith('--defs='));
+  const traceGravity = args.includes('--trace-gravity');
   const defsPath = defsArg
     ? defsArg.slice('--defs='.length)
     : fileURLToPath(new URL('../programs/sk-basis.lisp', import.meta.url));
 
   const env = loadDefinitions(defsPath);
-  const inputs = process.argv
-    .slice(2)
-    .filter(arg => !arg.startsWith('--defs='));
+  const inputs = args.filter(arg => !arg.startsWith('--defs=') && arg !== '--trace-gravity');
 
   const samples = inputs.length ? inputs : [
     '(I x)',
@@ -198,7 +223,7 @@ function runCli() {
 
   samples.forEach((expr) => {
     try {
-      const { collapsed, focus: value } = evaluateExpression(expr, env);
+      const { collapsed, focus: value } = evaluateExpression(expr, env, { traceGravity });
       console.log(`Input: ${expr}`);
       console.log(`  Collapsed: ${treeToString(collapsed)}`);
       console.log(`  Focus: ${treeToString(value)}`);
@@ -221,5 +246,6 @@ export {
   evaluateExpression,
   treeToString,
   collapse,
+  structuralPotential,
   focus,
 };
