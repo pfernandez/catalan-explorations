@@ -14,14 +14,14 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const env = loadDefinitions(join(__dirname, '../programs/sk-basis.lisp'));
 
-function evaluateFocus(expr) {
-  const { focus } = evaluateExpression(expr, env);
-  return treeToString(focus);
-}
-
 function evaluateCollapsed(expr) {
   const { collapsed } = evaluateExpression(expr, env);
   return treeToString(collapsed);
+}
+
+function evaluateFocus(expr) {
+  const { focus } = evaluateExpression(expr, env);
+  return treeToString(focus);
 }
 
 test('I returns its argument', () => {
@@ -33,9 +33,12 @@ test('K exposes its first argument at the focus', () => {
 });
 
 test('S duplicates the context structure', () => {
-  // We compare full structure (not focus) because the future branch must
-  // remain entangled as ((a c) (b c)). Spacing is significant here.
   assert.equal(evaluateCollapsed('(((S a) b) c)'), '((a c) (b c))');
+});
+
+test('TRUE and FALSE select the expected branch', () => {
+  assert.equal(evaluateFocus('((TRUE a) b)'), 'a');
+  assert.equal(evaluateFocus('((FALSE a) b)'), 'b');
 });
 
 test('structural potential counts internal pairs (gravitational U)', () => {
@@ -51,7 +54,7 @@ test('gravity trace describes why (() x) collapses to x', () => {
     logger: message => logs.push(message),
   });
   assert.ok(
-    logs.some(line => line.includes('left collapsed') && line.includes('U_after=0')),
-    `expected gravity trace to mention collapse potentials, saw: ${logs.join('\n')}`,
+    logs.some(line => line.includes('-> bound argument')),
+    `expected gravity trace to mention collapse event, saw: ${logs.join('\n')}`,
   );
 });
