@@ -20,20 +20,30 @@ import { fileURLToPath } from 'node:url';
  * single rule fires and how the `car` (focus) is extracted afterward.
  */
 
-/** Sentinel object used for empty leaves. */
+/** Sentinel node used everywhere the theory refers to the raw void `()`. */
 const EMPTY = { kind: 'empty' };
 
-function makeBinder(id, path = '0') {
-  return { kind: 'binder', id, path };
+const NODE_TYPES = {
+  BINDER: 'binder',
+  SLOT: 'slot',
+  PAIR: 'pair',
+  SYMBOL: 'symbol',
+};
+
+let binderCounter = 1;
+/** Create a unique binder node so slots can point back to the same identity. */
+function makeBinder() {
+  return { kind: NODE_TYPES.BINDER, token: Symbol('binder'), label: binderCounter++ };
 }
 
-function makeSlot(id, binder = null, path = '0') {
-  return { kind: 'slot', id, binder, path };
+/** Create a slot that re-enters the supplied binder when collapse occurs. */
+function makeSlot(binder) {
+  return { kind: NODE_TYPES.SLOT, binder };
 }
 
 /** Return true if a node is the empty sentinel. */
 function isEmpty(node) {
-  return node === EMPTY || (node && (node.kind === 'empty' || node.kind === 'binder'));
+  return node === EMPTY || (node && node.kind === 'empty');
 }
 
 /** Construct a structural pair (left applies to right). */
@@ -46,35 +56,108 @@ function makeSymbol(name) {
   return { kind: 'symbol', name };
 }
 
+/**
+ * Convert an expression that still contains friendly parameter names into
+ * explicit De Bruijn slots. Once desugared, every reference becomes `#n`, which
+ * the template builder can translate directly into pointer-equal slots.
+ */
+function convertExprToDeBruijn(expr, context) {
+  if (expr === null || expr === undefined) return expr;
+  if (Array.isArray(expr)) {
+    return expr.map(part => convertExprToDeBruijn(part, context));
+  }
+  if (typeof expr === 'string') {
+    if (expr.startsWith('#')) return expr;
+    const index = context.lastIndexOf(expr);
+    if (index !== -1) {
+      const depth = context.length - 1 - index;
+      return `#${depth}`;
+    }
+  }
+  return expr;
+}
+
+/**
+ * Recursively wrap a body with as many binder pairs as there are parameters.
+ * Each step pushes the new name into `context` so the body rewrite can locate
+ * the right binder depth.
+ */
+function wrapParamsWithBinders(params, bodyExpr, context = []) {
+  if (!params.length) {
+    return convertExprToDeBruijn(bodyExpr, context);
+  }
+  const [first, ...rest] = params;
+  if (typeof first !== 'string') {
+    throw new Error('Parameter names must be symbols');
+  }
+  const nextContext = [...context, first];
+  const inner = wrapParamsWithBinders(rest, bodyExpr, nextContext);
+  return [[], inner];
+}
+
+/**
+ * Transform `(defn name (params) body)` into the plain `(def name body)` form
+ * using the De Bruijn conversion helpers above.
+ */
+function desugarDefnForm(form) {
+  if (form.length !== 4) {
+    throw new Error('(defn name (params) body) requires exactly 4 elements');
+  }
+  const [, name, paramsExpr, bodyExpr] = form;
+  if (!Array.isArray(paramsExpr)) {
+    throw new Error('Function parameters must be a list');
+  }
+  const lambdaExpr = wrapParamsWithBinders(paramsExpr, bodyExpr, []);
+  return ['def', name, lambdaExpr];
+}
+
 /** Count the number of internal pairs (structural potential / U) in a tree. */
+/** Measure how much “tension” lives inside a tree by counting internal pairs. */
 function structuralPotential(node) {
-  if (!node || isEmpty(node) || node.kind === 'symbol') return 0;
-  if (node.kind === 'pair') {
+  if (!node || isEmpty(node) || node.kind === NODE_TYPES.SYMBOL) return 0;
+  if (node.kind === NODE_TYPES.PAIR) {
     return 1 + structuralPotential(node.left) + structuralPotential(node.right);
   }
   return 0;
 }
 
 /** Deep-clone a tree so named definitions can be reused safely. */
-function cloneTree(node) {
+/** Deep copy a tree while preserving binder identity for every slot. */
+function cloneTree(node, binderMap = new Map()) {
   if (!node || isEmpty(node)) return EMPTY;
-  if (node.kind === 'symbol') return makeSymbol(node.name);
-  if (node.kind === 'slot') return makeSlot(node.id, node.binder, node.path);
-  if (node.kind === 'binder') return makeBinder(node.id, node.path);
-  if (node.kind === 'pair') {
-    return makePair(cloneTree(node.left), cloneTree(node.right));
+  if (node.kind === NODE_TYPES.SYMBOL) return makeSymbol(node.name);
+  if (node.kind === NODE_TYPES.BINDER) {
+    const clone = makeBinder();
+    binderMap.set(node, clone);
+    return clone;
   }
-  return EMPTY;
+  if (node.kind === NODE_TYPES.SLOT) {
+    const mappedBinder = binderMap.get(node.binder);
+    if (!mappedBinder) {
+      throw new Error('Encountered slot before binder while cloning');
+    }
+    return makeSlot(mappedBinder);
+  }
+  if (node.kind === NODE_TYPES.PAIR) {
+    const leftClone = cloneTree(node.left, binderMap);
+    const rightClone = cloneTree(node.right, binderMap);
+    return makePair(leftClone, rightClone);
+  }
+  return node;
 }
 
 /**
  * Apply the Catalan rule recursively: drop neutral wrappers `(() x) → x`.
  * Any remaining structure is rebuilt as a pair of collapsed children.
  */
+/**
+ * Apply the single Catalan rewrite `(() x) → x`. The rest of the interpreter is
+ * just scaffolding for building the trees this rule acts upon.
+ */
 function collapse(node, options = {}) {
   if (!node || isEmpty(node)) return EMPTY;
 
-  if (node.kind === 'pair') {
+  if (node.kind === NODE_TYPES.PAIR) {
     const leftOriginal = node.left;
     const rightOriginal = node.right;
     const left = collapse(leftOriginal, options);
@@ -101,6 +184,7 @@ function collapse(node, options = {}) {
 }
 
 /** Repeatedly take `car` (left child) until a symbol/empty node is found. */
+/** Keep following the left spine until the surviving focus is found. */
 function focus(node) {
   if (!node || isEmpty(node)) return EMPTY;
   if (node.kind === 'pair') return focus(node.left);
@@ -108,20 +192,24 @@ function focus(node) {
 }
 
 /** Serialize a collapsed tree back into S-expression form. */
+/** Convert an internal tree back into printable S-expression form. */
 function treeToString(node) {
   if (!node || isEmpty(node)) return '()';
-  if (node.kind === 'slot') return '()';
-  if (node.kind === 'symbol') return node.name;
+  if (node.kind === NODE_TYPES.SLOT) return '()';
+  if (node.kind === NODE_TYPES.BINDER) return '()';
+  if (node.kind === NODE_TYPES.SYMBOL) return node.name;
   return `(${treeToString(node.left)} ${treeToString(node.right)})`;
 }
 
 /** Tokenize a definition file, stripping comments and splitting on parens. */
+/** Strip comments and break a definition file into the tokens we need. */
 function tokenize(source) {
   const stripped = source.replace(/;.*$/gm, '');
   return stripped.match(/[()]|[^\s()]+/g) ?? [];
 }
 
 /** Recursively parse tokens into an S-expression list. */
+/** Standard recursive-descent parser for balanced parentheses. */
 function parseTokens(tokens) {
   if (tokens.length === 0) {
     throw new Error('Unexpected EOF while parsing');
@@ -144,6 +232,7 @@ function parseTokens(tokens) {
 }
 
 /** Parse a single S-expression from a source string. */
+/** Parse a whole source string into one S-expression. */
 function parseSexpr(source) {
   const tokens = tokenize(source);
   if (tokens.length === 0) return null;
@@ -154,7 +243,8 @@ function parseSexpr(source) {
   return expr;
 }
 
-/** Convert an S-expression into our tree structure. */
+/** Convert an S-expression into a plain binary tree (used for utilities). */
+/** Utility for tests: turn a parsed S-expression into a plain tree. */
 function sexprToTree(expr) {
   if (expr === null || expr === undefined) return EMPTY;
   if (Array.isArray(expr)) {
@@ -167,169 +257,166 @@ function sexprToTree(expr) {
   return makeSymbol(expr);
 }
 
-function buildTemplate(expr, path = '0', state = { nextSlot: 1, nextBinder: 1, stack: [] }) {
+/** Track the binder stack while translating parsed expressions into trees. */
+function createTemplateState() {
+  return {
+    stack: [],
+  };
+}
+
+/**
+ * Translate an S-expression into binder/slot aware nodes. This is where `#n`
+ * markers get converted into real pointers.
+ */
+function buildTemplate(expr, state = createTemplateState()) {
   if (expr === null || expr === undefined) return EMPTY;
   if (Array.isArray(expr)) {
-    if (expr.length === 0) {
-      const binder = state.stack[state.stack.length - 1] ?? null;
-      return makeSlot(state.nextSlot++, binder, path);
-    }
+    if (expr.length === 0) return EMPTY;
     if (expr.length !== 2) {
       throw new Error('Pairs must have exactly two elements');
     }
     const [leftExpr, rightExpr] = expr;
     if (Array.isArray(leftExpr) && leftExpr.length === 0) {
-      const binderId = state.nextBinder++;
-      state.stack.push(binderId);
-      const body = buildTemplate(rightExpr, `${path}R`, state);
+      const binder = makeBinder();
+      state.stack.push(binder);
+      const body = buildTemplate(rightExpr, state);
       state.stack.pop();
-      return makePair(makeBinder(binderId, `${path}L`), body);
+      return makePair(binder, body);
     }
-    const left = buildTemplate(leftExpr, `${path}L`, state);
-    const right = buildTemplate(rightExpr, `${path}R`, state);
-    return makePair(left, right);
+    return makePair(buildTemplate(leftExpr, state), buildTemplate(rightExpr, state));
+  }
+  if (typeof expr === 'string' && expr.startsWith('#')) {
+    const depth = Number(expr.slice(1));
+    if (Number.isNaN(depth)) {
+      throw new Error(`Invalid binder reference: ${expr}`);
+    }
+    const index = state.stack.length - 1 - depth;
+    if (index < 0) {
+      throw new Error(`Binder reference ${expr} exceeds scope`);
+    }
+    const binder = state.stack[index];
+    return makeSlot(binder);
   }
   return makeSymbol(expr);
 }
 
 /** Replace named symbols with their definitions by cloning from env. */
-function substituteDefinitions(node, env) {
-  if (!node || isEmpty(node)) return EMPTY;
-  if (node.kind === 'symbol') {
-    if (env.has(node.name)) {
-      return cloneTree(env.get(node.name));
-    }
-    return node;
-  }
-  if (node.kind === 'slot') return makeSlot(node.id, node.binder, node.path);
-  if (node.kind === 'binder') return makeBinder(node.id, node.path);
-  if (node.kind === 'pair') {
-    return makePair(
-      substituteDefinitions(node.left, env),
-      substituteDefinitions(node.right, env),
-    );
-  }
-  return node;
-}
-
-function findNextBinder(node, current = null) {
-  if (!node) return current;
-  if (node.kind === 'slot' && node.binder !== null) {
-    if (current === null || node.binder < current) {
-      return node.binder;
-    }
-    return current;
-  }
-  if (node.kind === 'pair') {
-    const left = findNextBinder(node.left, current);
-    return findNextBinder(node.right, left);
-  }
-  return current;
-}
-
-function substituteBinder(node, binderId, argument) {
-  if (!node) return node;
-  if (node.kind === 'slot' && node.binder === binderId) {
-    return cloneTree(argument);
-  }
-  if (node.kind === 'pair') {
-    return makePair(
-      substituteBinder(node.left, binderId, argument),
-      substituteBinder(node.right, binderId, argument),
-    );
-  }
-  if (node.kind === 'symbol') return makeSymbol(node.name);
-  if (node.kind === 'slot') return makeSlot(node.id, node.binder, node.path);
-  if (node.kind === 'binder') return makeBinder(node.id, node.path);
-  return node;
-}
-
-function bindArgument(tree, argument) {
-  const binderId = findNextBinder(tree, null);
-  if (binderId === null) {
-    return makePair(tree, argument);
-  }
-  return substituteBinder(tree, binderId, argument);
-}
-
 /** Load `(def name body)` forms and build the environment of trees. */
+/** Read every `(def …)` (or `(defn …)`) form and materialize binder graphs. */
 function loadDefinitions(path) {
   const source = readFileSync(path, 'utf8');
   const tokens = tokenize(source);
   const env = new Map();
 
   while (tokens.length) {
-    const form = parseTokens(tokens);
+    let form = parseTokens(tokens);
+    if (Array.isArray(form) && form[0] === 'defn') {
+      form = desugarDefnForm(form);
+    }
     if (!Array.isArray(form) || form[0] !== 'def' || form.length !== 3) {
       throw new Error('Each form must be (def name body)');
     }
     const [, name, body] = form;
-    const templateState = { nextSlot: 1, nextBinder: 1, stack: [] };
-    const tree = buildTemplate(body, '0', templateState);
-    const expanded = substituteDefinitions(tree, env);
-    env.set(name, expanded);
+    const tree = buildTemplate(body, createTemplateState());
+    const value = evaluateNode(tree, env, {});
+    env.set(name, value);
   }
-
-  env.set('S', canonicalS());
   return env;
 }
 
-// Canonical λa.λb.λc.((a c)(b c)) so the third argument re-enters both branches.
-function canonicalS() {
-  const binderA = 1;
-  const binderB = 2;
-  const binderC = 3;
-
-  const left = makePair(
-    makeSlot(1, binderA, 'a'),
-    makeSlot(3, binderC, 'c-left'),
-  );
-  const right = makePair(
-    makeSlot(2, binderB, 'b'),
-    makeSlot(4, binderC, 'c-right'),
-  );
-
-  const body = makePair(left, right);
-  const lambdaC = makePair(makeBinder(binderC, 'c'), body);
-  const lambdaB = makePair(makeBinder(binderB, 'b'), lambdaC);
-  const lambdaA = makePair(makeBinder(binderA, 'a'), lambdaB);
-  return lambdaA;
-}
-
-function resolveSymbol(node, env) {
-  if (!node || node.kind !== 'symbol') return node;
-  if (env.has(node.name)) {
-    return cloneTree(env.get(node.name));
-  }
-  return node;
-}
-
-function evaluateNode(node, env, options) {
-  if (!node || isEmpty(node)) return EMPTY;
-  if (node.kind === 'symbol') {
-    return resolveSymbol(node, env);
-  }
-  if (node.kind === 'pair') {
-    const leftVal = evaluateNode(node.left, env, options);
-    const rightVal = evaluateNode(node.right, env, options);
-    const applied = bindArgument(leftVal, rightVal);
-    return collapse(applied, options);
-  }
-  if (node.kind === 'slot') return makeSlot(node.id, node.binder, node.path);
-  if (node.kind === 'binder') return makeBinder(node.id, node.path);
-  return node;
-}
-
 /** Parse, substitute, collapse, and return both the collapsed tree and focus. */
+/** Evaluate a user expression against the environment, returning collapse+focus. */
 function evaluateExpression(exprSource, env, options = {}) {
   const parsed = parseSexpr(exprSource);
-  const tree = sexprToTree(parsed);
-  const evaluated = evaluateNode(tree, env, options);
-  const resultFocus = focus(evaluated);
-  return { collapsed: evaluated, focus: resultFocus };
+  const tree = buildTemplate(parsed, createTemplateState());
+  const collapsed = evaluateNode(tree, env, options);
+  const resultFocus = focus(collapsed);
+  return { collapsed, focus: resultFocus };
+}
+
+/** Normal-order evaluation that substitutes named trees and applies collapse. */
+function evaluateNode(node, env, options) {
+  if (!node || isEmpty(node)) return EMPTY;
+  if (node.kind === NODE_TYPES.SYMBOL) {
+    if (env.has(node.name)) {
+      return cloneTree(env.get(node.name));
+    }
+    return node;
+  }
+  if (node.kind === NODE_TYPES.PAIR) {
+    if (node.left && node.left.kind === NODE_TYPES.BINDER) {
+      // This is a lambda; leave it unevaluated (normal order).
+      return node;
+    }
+    const leftVal = evaluateNode(node.left, env, options);
+    const rightVal = evaluateNode(node.right, env, options);
+    const applied = bindArgument(leftVal, rightVal, options);
+    return collapse(applied, options);
+  }
+  return node;
+}
+
+/**
+ * Apply an argument: find the next binder along the evaluation spine, replace
+ * all matching slots with the cloned argument, then recur on the remainder.
+ */
+function bindArgument(tree, argument, options) {
+  const binder = findNextBinder(tree);
+  if (!binder) {
+    return makePair(tree, argument);
+  }
+  if (process.env.SK_DEBUG_BINDER === '1') {
+    console.warn('bindArgument tree', treeToString(tree));
+  }
+  const result = substituteBinder(tree, binder, argument, options);
+  if (process.env.SK_DEBUG_BINDER === '1') {
+    console.warn('bindArgument result snapshot', treeToString(result));
+  }
+  return result;
+}
+
+/** Locate the next binder awaiting an argument along the application spine. */
+function findNextBinder(node) {
+  if (!node || isEmpty(node)) return null;
+  if (node.kind === NODE_TYPES.PAIR) {
+    if (node.left && node.left.kind === NODE_TYPES.BINDER) {
+      return node.left;
+    }
+    const leftSearch = findNextBinder(node.left);
+    if (leftSearch) return leftSearch;
+    return findNextBinder(node.right);
+  }
+  return null;
+}
+
+/** Replace every slot tied to `binder` with the provided argument tree. */
+function substituteBinder(node, binder, argument, options) {
+  if (!node) return node;
+  if (node.kind === NODE_TYPES.SLOT) {
+    if (node.binder === binder) {
+      return cloneTree(argument);
+    }
+    return node;
+  }
+  if (node.kind === NODE_TYPES.PAIR) {
+    if (node.left === binder) {
+      if (options?.traceGravity) {
+        const logger = options.logger ?? console.log;
+        const snapshot = `(${treeToString(node.left)} ${treeToString(node.right)})`;
+        logger(`[gravity] ${snapshot} -> bound argument`);
+      }
+      return substituteBinder(node.right, binder, argument, options);
+    }
+    return makePair(
+      substituteBinder(node.left, binder, argument, options),
+      substituteBinder(node.right, binder, argument, options),
+    );
+  }
+  return node;
 }
 
 /** Demo runner: load definitions, evaluate sample expressions, show collapse. */
+/** CLI helper: read the default basis file and evaluate supplied expressions. */
 function runCli() {
   const args = process.argv.slice(2);
   const defsArg = args.find(arg => arg.startsWith('--defs='));
