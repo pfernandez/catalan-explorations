@@ -1,64 +1,21 @@
-# The Catalan Rule — Overview
+# Basis — Overview
 
-This document is the conceptual front door for the project.
-
-If the repository root says **what** exists, this explains **why** it exists and **how the pieces relate**—without assuming you’ve already signed up for any of the physics speculation.
+This document is the conceptual front door: **why** the pieces exist and **how** they relate, without assuming any physics commitments beyond the code.
 
 ---
 
-## 1. Starting Point: `()` as Vacuum + Structure
+## 1. Starting point: `()` as Vacuum + Structure
 
-We commit to a minimal ontology:
-
-- `()` is the **vacuum symbol**.
-- Pairing `()` with itself (and with larger paired forms) gives us:  
-  - balanced parentheses (Dyck words),
-  - binary trees,
-  - noncrossing matchings.
-
-These are all classic **Catalan** objects.
-
-We take them as:
-
-- a **possibility space** of well-formed configurations,
-- a discrete model of **nested causality** (opens before closes),
-- the substrate on which we test:
-  1. universal computation,
-  2. stable motifs and cycles,
-  3. physics-like diagrammatics,
-  4. reflective memory / attention mechanisms.
-
-Everything else is built on top.
+- `()` = vacuum symbol & potential.
+- Pairing generates **Catalan** objects:
+  - Dyck words, binary trees, noncrossing diagrams.
+- We treat this as the **possibility space** of well-formed, nested causal histories.
 
 ---
 
-## 2. Dyck Paths as Discrete Spacetime Sketches
+## 2. Dyck paths as discrete spacetime sketches
 
-Each Dyck word can be viewed as a path:
-
-- `(` = up-step, `)` = down-step,
-- never go below height 0,
-- start and end at 0.
-
-Example (small `n`):
-
-```text
-n = 0:
-    ()
-
-n = 1:
-    (())
-    ()()
-
-n = 2:
-    ((()))
-    (()())
-    (())()
-    ()(())
-    ()()()
-```
-
-Path view (height vs position) for a simple word like (()()):
+Each Dyck word is a path with `(`=up, `)`=down, never below 0, end at 0.
 
 ```text
 word:   ( ( ) ( ) )
@@ -68,233 +25,119 @@ height: 0 1 2 1 2 1 0
     2 |      /\
     1 |   /\/  \
     0 |__/      \__
-       0 1 2 3 4 5 6  (position)
+       0 1 2 3 4 5 6
 ```
 
-This suggests:
-- height ≈ causal depth / “time”,
-- horizontal position / branching ≈ “space” / multiplicity of compatible futures,
-- Dyck ensemble ≈ structured histories of a system.
+- **height** ≈ causal depth (“time”)
+- **breadth** ≈ branching (“space”)
+- Scaling limits (→ Brownian-like excursions) give a bridge to continuous analysis.
 
-Known scaling limits (Dyck paths → Brownian excursions) provide a rigorous bridge from:
+We use this as a **design constraint** for dynamics.
 
-discrete Catalan combinatorics → continuous path-like behavior.
+---
 
-We use that as a design constraint: any dynamics we propose should make sense on this spacetime-like scaffold.
+## 3. Collapse as dynamics (and a gravity analogy)
 
-⸻
+Local rules (at minimum `(() x) ⇒ x`) rewrite structures; more policies prefer leftmost/heaviest/balanced, etc.
 
-## 3. Collapse as Dynamics (and a Gravity Analogy)
+We measure:
 
-On this scaffold, we define local collapse rules: ways to rewrite or “evaluate” Catalan structures.
+- motif recurrence & survival,
+- distribution of consistent extensions for partial histories.
 
-At minimum:
-- (() x) ⇒ x (a binder applied to an argument collapses structurally)
+Cautious analogy:
 
-And more generally:
-- 	policies that prefer:
-- 	leftmost vs rightmost,
-- 	deeper vs shallower,
-- 	heavier vs lighter branches,
-- 	or only certain balanced subforms.
+- **motif density** → potential,
+- **gradients** → force-like behavior,
+- **collapse of computed history** → curvature-like effects.
 
-We then:
-- 	run these rules on Catalan trees,
-- 	track which shapes:
-- 	recur frequently,
-- 	survive as stable substructures,
-- 	act as attractors.
+This is a **statistical, structural program** we can compute on.
 
-This supports a structural analogy:
-- 	For a partial history (H), let allowed future continuations be its consistent extensions.
-- 	Regions/motifs that admit many extensions behave like wells:
-- 	histories “fall into” them.
-- 	Regions/motifs that drastically restrict extensions act like barriers.
+---
 
-Interpreted cautiously:
-- 	motif density ~ how many histories pass through a configuration,
-- 	forces ~ gradients in this density / consistent-futures count,
-- 	gravity-like behavior ~ the tendency of collapse dynamics to concentrate histories into certain structural wells.
+## 4. Pure structural SK / λ from `()`
 
-This is not GR, but it is a concrete way to study:
+Encoding:
 
-“collapse of realized history shapes effective geometry.”
+- Binders: `(() body)` (introduce argument),
+- References: `#n` (De Bruijn),
+- Application: pairing,
+- Evaluation: repeated `(() x) ⇒ x` + substitution.
 
-The code lets you experiment with this rather than just read about it.
+We define `I`, `K`, `S`, booleans, composition in `programs/sk-basis.lisp`.  
+**Result:** The substrate is **Turing-complete**.
 
-⸻
+---
 
-## 4. Pure Structural SK / λ from ()
+## 5. Motifs, cycles, and structural sharing
 
-To ensure the foundation isn’t hand-wavy, we implement a minimal universal computer directly on the same substrate.
-
-Core encoding:
-- 	Binders as (() body) — introduce an argument slot.
-- 	Variables as #n — De Bruijn index into enclosing binders.
-- 	Application as binary pairing.
-- 	Evaluation as repeated structural collapse:
-- 	(() x) ⇒ x plus recursive substitution.
-
-In programs/sk-basis.lisp we define:
-- 	I, K, S,
-- 	booleans,
-- 	function composition,
-
-purely as Catalan trees, with no extra opcodes.
-
-Conclusion:
-
-The () + pairing + collapse universe is Turing-complete.
-
-This computational core is intentionally tight and independently valuable, even if you ignore all physical analogies.
-
-⸻
-
-## 5. Motifs, Cycles, and Structural Sharing
-
-Given an acyclic causal evolution (no loops in time), we do something crucial:
-	1.	Identify isomorphic subtrees / motifs in the history.
-	2.	Collapse each equivalence class into a node in a pattern graph.
-
-The pattern graph can contain cycles even though the underlying causal tree is acyclic.
-
-ASCII sketch:
-```text
-Causal tree (unfolded):
-
-        A
-       / \
-      B   B
-     /     \
-    C       C
-```
-
-Pattern graph (quotiented by shape):
+We quotient repeated shapes to build a **pattern graph**:
 
 ```text
-    [A]
-     |
-    [B]
-     |
-    [C]
+Causal tree → quotient by isomorphic subtrees → Pattern graph (may cycle)
 ```
 
-If A → B → C → B → C ... patterns repeat,
-the pattern graph may show cycles even though time doesn't loop.
+- **Fixed motifs** = persistent identities,
+- **Cycles** = reentry (same form reappears),
+- **Indistinguishability** = many embeddings of one motif-class.
 
-Interpretation:
-- 	Recurrent motifs = fixed points of the dynamics.
-- 	Cycles in the pattern graph = reentry of the same structural form.
-- 	Indistinguishable “particles” or “roles” = many embeddings of the same motif-class in different regions of the causal tree.
+This reconciles “loop diagrams” and Wheeler-style ideas with strict forward causality.
 
-This offers a clean structural reading of:
-- 	“one field, many quanta,”
-- 	Wheeler-style “one electron” as one conserved pattern re-used everywhere,
+---
 
-without violating causality.
+## 6. Diagrams, gauge, and fields (work in progress)
 
-⸻
+- **Feynman-like diagrams:** vertices = collapse events, propagators = persistent links, histories = diagram sums.
+- **Gauge-like freedom:** once internal labels (phase/color) are attached, local representation changes that preserve observables act like gauge transformations.
+- **Wilson-loop-style invariants:** closed structural loops over internal labels.
 
-## 6. Diagrams, Gauge, and Fields (Work in Progress)
+Open questions we test here:
 
-The same machinery naturally touches familiar field-theoretic structures:
+- Can standard diagrammatics be reconstructed from Catalan histories + weights?
+- Can gauge redundancies and effective couplings emerge from statistics of realized vs unrealized possibilities?
 
-Feynman-like diagrams
-- 	Local collapse events ↔ interaction vertices.
-- 	Persistent links / substructures ↔ propagators.
-- 	Complete collapse histories ↔ diagrams summing possible interaction patterns.
+---
 
-In this view, diagrams are compressed views of Catalan rewrite histories.
+## 7. Attention & memory (Scheme lineage)
 
-Gauge-like freedom
+An early Scheme fragment models:
 
-Once we attach internal labels to motifs (e.g. phases, “colors”):
-- 	multiple local encodings that yield the same observable motif patterns
-behave like gauge transformations:
-- 	local changes of representation,
-- 	no change in physical invariants (closed-loop traces, motif frequencies, etc.).
+- frames as `(focus . rest)`,
+- a program as a list of navigation ops,
+- an agent as an id + procedure.
 
-Wilson-loop style structures
+It was a **Turing-style read-head** over cons-based memory—an attention mechanism. The modern SK/Catalan kernel is a tighter base for the same idea: **computation, memory, and observation on one substrate**.
 
-Closed structural loops and their invariants over internal labels:
-- 	can be defined directly on the Catalan / noncrossing diagrams,
-- 	providing a natural place to study confinement-like behavior via loop expectations.
+---
 
-These connections are framed here as questions to test:
-- 	Can standard diagrammatics be reconstructed as views of Catalan histories + weights?
-- 	Can gauge redundancies and effective couplings emerge from the statistics of realized vs unrealized possibilities?
-
-The code is organized so we can approach this incrementally, starting from solid combinatorics.
-
-⸻
-
-## 7. Attention & Memory (Scheme Experiment)
-
-An early Scheme fragment (kept intentionally) models:
-- 	a frame as (cons focus rest),
-- 	a program as a list of navigation ops,
-- 	an agent as:
-- 	an identifier,
-- 	plus a procedure for walking that structure.
-
-This was an initial attempt at:
-- 	a self-evaluating structural computer, and
-- 	a Turing-like read-head over memory:
-- 	an attention mechanism that traverses and rewrites cons-based histories.
-
-While the modern SK/Catalan engine is cleaner, the intent is the same:
-
-unify computation, memory, and observation as operations on the same ()-based substrate.
-
-⸻
-
-## 8. Putting the Pieces Together (Diagram)
-
-A compact visual stack of how the concepts relate:
+## 8. Concept stack (at a glance)
 
 ```text
-   [ Layer 4: Physical / Semantic Interpretations ]
-          |  (QFT diagrams, gauge-like symmetries, gravity analogies)
-          v
-   [ Layer 3: Pattern Graph ]
-          |  motifs, cycles, reentry, "particle" forms
-          v
-   [ Layer 2: Dynamics / Collapse ]
-          |  local rules, evaluation, motif statistics
-          v
-   [ Layer 1: Catalan Structures ]
-          |  Dyck words, trees, noncrossing diagrams
-          v
-   [ Layer 0: `()` ]
-          vacuum symbol, pure pairing
+   [ Physical / Semantic Interpretations ]
+      QFT-like diagrams, gauge-like symmetry, gravity analogies
+                               |
+   [ Pattern Graph ]  motifs, cycles, reentry, conserved forms
+                               |
+   [ Dynamics / Collapse ]  local rules, evaluation, motif statistics
+                               |
+   [ Catalan Structures ]  Dyck words, trees, noncrossing diagrams
+                               |
+   [ `()` ]  vacuum symbol, pure pairing
 ```
 
-Everything above Layer 1 is optional interpretation.
-Everything from Layer 1 down is concrete structure you can inspect in this repo.
+Layers 0–2 are concrete; layers 3–4 are exploratory.
 
-⸻
+---
 
-## 9. How to Navigate the Repo
+## 9. How to navigate
 
-Recommended entry points:
-1.	 README.md
-  - 	High-level purpose, how to run things.
-2.	src/sk.js + programs/sk-basis.lisp
-  - 	See how SK/λ live in pure ()-structure.
-3.	src/motif-discover.js + src/collapse-policy.js
-  - 	Explore collapse rules and motif statistics.
-4.	docs/
-  - 	For essays and deeper dives into:
-  - 	collapse-as-geometry,
-  - 	structural diagrammatics,
-  - 	reflective memory.
+- **Kernel & compute:** `src/sk.js`, `programs/sk-basis.lisp`
+- **Motifs:** `src/motif-discover.js`, `src/collapse-policy.js`
+- **Background essays:** `docs/` (clearly marked as exploratory)
 
-You can engage at three levels:
-1.	 As a combinatorics & interpreter playground.
-2.	 As a structural approach to agents / memory / attention.
-3.	 As a hypothesis lab for how computation-like structure might underwrite physics.
+Engage as:
+1) a combinatorics/interpreter playground,  
+2) a structural approach to agents/memory, or  
+3) a hypothesis lab for diagrammatics/geometry.
 
-Each level stands on its own; nothing requires belief beyond the code it runs on.
-
-⸻
-
+Each layer stands on its own.
