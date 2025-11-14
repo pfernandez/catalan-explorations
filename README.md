@@ -1,4 +1,4 @@
-# A Catalan Basis for Computation, Memory, and Relativistic Quantum Dynamics from a Single Collapse Rule
+# Basis
 
 *A Catalan machine where `()` + local collapse yields universal computation, stable motifs, and diagrammatic structure.*
 
