@@ -82,10 +82,17 @@ button {
   transform: translate(-50%, -50%);
   background: rgba(255, 255, 255, 0.9);
   color: #05070f;
+  z-index: 2;
+}
+
+.link-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
 .link {
-  position: absolute;
-  stroke: rgba(255, 255, 255, 0.3);
+  stroke: rgba(151, 186, 255, 0.45);
   stroke-width: 1.5;
+  fill: none;
 }

@@ -70,6 +70,7 @@ function renderStep(index) {
   const snapshot = trace[nextIndex];
   const note = snapshot?.note ? ` • ${snapshot.note}` : '';
   sliderLabel.textContent = `${nextIndex + 1} / ${trace.length}${note}`;
+  input.value = JSON.stringify(snapshot, null, 2);
   renderGraph(trace[nextIndex]);
 }
 
@@ -79,6 +80,8 @@ function renderGraph(snapshot) {
   const height = canvas.clientHeight;
   if (!snapshot?.graph?.nodes) return;
   const nodes = snapshot.graph.nodes;
+  const positions = new Map();
+
   nodes.forEach((node, i) => {
     const el = document.createElement('div');
     el.className = 'node';
@@ -89,8 +92,28 @@ function renderGraph(snapshot) {
     const y = height / 2 + Math.sin(angle) * radius;
     el.style.left = `${x}px`;
     el.style.top = `${y}px`;
+    positions.set(node.id, { x, y });
     canvas.appendChild(el);
   });
+
+  if (Array.isArray(snapshot.graph.links) && snapshot.graph.links.length) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.classList.add('link-layer');
+    svg.setAttribute('width', width);
+    svg.setAttribute('height', height);
+    snapshot.graph.links.forEach(link => {
+      const from = positions.get(link.from);
+      const to = positions.get(link.to);
+      if (!from || !to) return;
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      const midX = (from.x + to.x) / 2;
+      const midY = Math.min(from.y, to.y) - 40;
+      path.setAttribute('class', 'link');
+      path.setAttribute('d', `M${from.x} ${from.y} Q${midX} ${midY} ${to.x} ${to.y}`);
+      svg.appendChild(path);
+    });
+    canvas.appendChild(svg);
+  }
 }
 
 setTrace(example);
