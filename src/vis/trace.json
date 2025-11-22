@@ -1,0 +1,432 @@
+[
+  {
+    "expression": "(I z)",
+    "snapshots": [
+      {
+        "graph": {
+          "nodes": [
+            {
+              "kind": "symbol",
+              "label": "I",
+              "id": "n0"
+            },
+            {
+              "kind": "symbol",
+              "label": "z",
+              "id": "n1"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n0",
+                "n1"
+              ],
+              "id": "n2"
+            }
+          ],
+          "links": []
+        },
+        "rootId": "n2",
+        "note": "init"
+      },
+      {
+        "graph": {
+          "nodes": [
+            {
+              "kind": "symbol",
+              "label": "I",
+              "id": "n0"
+            },
+            {
+              "kind": "symbol",
+              "label": "z",
+              "id": "n1"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n0",
+                "n1"
+              ],
+              "id": "n2"
+            }
+          ],
+          "links": []
+        },
+        "rootId": "n2",
+        "note": "reduce"
+      },
+      {
+        "graph": {
+          "nodes": [
+            {
+              "kind": "symbol",
+              "label": "I",
+              "id": "n0"
+            },
+            {
+              "kind": "symbol",
+              "label": "z",
+              "id": "n1"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n0",
+                "n1"
+              ],
+              "id": "n2"
+            }
+          ],
+          "links": []
+        },
+        "rootId": "n0",
+        "note": "reduce"
+      },
+      {
+        "graph": {
+          "nodes": [
+            {
+              "kind": "symbol",
+              "label": "I",
+              "id": "n0"
+            },
+            {
+              "kind": "symbol",
+              "label": "z",
+              "id": "n1"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n0",
+                "n1"
+              ],
+              "id": "n2"
+            },
+            {
+              "kind": "binder",
+              "label": "λ0",
+              "anchorKey": "binder:n3",
+              "id": "n3"
+            },
+            {
+              "kind": "slot",
+              "label": "#0",
+              "aliasKey": "binder:n3",
+              "id": "n4"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n3",
+                "n4"
+              ],
+              "id": "n5"
+            }
+          ],
+          "links": [
+            {
+              "kind": "reentry",
+              "from": "n4",
+              "to": "n3",
+              "id": "l0"
+            }
+          ]
+        },
+        "rootId": "n5",
+        "note": "reduce"
+      },
+      {
+        "graph": {
+          "nodes": [
+            {
+              "kind": "symbol",
+              "label": "I",
+              "id": "n0"
+            },
+            {
+              "kind": "symbol",
+              "label": "z",
+              "id": "n1"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n0",
+                "n1"
+              ],
+              "id": "n2"
+            },
+            {
+              "kind": "binder",
+              "label": "λ0",
+              "anchorKey": "binder:n3",
+              "id": "n3"
+            },
+            {
+              "kind": "slot",
+              "label": "#0",
+              "aliasKey": "binder:n3",
+              "id": "n4"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n3",
+                "n4"
+              ],
+              "id": "n5"
+            }
+          ],
+          "links": [
+            {
+              "kind": "reentry",
+              "from": "n4",
+              "to": "n3",
+              "id": "l0"
+            }
+          ]
+        },
+        "rootId": "n3",
+        "note": "reduce"
+      },
+      {
+        "graph": {
+          "nodes": [
+            {
+              "kind": "symbol",
+              "label": "I",
+              "id": "n0"
+            },
+            {
+              "kind": "symbol",
+              "label": "z",
+              "id": "n1"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n0",
+                "n1"
+              ],
+              "id": "n2"
+            },
+            {
+              "kind": "binder",
+              "label": "λ0",
+              "anchorKey": "binder:n3",
+              "id": "n3"
+            },
+            {
+              "kind": "slot",
+              "label": "#0",
+              "aliasKey": "binder:n3",
+              "id": "n4"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n3",
+                "n4"
+              ],
+              "id": "n5"
+            }
+          ],
+          "links": [
+            {
+              "kind": "reentry",
+              "from": "n4",
+              "to": "n3",
+              "id": "l0"
+            }
+          ]
+        },
+        "rootId": "n4",
+        "note": "reduce"
+      },
+      {
+        "graph": {
+          "nodes": [
+            {
+              "kind": "symbol",
+              "label": "I",
+              "id": "n0"
+            },
+            {
+              "kind": "symbol",
+              "label": "z",
+              "id": "n1"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n0",
+                "n1"
+              ],
+              "id": "n2"
+            },
+            {
+              "kind": "binder",
+              "label": "λ0",
+              "anchorKey": "binder:n3",
+              "id": "n3"
+            },
+            {
+              "kind": "slot",
+              "label": "#0",
+              "aliasKey": "binder:n3",
+              "id": "n4"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n3",
+                "n4"
+              ],
+              "id": "n5"
+            }
+          ],
+          "links": [
+            {
+              "kind": "reentry",
+              "from": "n4",
+              "to": "n3",
+              "id": "l0"
+            }
+          ]
+        },
+        "rootId": "n5",
+        "note": "collapse"
+      },
+      {
+        "graph": {
+          "nodes": [
+            {
+              "kind": "symbol",
+              "label": "I",
+              "id": "n0"
+            },
+            {
+              "kind": "symbol",
+              "label": "z",
+              "id": "n1"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n0",
+                "n1"
+              ],
+              "id": "n2"
+            },
+            {
+              "kind": "binder",
+              "label": "λ0",
+              "anchorKey": "binder:n3",
+              "id": "n3"
+            },
+            {
+              "kind": "slot",
+              "label": "#0",
+              "aliasKey": "binder:n3",
+              "id": "n4"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n3",
+                "n4"
+              ],
+              "id": "n5"
+            }
+          ],
+          "links": [
+            {
+              "kind": "reentry",
+              "from": "n4",
+              "to": "n3",
+              "id": "l0"
+            }
+          ]
+        },
+        "rootId": "n1",
+        "note": "reduce"
+      },
+      {
+        "graph": {
+          "nodes": [
+            {
+              "kind": "symbol",
+              "label": "I",
+              "id": "n0"
+            },
+            {
+              "kind": "symbol",
+              "label": "z",
+              "id": "n1"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n0",
+                "n1"
+              ],
+              "id": "n2"
+            },
+            {
+              "kind": "binder",
+              "label": "λ0",
+              "anchorKey": "binder:n3",
+              "id": "n3"
+            },
+            {
+              "kind": "slot",
+              "label": "#0",
+              "aliasKey": "binder:n3",
+              "id": "n4"
+            },
+            {
+              "kind": "pair",
+              "label": "·",
+              "children": [
+                "n3",
+                "n4"
+              ],
+              "id": "n5"
+            },
+            {
+              "kind": "symbol",
+              "label": "z",
+              "id": "n6"
+            }
+          ],
+          "links": [
+            {
+              "kind": "reentry",
+              "from": "n4",
+              "to": "n3",
+              "id": "l0"
+            }
+          ]
+        },
+        "rootId": "n6",
+        "note": "final"
+      }
+    ]
+  }
+]
