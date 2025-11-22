@@ -85,10 +85,17 @@ button {
   z-index: 2;
 }
 
-.link-layer {
+.link-layer,
+.tree-layer {
   position: absolute;
   inset: 0;
   pointer-events: none;
+}
+
+.tree-link {
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 1.2;
+  fill: none;
 }
 
 .link {

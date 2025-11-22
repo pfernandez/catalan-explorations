@@ -96,6 +96,29 @@ function renderGraph(snapshot) {
     canvas.appendChild(el);
   });
 
+  if (nodes.some(node => Array.isArray(node.children) && node.children.length)) {
+    const treeSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    treeSvg.classList.add('tree-layer');
+    treeSvg.setAttribute('width', width);
+    treeSvg.setAttribute('height', height);
+    nodes.forEach(node => {
+      if (!node.children) return;
+      const from = positions.get(node.id);
+      node.children.forEach(childId => {
+        const to = positions.get(childId);
+        if (!from || !to) return;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        path.setAttribute('class', 'tree-link');
+        path.setAttribute('x1', from.x);
+        path.setAttribute('y1', from.y);
+        path.setAttribute('x2', to.x);
+        path.setAttribute('y2', to.y);
+        treeSvg.appendChild(path);
+      });
+    });
+    canvas.appendChild(treeSvg);
+  }
+
   if (Array.isArray(snapshot.graph.links) && snapshot.graph.links.length) {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.classList.add('link-layer');
