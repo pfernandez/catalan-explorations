@@ -81,33 +81,32 @@ export function removeNode(graph, nodeId) {
 
 export function cloneSubgraph(graph, rootId) {
   const nodeMap = new Map();
-  const cloneLinks = [];
+  const sourceGraph = graph;
+  let workingGraph = graph;
 
   function cloneNode(id) {
     if (nodeMap.has(id)) return nodeMap.get(id);
-    const source = getNode(graph, id);
-    const clonedId = nextNodeId();
-    let children = source.children;
-    if (children && children.length) {
-      children = children.map(childId => cloneNode(childId));
-    }
-    const cloneRecord = { ...source, id: clonedId, children };
-    nodeMap.set(id, clonedId);
-    graph = { ...graph, nodes: [...graph.nodes, cloneRecord] };
-    return clonedId;
+    const source = getNode(sourceGraph, id);
+    const children = source.children?.map(childId => cloneNode(childId));
+    const clone = addNode(workingGraph, { ...source, id: undefined, children });
+    workingGraph = clone.graph;
+    nodeMap.set(id, clone.id);
+    return clone.id;
   }
 
-  graph.links
-    .filter(link => nodeMap.has(link.from) || nodeMap.has(link.to))
+  const newRootId = cloneNode(rootId);
+  let finalGraph = workingGraph;
+  sourceGraph.links
+    .filter(link => nodeMap.has(link.from) && nodeMap.has(link.to))
     .forEach(link => {
-      const from = nodeMap.get(link.from) ?? link.from;
-      const to = nodeMap.get(link.to) ?? link.to;
-      cloneLinks.push({ ...link, id: nextLinkId(), from, to });
+      finalGraph = addLink(finalGraph, {
+        kind: link.kind,
+        from: nodeMap.get(link.from),
+        to: nodeMap.get(link.to),
+      }).graph;
     });
 
-  const newRootId = cloneNode(rootId);
-  graph = { ...graph, links: [...graph.links, ...cloneLinks] };
-  return { graph, rootId: newRootId };
+  return { graph: finalGraph, rootId: newRootId };
 }
 
 export function replaceSlotsWith(graph, binderKey, replacementRootId) {
