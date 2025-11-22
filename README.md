@@ -156,11 +156,13 @@ node src/cli/sk.js --defs=programs/sk-basis.lisp "((I x) y)" "(((S K K) z))"
 An experimental viewer lives under `src/vis/`. It renders per-step collapse snapshots with either explicit loop arrows (binder re-entry) or true structural sharing (motifs literally fold onto themselves):
 
 ```bash
-# serve the /src/vis directory with your favourite static server, e.g.
+# export one or more traces into the viewer folder
+npm run sk -- --trace=src/vis/trace.json "(I z)"
+# serve src/vis/
 npx http-server src/vis
 ```
 
-Then open [http://localhost:8080](http://localhost:8080) and paste a graph JSON into the textarea. The viewer consumes simple nodes/links traces (`src/vis/viewer.js` ships with an example) so you can swap in traces exported from future collapse runs.
+Then open [http://localhost:8080](http://localhost:8080) and click “Load trace.json.” The viewer consumes the exported nodes/links trace (an array when multiple expressions are evaluated) and lets you scrub through the steps. You can still paste arbitrary graph JSON if you want to inspect a snapshot manually.
 
 ---
 

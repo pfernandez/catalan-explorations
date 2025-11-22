@@ -1,25 +1,47 @@
 #!/usr/bin/env node
 import { fileURLToPath } from 'node:url';
 import { join, dirname } from 'node:path';
+import { writeFileSync } from 'node:fs';
 import { loadDefinitions, evaluateExpression } from '../graph/evaluator.js';
 import { getNode } from '../graph/graph.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-function main() {
-  const args = process.argv.slice(2);
-  const defsArg = args.find(arg => arg.startsWith('--defs='));
+function parseArgs(argv) {
+  const defsArg = argv.find(arg => arg.startsWith('--defs='));
+  const traceArg = argv.find(arg => arg.startsWith('--trace='));
   const defsPath = defsArg
     ? defsArg.slice('--defs='.length)
     : join(__dirname, '../../programs/sk-basis.lisp');
-  const inputs = args.filter(arg => !arg.startsWith('--defs='));
+  const tracePath = traceArg ? traceArg.slice('--trace='.length) : null;
+  const inputs = argv.filter(arg => !arg.startsWith('--defs=') && !arg.startsWith('--trace='));
+  return { defsPath, tracePath, inputs };
+}
+
+function exportTrace(results, tracePath) {
+  const payload = results.map(result => ({
+    expression: result.expression,
+    graph: {
+      nodes: result.graph.nodes,
+      links: result.graph.links,
+    },
+    rootId: result.rootId,
+  }));
+  writeFileSync(tracePath, JSON.stringify(payload, null, 2));
+  console.log(`Trace written to ${tracePath}`);
+}
+
+function main() {
+  const { defsPath, tracePath, inputs } = parseArgs(process.argv.slice(2));
   const env = loadDefinitions(defsPath);
   const samples = inputs.length ? inputs : ['(I a)', '((K a) b)'];
+  const evaluations = [];
 
   samples.forEach(exprSource => {
     try {
       const result = evaluateExpression(exprSource, env);
       const focus = getNode(result.graph, result.rootId);
+      evaluations.push({ expression: exprSource, ...result });
       console.log(`Expression: ${exprSource}`);
       console.log(`  Focus: ${focus.label}`);
       console.log(`  Nodes: ${result.graph.nodes.length}, Links: ${result.graph.links.length}`);
@@ -27,6 +49,10 @@ function main() {
       console.error(`Failed to evaluate ${exprSource}: ${error.message}`);
     }
   });
+
+  if (tracePath) {
+    exportTrace(evaluations, tracePath);
+  }
 }
 
 main();

@@ -37,8 +37,5 @@ test('K discards the second argument', () => {
 
 test('S duplicates the context structure', () => {
   const { graph, rootId } = evaluateExpression('(((S a) b) c)', env);
-
-  console.log(JSON.stringify({ graph, rootId }, null, 2));
-
   assert.equal(serialize(graph, rootId), '((a c) (b c))');
 });

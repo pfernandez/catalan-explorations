@@ -1,6 +1,11 @@
 const button = document.getElementById('render-button');
+const fetchButton = document.getElementById('fetch-button');
+const slider = document.getElementById('step-slider');
+const sliderLabel = document.getElementById('step-label');
 const canvas = document.getElementById('graph-canvas');
 const input = document.getElementById('graph-input');
+
+let trace = [];
 
 const example = {
   nodes: [
@@ -13,30 +18,60 @@ const example = {
 
 input.value = JSON.stringify(example, null, 2);
 
+fetchButton.addEventListener('click', async () => {
+  try {
+    const resp = await fetch('./trace.json');
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const data = await resp.json();
+    setTrace(data);
+  } catch (err) {
+    alert(`Unable to fetch trace.json (${err.message}). Paste JSON manually instead.`);
+  }
+});
+
 button.addEventListener('click', () => {
   try {
-    const graph = JSON.parse(input.value);
-    renderGraph(graph);
+    const data = JSON.parse(input.value);
+    setTrace(data);
   } catch {
     alert('Invalid JSON');
   }
 });
 
+slider.addEventListener('input', event => {
+  renderStep(Number(event.target.value));
+});
+
+function setTrace(data) {
+  trace = Array.isArray(data) ? data : [data];
+  slider.max = Math.max(0, trace.length - 1);
+  renderStep(0);
+}
+
+function renderStep(index) {
+  if (!trace.length) return;
+  const nextIndex = Math.min(Math.max(index, 0), trace.length - 1);
+  slider.value = nextIndex;
+  sliderLabel.textContent = `${nextIndex + 1} / ${trace.length}`;
+  renderGraph(trace[nextIndex]);
+}
+
 function renderGraph(graph) {
   canvas.innerHTML = '';
   const width = canvas.clientWidth;
   const height = canvas.clientHeight;
-  graph.nodes.forEach((node, index) => {
+  graph.nodes.forEach((node, i) => {
     const el = document.createElement('div');
     el.className = 'node';
-    el.textContent = `${node.label} (${node.kind})`;
-    const angle = (index / Math.max(1, graph.nodes.length)) * Math.PI * 2;
-    const x = width / 2 + Math.cos(angle) * (width / 3);
-    const y = height / 2 + Math.sin(angle) * (height / 3);
+    el.textContent = node.label;
+    const angle = (i / Math.max(1, graph.nodes.length)) * Math.PI * 2;
+    const radius = Math.min(width, height) / 3;
+    const x = width / 2 + Math.cos(angle) * radius;
+    const y = height / 2 + Math.sin(angle) * radius;
     el.style.left = `${x}px`;
     el.style.top = `${y}px`;
     canvas.appendChild(el);
   });
 }
 
-renderGraph(example);
+setTrace(example);
