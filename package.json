@@ -27,5 +27,5 @@
     "test": "node --test tests/*.test.js"
   },
   "author": "Paul Fernandez",
-  "license": "UNLICENSED"
+  "license": "Apache-2.0"
 }

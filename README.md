@@ -17,6 +17,8 @@ With that, this repo lets you:
 - study **recurrent motifs and cycles** under different collapse rules,
 - and, if you want, experiment with **physics-flavored** interpretations (diagrams, forces, curvature) in a controlled, combinatorial setting.
 
+For the research notes and paper, see `docs/README.md`.
+
 If you’re in a hurry, jump to **[Getting started](#6-getting-started)**.
 
 ---
@@ -244,7 +246,9 @@ Generate and inspect some Catalan structures:
 npm run dyck
 npm run dyck:center
 npm run pairs
+npm run pairs:spine
 npm run motzkin
+npm run motzkin:spine
 ```
 
 Explore collapse and motifs under different policies:
@@ -256,6 +260,8 @@ npm run motifs:heavier
 npm run motifs:lighter
 npm run motifs:left
 npm run motifs:right
+npm run policies            # quick sweep of collapse options
+npm run bijections          # show Catalan ↔ tree ↔ path bijections
 ```
 
 Run the SK interpreter on the structural substrate:
@@ -303,7 +309,10 @@ This part is optional; everything else works fine at the CLI.
   * `recursive.scm` — early structural attention/memory demo (Turing-style read-head).
 * `docs/`
 
-  * concept notes (overview, geometry/diagram ideas), marked exploratory.
+  * `README.md` — index of the docs folder.
+  * `catalan-light-cone.(latex|pdf)` — main paper (discrete cone + diffusion/Schrödinger limit + SKI mapping).
+  * `IDEAS.md` — extended field guide with solid/speculative/interpretive labels.
+  * `OVERVIEW.md` — plain-language conceptual tour.
 * `tests/`
 
   * checks for bijections, interpreter correctness, motif stats.
@@ -344,4 +353,3 @@ Paul Fernandez, “A Catalan Basis for Computation, Memory, and
 Relativistic Quantum Dynamics from a Single Collapse Rule” (2025).
 GitHub: pfernandez/basis.
 ```
-

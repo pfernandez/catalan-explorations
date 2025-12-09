@@ -2,7 +2,8 @@
 
 This document is the **big-picture tour** of Basis.
 
-The README tells you how to run things.  
+For commands, code layout, and experiments, see the **main README** at `../README.md`.  
+For pointers to the papers and notes in this folder, see `README.md` (docs index).  
 Here we focus on **what the project is about** and **how the pieces fit together**, without assuming any background in physics or category theory.
 
 ---
@@ -90,6 +91,8 @@ You can read this picture as a **toy spacetime diagram**:
 * horizontal axis (steps) ≈ where in the sequence you are → a notion of **breadth** or “space”.
 
 If you take many such paths and scale them up, they start to look like smooth, random curves. That gives a bridge from this discrete world to ordinary continuous math, but you don’t need that to play with the code.
+
+At fixed length, the most nested chain and the most separated “star” bound all other shapes, giving a discrete **light-cone envelope** (the chain as timelike axis, the star as lightlike rim). The formal treatment of this cone and its scaling limits lives in `catalan-light-cone.latex` / `.pdf`.
 
 For Basis, this picture is a **design constraint**:
 
@@ -278,7 +281,7 @@ Here is the full stack on one page:
 
 ## 10. How to explore the repo
 
-See the main `README.md` for up-to-date commands and file paths.
+See the main `../README.md` for up-to-date commands and file paths; `README.md` in this folder summarizes the docs.
 Conceptually, you can approach Basis as:
 
 1. **A combinatorics playground**
