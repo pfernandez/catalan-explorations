@@ -448,6 +448,12 @@ computational reduction---on this geometry.
 \label{sec:computation}
 
 \subsection{Pairs expansion}
+
+\paragraph{Catalan Structure as the Space of Program Possibilities.}
+
+The Catalan family---Dyck paths, full binary trees, and balanced-parenthesis expressions---forms the free magma on a single binary constructor.  As observed in foundational work on the $\lambda$-calculus and combinatory logic \cite{CurryFeys1958,Barendregt1984}, every computable program has a canonical representation as a finite binary application tree: internal nodes encode application; leaves encode atomic symbols or combinators.  Conversely, any finite binary tree equipped with leaf labels denotes a unique program modulo surface syntax.  Thus the infinite Catalan tree is not merely a combinatorial object but the structural possibility space of all programs expressible in any Turing-complete functional calculus.
+
+This observation also extends to operational semantics.  Standard reductions (such as $\beta$-reduction or SKI contraction) are local rewrite rules on binary trees, and the pairs-expansions of combinators remain within the Catalan family.  Accordingly, a program, its intermediate expansion frames, and each permissible reduction schedule are all representable as paths through a single Catalan substrate.  Selecting a program shape or selecting a specific reduction history is therefore equivalent to selecting a path in the Catalan tree.  In this sense the Catalan substrate uniformly encodes program syntax, program semantics, and the full ensemble of admissible computational histories.
 Every Dyck path admits a unique decomposition into nested pairs. Writing
 parentheses explicitly, the simplest nontrivial closure of the empty expression
 \(()\) is
@@ -919,6 +925,20 @@ C.~Rovelli.
 R.~P. Stanley.
 \newblock {\em Catalan Numbers}.
 \newblock Cambridge University Press, 2015.
+
+@book{CurryFeys1958,
+  author    = {Haskell B. Curry and Robert Feys},
+  title     = {Combinatory Logic. {V}ol. {I}},
+  publisher = {North-Holland},
+  year      = {1958}
+}
+
+@book{Barendregt1984,
+  author    = {Henk Barendregt},
+  title     = {The Lambda Calculus: Its Syntax and Semantics},
+  publisher = {North-Holland},
+  year      = {1984}
+}
 
 \end{thebibliography}
 
