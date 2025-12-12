@@ -810,6 +810,10 @@ the same external behavior.
   \label{fig:disjoint-subtrees}
 \end{figure}
 
+(See Appendix~\ref{appendix:computational-foundations}, and in particular
+Lemma~\ref{lem:causal-consistency}, for a formal statement and proof sketch
+of the corresponding causal-consistency and commutation property.)
+
 \subsection{Collapse and selection}
 Both computation and amplitude propagation require selection:
 \begin{itemize}
