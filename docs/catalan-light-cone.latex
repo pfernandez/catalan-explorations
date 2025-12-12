@@ -278,6 +278,81 @@ there are $t$ internal nodes, while the scaling behavior is a consequence of
 invariance-principle results for conditioned random walks
 \cite{le-gall05,janson07,addario-berry13}.
 
+\subsection{Dyck Coordinates, Lorentz Geometry, and Computational Proper Time}
+\label{subsec:dyck-lorentz-computation}
+
+The Dyck encoding places each Catalan object into a discrete $(1+1)$-dimensional causal geometry.
+A Dyck path of semilength $n$ is a walk composed of steps
+\[
+(\Delta x, \Delta t) = (\pm 1, 1),
+\]
+subject to the non-negativity constraint $h(t) \ge 0$ with $h(0)=h(2n)=0$.  This forces every
+admissible history to lie within the discrete light cone
+\[
+|x| \le t, \qquad t \in \{0,1,\dots,2n\}.
+\]
+Under diffusive rescaling, Dyck paths converge to Brownian excursions (Section~\ref{sec:continuum-limit}),
+and the cone $|x| \le t$ becomes the standard Minkowski light cone in the continuum limit.  Thus the
+Dyck parametrization already expresses the $(t,x)$ structure of a relativistic frame.
+
+\paragraph{Light-cone coordinates.}
+Introduce the usual light-cone coordinates
+\begin{equation}
+u = t + x, \qquad v = t - x,
+\label{eq:lightcone-coordinates}
+\end{equation}
+in which a Dyck step increments exactly one of $(u,v)$ by $2$, while the height constraint becomes
+simply $u,v \ge 0$.  A Lorentz boost with rapidity $\eta$ acts linearly as
+\begin{equation}
+u' = e^{\eta} u, \qquad v' = e^{-\eta} v.
+\label{eq:lightcone-boost}
+\end{equation}
+Transforming back to $(t,x)$ gives the familiar Lorentz transformation
+\begin{equation}
+t' = \gamma (t - v_{\!L} x), \qquad x' = \gamma (x - v_{\!L} t),
+\label{eq:lorentz-tx}
+\end{equation}
+where
+\[
+\gamma = \frac{1}{\sqrt{1 - v_{\!L}^2}}, \qquad v_{\!L} = \tanh \eta,
+\]
+with $c=1$ units understood.  The Minkowski interval
+\begin{equation}
+\mathrm{d}s^{2} = \mathrm{d}t^{2} - \mathrm{d}x^{2}
+\label{eq:minkowski}
+\end{equation}
+is invariant under~\eqref{eq:lorentz-tx} and may be regarded as the continuum limit of the discrete
+metric induced by Dyck-constrained paths.
+
+\paragraph{Computational proper time.}
+A reduction history carries more than geometric information: it has an intrinsic \emph{computational}
+progress parameter.  Let $k$ denote the number of collapse events (local redex contractions)
+performed along the evaluation of a Catalan object.  Passing to a continuum description, introduce a
+computational proper time $\tau$ via
+\begin{equation}
+\tau = \alpha\, k,
+\label{eq:tau-discrete}
+\end{equation}
+where $\alpha$ is the characteristic scale associated with a single collapse.  In the continuum limit,
+for a parametrized world-line $(t(s),x(s))$, the proper time satisfies
+\begin{equation}
+\frac{\mathrm{d}\tau^{2}}{\mathrm{d}s^{2}}
+  = \left(\frac{\mathrm{d}t}{\mathrm{d}s}\right)^{2}
+    - \left(\frac{\mathrm{d}x}{\mathrm{d}s}\right)^{2},
+\label{eq:proper-time-continuum}
+\end{equation}
+so that $\tau$ is the Lorentz-invariant ``computational length'' of the causal trajectory.  The
+discrete relation~\eqref{eq:tau-discrete} is therefore the microscopic counterpart of
+\eqref{eq:proper-time-continuum}, with each local collapse contributing one quantum of proper
+computational time.
+
+In this interpretation, a Dyck path encodes not only the $(t,x)$ geometry of the light cone but also
+the admissible orderings of collapse events.  A particular evaluation strategy corresponds to
+selecting which admissible steps count as computational advances in~$\tau$; that is, a choice of a
+\emph{computational world-line} within the Catalan cone.  Thus the Dyck bijection expresses, in
+discrete form, the same invariants that appear in continuous Lorentzian geometry, together with an
+additional computational invariant associated with the collapse dynamics of the Catalan substrate.
+
 \subsection{Recursive Self-Similarity and Local Re-Centering}
 \label{sec:selfsimilarity}
 
@@ -919,36 +994,34 @@ Concretely, consider the binary application tree for the term $\mathrm{S}\,f\,g\
 \[
 \texttt{(()(()(()())))}.
 \]
-This S-expression can be understood as \emph{looking up into} the underlying binary tree shape:
-the outer parentheses form the root frame, and each \texttt{()} corresponds to a leaf.  The
-corresponding binary tree is
+This S-expression can also be understood as \emph{looking up into} the underlying Catalan tree:
+the outer parentheses form the root frame, while each \texttt{()} corresponds to a leaf.  The
+corresponding unlabeled binary tree shape is shown below.
 
 \begin{center}
 \begin{tikzpicture}[
    level 1/.style={level distance=7mm,sibling distance=7mm},
    level 2/.style={level distance=7mm,sibling distance=7mm},
+   level 3/.style={level distance=7mm,sibling distance=7mm},
    every node/.style={circle,draw,inner sep=1pt,minimum size=2pt}
  ]
-   % 1) ((()))
-   \begin{scope}[shift={(-6,0)}]
-     \node (r1) {}
+   \node {}
+     child { node {}
        child { node {}
-         child { node {}
-           child { node {} }
-           child { node {} }
-         }
+         child { node {} }
          child { node {} }
        }
-       child { node {} };
-   \end{scope}
-\end{tikzpicture}.
+       child { node {} }
+     }
+     child { node {} };
+\end{tikzpicture}
 \end{center}
 
-Viewed this way, the S-expression is simply a linear traversal of this binary tree: each ``(''
-descends into a cons-cell, each ``)'' returns toward the trunk, and the empty pairs \texttt{()} mark
-the terminal leaves of the structure.
+Viewed from this perspective, the S-expression is simply the linear “parenthesis trace” of this
+structure: each ``('' corresponds to descending into a cons-cell, each ``)'' corresponds to returning
+toward the trunk, and the empty pairs \texttt{()} mark the terminal leaves.
 
-More generally, the pairs simulation
+More generally, the pairs bijection
 \begin{verbatim}
 n=0, c=1:  ()
 n=1, c=1:  (()())
@@ -961,7 +1034,17 @@ n=1, c=1:  ()
 n=2, c=2:  (()) ()()
 n=3, c=5:  ((())) (()()) (())() ()(()) ()()()
 \end{verbatim}
-but seen through a different projection.  The Dyck words emphasize the one-dimensional ``height'' profile of the walk, making the Lorentzian scaling limit and the breadth--depth tradeoff of the light cone especially transparent.  The pairs S-expressions, by contrast, foreground the \emph{binary computational structure}: they are precisely the unlabeled S-expression trees of a Lisp-like language, with cons as the only constructor.
+but seen through a different projection.  The Dyck words present the one-dimensional ``height''
+profile of the walk, making the Lorentzian scaling limit and the breadth--depth structure of the
+light cone transparent.  The pairs S-expressions, by contrast, foreground the \emph{binary
+computational structure}: they are precisely the unlabeled S-expression trees of a Lisp-like
+language, with cons as the sole constructor.
+
+\footnote{Here “projection’’ is not a literal mapping but a change of coordinates on the same
+Catalan object.  The Dyck, binary-tree, and S-expression representations are all related by
+canonical bijections; each is a different parametrization of the same underlying Catalan shape.
+Thus switching from Dyck words to pairs S-expressions does not change the object itself, only the
+coordinate system through which it is viewed.}
 
 In this sense, Dyck words and pairs expansions are two complementary Catalan bijections:
 \begin{itemize}
