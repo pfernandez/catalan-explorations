@@ -17,7 +17,7 @@ With that, this repo lets you:
 - study **recurrent motifs and cycles** under different collapse rules,
 - and, if you want, experiment with **physics-flavored** interpretations (diagrams, forces, curvature) in a controlled, combinatorial setting.
 
-For the research notes and paper, see `docs/README.md`.
+For the research notes and paper, see `docs/`.
 
 If you’re in a hurry, jump to **[Getting started](#6-getting-started)**.
 
@@ -78,11 +78,10 @@ This repo supports three intertwined uses:
 
    This shows that `()` + pairing + collapse are enough for **general computation**.
 
-2. **Motif and cycle discovery under collapse**
+2. **Motif discovery**
    Stochastic, local collapse policies over Catalan trees reveal:
 
    * **recurrent motifs** (shapes that keep reappearing),
-   * **fixed points** and **cycles** in the *pattern graph* (see below),
    * survival and frequency statistics for different policies.
 
 3. **A structural lens on diagrams, gauge, and geometry** *(exploratory)*
@@ -114,7 +113,7 @@ Utilities for generating and working with Catalan families:
 
 This is the shared **substrate** for compute, motifs, and diagrams.
 
-### B) Pure structural SK / λ (no cheats)
+### B) Pure structural SK / λ
 
 We interpret the same structures as a tiny λ-like language:
 
@@ -309,10 +308,8 @@ This part is optional; everything else works fine at the CLI.
   * `recursive.scm` — early structural attention/memory demo (Turing-style read-head).
 * `docs/`
 
-  * `README.md` — index of the docs folder.
   * `catalan-light-cone.(latex|pdf)` — main paper (discrete cone + diffusion/Schrödinger limit + SKI mapping).
   * `IDEAS.md` — extended field guide with solid/speculative/interpretive labels.
-  * `OVERVIEW.md` — plain-language conceptual tour.
 * `tests/`
 
   * checks for bijections, interpreter correctness, motif stats.
