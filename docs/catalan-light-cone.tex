@@ -813,6 +813,80 @@ Thus histories that are indistinguishable under the observable $f$ are combined
 prior to squaring, while distinguishable histories are not. Interference is
 therefore not postulated but forced by the structure of projection.
 
+\subsection{Entropy of coarse-graining and collapse energy}
+\label{sec:collapse-energy}
+
+Fix a tier $t$ and an observable (deterministic coarse-graining) $f:D_t\to X$.
+For $x\in X$ write
+\[
+N(x)\;:=\;\#\{w\in D_t: f(w)=x\},
+\]
+so that $f^{-1}(x)$ is the equivalence class of histories identified as the
+same outcome.
+
+\paragraph{Multiplicity entropy.}
+Define the (microcanonical) entropy of the full ensemble at tier $t$ by
+\[
+S_t \;:=\; \log \#(D_t),
+\]
+and the conditional entropy of an outcome $x$ by
+\[
+S(x) \;:=\; \log N(x).
+\]
+The information eliminated by selecting outcome $x$ is the entropy drop
+\[
+\Delta S(x)\;:=\; S_t - S(x)
+\;=\; \log\!\Big(\frac{\#(D_t)}{N(x)}\Big).
+\]
+(Any logarithm base may be used; base $2$ yields units of bits.)
+
+\paragraph{Collapse energy as rate of possibility reduction.}
+Let $k$ denote the number of collapse events (local contractions) along a
+history, and let computational proper time be $\tau=\tau_0 k$ for a fixed scale
+$\tau_0>0$. We define the collapse energy associated with outcome $x$ to be the
+information loss per unit computational proper time,
+\[
+E(x)\;:=\;\frac{\Delta S(x)}{\tau}.
+\]
+In the simplest case of a single collapse event ($k=1$), this reduces to
+$E(x)=\Delta S(x)/\tau_0$.
+
+\begin{proposition}[Basic properties]
+\label{prop:collapse-energy-basic}
+For any observable $f:D_t\to X$:
+\begin{enumerate}[label=(\roman*)]
+\item (Nonnegativity) $\Delta S(x)\ge 0$ for all $x\in X$, with equality iff
+$N(x)=\#(D_t)$ (i.e.\ $f$ is constant on $D_t$).
+\item (Additivity under independent factorization) If $D_t$ factorizes as a
+Cartesian product $D_t \cong D_t^{(1)}\times D_t^{(2)}$ and
+$f(w_1,w_2)=(f_1(w_1),f_2(w_2))$, then
+\[
+\Delta S(x_1,x_2)=\Delta S_1(x_1)+\Delta S_2(x_2).
+\]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) Since $1\le N(x)\le \#(D_t)$ whenever $x$ is attainable, the ratio
+$\#(D_t)/N(x)\ge 1$, hence $\Delta S(x)\ge 0$, with equality exactly when
+$N(x)=\#(D_t)$.
+(ii) Under the stated factorization, $N(x_1,x_2)=N_1(x_1)N_2(x_2)$ and
+$\#(D_t)=\#(D_t^{(1)})\#(D_t^{(2)})$, so $\Delta S$ splits as a sum.
+\end{proof}
+
+\paragraph{Gauge-invariant counting.}
+When histories admit a redundancy under commuting spacelike-separated updates,
+one may quotient $D_t$ by the induced gauge equivalence relation $\sim_g$ and
+define $\bar D_t:=D_t/\!\sim_g$.
+If $f$ is gauge-invariant (constant on $\sim_g$-orbits), define
+\[
+\bar N(x):=\#\{[w]\in \bar D_t : f(w)=x\},
+\qquad
+\bar{\Delta S}(x):=\log\!\Big(\frac{\#(\bar D_t)}{\bar N(x)}\Big),
+\]
+and use $\bar{\Delta S}$ in place of $\Delta S$. This removes overcounting due
+solely to reordering of independent collapses.
+
 \subsection{Path integrals and conditioned walks}
 
 Dyck paths are random walks conditioned to remain nonnegative and return to
