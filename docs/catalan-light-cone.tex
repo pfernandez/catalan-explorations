@@ -287,7 +287,6 @@ there are $t$ internal nodes, while the scaling behavior is a consequence of
 invariance-principle results for conditioned random walks
 \cite{le-gall05,janson07,addario-berry13}.
 
-% TODO: Integrate with preceeding sections (tier t vs n)?
 \subsection{Coordinate charts on the Catalan cone}
 \label{sec:coordinate-charts}
 
@@ -397,99 +396,85 @@ identity of representations of the same Catalan structure.
 \subsection{Dyck Coordinates, Lorentz Geometry, and Computational Proper Time}
 \label{subsec:dyck-lorentz-computation}
 
-The Dyck encoding places each Catalan object into a discrete $(1+1)$-dimensional
-walk geometry. A Dyck path of semilength $n$ may be viewed as an integer-valued
-nearest-neighbour walk $(x_t)*{t=0}^{2n}$ with
+\begin{remark}[Indices and coordinate conventions]
+Throughout, $n$ denotes the tier (semilength) of a completed Dyck history.
+Within this subsection, $k\in\{0,1,\dots,2n\}$ denotes a \emph{step index} along a
+single history, and $m$ denotes the number of \emph{collapse events} (local redex
+contractions) performed by a chosen evaluation strategy.
+\end{remark}
+
+A Dyck history $w\in\mathcal D_n$ induces an integer-valued nearest-neighbour
+walk $(H_k)_{k=0}^{2n}$ (the height / nesting depth signal) with
 \[
-x*{t+1}=x_t\pm 1,\qquad x_0=0,
+H_{k+1}=H_k\pm 1,\qquad H_0=0,\qquad H_k\ge 0,\qquad H_{2n}=0.
 \]
-where $t$ is the discrete time index and $x_t$ is the height (or transverse
-displacement) at time~$t$.  For \emph{any} walk with steps $(\Delta x,\Delta t)=(\pm1,1)$,
-one has the kinematic bound
+Define the rescaled coordinates
 \[
-|x_t|\le t \qquad (t=0,1,\dots,2n),
+t_k:=\frac{k}{2},\qquad x_k:=\frac{H_k}{2},
 \]
-since the position can change by at most one unit per time step.  Thus the
-ambient step rule already embeds the walk space inside the discrete cone
-$|x|\le t$.
-
-The Dyck constraint imposes additional \emph{pathwise} conditions: it selects
-exactly those walks that stay in the future half-cone and return to the origin,
+so that each parenthesis advances time by $\tfrac12$ and changes the transverse
+coordinate by $\pm\tfrac12$:
 \[
-x_t\ge 0 \ \text{for all }t,\qquad x_{2n}=0.
+\texttt{(}:\ (t,x)\mapsto (t+\tfrac12,\ x+\tfrac12),\qquad
+\texttt{)}:\ (t,x)\mapsto (t+\tfrac12,\ x-\tfrac12).
 \]
-These are stronger than the cone bound and encode the Catalan admissibility
-restriction. Under diffusive rescaling, Dyck paths converge to Brownian
-excursions on $x\ge 0$ (Section~\ref{sec:continuum-limit}), so the continuum
-limit naturally inherits a Lorentzian-style $(t,x)$ parametrization together
-with a boundary at $x=0$.
+For any walk with steps $(\Delta t,\Delta x)=(\tfrac12,\pm\tfrac12)$ one has the
+kinematic cone bound $|x_k-x_0|\le t_k-t_0$. In the Dyck case, the additional
+constraint is one-sided: $x_k\ge 0$ for all $k$, together with the endpoint
+condition $x_{2n}=0$. Thus Dyck histories occupy the right half of a discrete
+light cone and return to the axis only at completion.
 
-\paragraph{Light-cone coordinates.}
-
-Introduce the usual light-cone coordinates
-\begin{equation}
-u=t+x,\qquad v=t-x,
-\label{eq:lightcone-coordinates}
-\end{equation}
-in which each discrete step increments exactly one of $(u,v)$ by~$2$.  The cone
-condition $|x|\le t$ is equivalent to $u,v\ge 0$.  The Dyck constraint further
-imposes the pathwise restriction $x\ge 0$ (hence $v\ge 0$ automatically) and the
-endpoint condition $x_{2n}=0$.
-
-A Lorentz boost with rapidity $\eta$ acts linearly as
+Introduce discrete null coordinates (compare Definition~\ref{def:null-counts})
+\[
+u:=t+x,\qquad v:=t-x.
+\]
+In the continuum limit, a Lorentz boost with rapidity $\eta$ acts linearly as
 \begin{equation}
 u' = e^{\eta} u,\qquad v' = e^{-\eta} v,
 \label{eq:lightcone-boost}
 \end{equation}
-and transforming back to $(t,x)$ gives the familiar Lorentz transformation
+and transforming back to $(t,x)$ yields the standard Lorentz transformation
 \begin{equation}
-t' = \gamma (t - v_{!L} x),\qquad x' = \gamma (x - v_{!L} t),
+t' = \gamma (t - v_{\!L} x),\qquad x' = \gamma (x - v_{\!L} t),
 \label{eq:lorentz-tx}
 \end{equation}
 where
 \[
-\gamma=\frac{1}{\sqrt{1-v_{!L}^2}},\qquad v_{!L}=\tanh\eta,
+\gamma=\frac{1}{\sqrt{1-v_{\!L}^2}},\qquad v_{\!L}=\tanh\eta,
 \]
-with $c=1$ units understood. The Minkowski interval
+in units $c=1$. The Minkowski interval
 \begin{equation}
 \mathrm{d}s^{2}=\mathrm{d}t^{2}-\mathrm{d}x^{2}
 \label{eq:minkowski}
 \end{equation}
-is invariant under~\eqref{eq:lorentz-tx} and may be regarded as the continuum
-limit of the kinematic cone geometry induced by the step rule, while the Dyck
-constraint supplies the additional boundary and return conditions that define
-the Catalan ensemble.
+is invariant under~\eqref{eq:lorentz-tx}. In this sense the step rule supplies a
+microscopic “cone kinematics,” while the Dyck constraint supplies the boundary
+and return conditions selecting the Catalan ensemble.
 
 \paragraph{Computational proper time.}
-
-A reduction history carries more than geometric information: it has an intrinsic
-\emph{computational} progress parameter. Let $k$ denote the number of collapse
-events (local redex contractions) performed along the evaluation of a Catalan
-object. Passing to a continuum description, introduce a computational proper
-time $\tau$ via
+A reduction history carries an intrinsic progress parameter given by the count
+of collapse events. Let $m$ be the number of local redex contractions performed
+by an evaluation strategy up to a given stage, and define the \emph{computational
+proper time}
 \begin{equation}
-\tau=\alpha,k,
+\tau := \alpha\, m,
 \label{eq:tau-discrete}
 \end{equation}
-where $\alpha$ is the characteristic scale associated with a single collapse.
-In the continuum limit, for a parametrized world-line $(t(s),x(s))$, the proper
-time satisfies
+where $\alpha>0$ is the characteristic scale associated with a single collapse.
+In a continuum description, a parametrized world-line $(t(s),x(s))$ admits a
+proper-time functional
 \begin{equation}
 \left(\frac{\mathrm{d}\tau}{\mathrm{d}s}\right)^{2}
+=
 \left(\frac{\mathrm{d}t}{\mathrm{d}s}\right)^{2}
+-
 \left(\frac{\mathrm{d}x}{\mathrm{d}s}\right)^{2},
 \label{eq:proper-time-continuum}
 \end{equation}
-so that $\tau$ is the Lorentz-invariant ``computational length'' of the causal
-trajectory. The discrete relation~\eqref{eq:tau-discrete} is therefore the
-microscopic counterpart of~\eqref{eq:proper-time-continuum}, with each local
-collapse contributing one quantum of proper computational time.
-
-In this interpretation, a Dyck path encodes not only the $(t,x)$ kinematics of a
-cone-bounded walk but also a constrained ensemble of admissible trajectories
-within that cone. A particular evaluation strategy corresponds to selecting
-which admissible updates count as computational advances in~$\tau$, i.e.\ a
-choice of a \emph{computational world-line} within the Catalan substrate.
+so that $\tau$ is Lorentz-invariant. Equation~\eqref{eq:tau-discrete} may be read
+as a microscopic discretization: each local collapse contributes one quantum
+$\Delta\tau=\alpha$ of computational proper time, selecting a particular
+computational world-line within the Catalan substrate.
 
 \subsection{Recursive Self-Similarity and Local Re-Centering}
 \label{sec:selfsimilarity}
