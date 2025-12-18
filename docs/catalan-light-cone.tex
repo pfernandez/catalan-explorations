@@ -287,7 +287,7 @@ there are $t$ internal nodes, while the scaling behavior is a consequence of
 invariance-principle results for conditioned random walks
 \cite{le-gall05,janson07,addario-berry13}.
 
-% TODO: Integrate with preceeding sections?
+% TODO: Integrate with preceeding sections (tier t vs n)?
 \subsection{Coordinate charts on the Catalan cone}
 \label{sec:coordinate-charts}
 
@@ -2097,72 +2097,64 @@ constrains redex selection more tightly.
 	exists for any countable symbolic system.
 \end{proof}
 
-
 \section{Interpretive Appendix: Void, Potential, and Recursive Actualization}
 \label{app:interpretive}
 
 This appendix records an interpretive perspective that motivates the formal
-development of the paper. The material here is not required for the results of
-the main text. It is included to clarify the conceptual picture suggested by
-the recursive structures analyzed above.
+development. It is not required for the results of the main text.
 
 \subsection{Void and first differentiation}
-Let \(()\) denote the null structure: a state with no internal distinction and
-no recursive content. Formally, it is the base case of the Catalan
-construction. The minimal nontrivial closure of \(()\) under recursive pairing
-is
+Let \texttt{()} denote the null structure: a state with no internal distinction
+and no recursive content. Two minimally nontrivial tier-1 differentiations are
 \[
-	(()) .
+  (()) \quad\text{and}\quad ()().
 \]
-This object introduces an internal relation without introducing multiplicity.
-It is the smallest structure capable of supporting further recursive growth
-while remaining globally consistent with the Dyck constraint. In this sense,
-\((())\) represents the first differentiation of the void: not an object placed
-\emph{in} an existing space, but the emergence of relational structure itself.
+They are the same ``event'' viewed in two complementary coordinates:
+\begin{itemize}
+  \item \textbf{depth-first (timelike) view:} \texttt{(())} is the first
+  nontrivial nesting, emphasizing commitment (depth);
+  \item \textbf{breadth-first (spacelike) view:} \texttt{()()} is the first
+  nontrivial separation, emphasizing multiplicity (breadth).
+\end{itemize}
+This is the smallest place where the $(t,r)$ picture begins to have content: a
+single step of ``time'' already admits a choice of ``space'' organization.
 
 \subsection{Possibility space from recursive expansion}
 Iterating the pairing rule generates the full Catalan family. Each construction
 step introduces new admissible extensions while preserving all previous
 structural commitments. The resulting set of Dyck paths may be read as a space
-of mutually compatible but not jointly realizable futures. From this
-perspective, the Catalan lattice represents a structured \emph{possibility
-space}. The Dyck constraint does not merely limit growth; it organizes it,
-enforcing consistency across all scales.
+of mutually compatible but not jointly realizable futures.
 
 \subsection{Temporal interpretation}
 The recursive construction index naturally induces an ordering. Each step
 corresponds to the introduction of new structure relative to what has already
-been fixed. This ordering provides a discrete notion of time internal to the
-construction, without presupposing an external temporal parameter. At each
-stage, two complementary processes are present:
+been fixed. At each stage, two complementary processes are present:
 \begin{itemize}
-	\item expansion, in which new admissible configurations are introduced;
-	\item restriction, in which incompatible possibilities are locally excluded.
+  \item \textbf{expansion,} in which new admissible configurations are introduced;
+  \item \textbf{return of potential (collapse),} in which incompatible
+  possibilities are locally excluded by committing to one branch consistent with
+  prior structure.
 \end{itemize}
-Temporal progression may be read as the alternation between these processes:
-the opening of new potential followed by selection consistent with prior
-structure. The formal theory requires only that both processes respect the
-global recursive constraint.
+Combinatorially, the number of admissible possibilities grows rapidly with tier
+(Catalan $\sim 4^t/t^{3/2}$), so ``possibilities outpace collapses'' in the sense
+that each new tier introduces many more admissible futures than can be realized
+along any single history.
 
 \subsection{Emergent spacetime properties}
 The causal and geometric features described in the main text arise directly
-from this alternation. Recursive depth tracks accumulated structural
-commitment, while breadth tracks contemporaneous branching. Bounds on breadth
-as a function of depth yield a cone-shaped causal envelope. Under scaling
-limits, this discrete structure supports diffusion and wave propagation. These
-continuum behaviors do not require additional geometric axioms; they emerge
-from the organization of possibility imposed by the recursive constraint.
+from recursive constraint: depth tracks accumulated structural commitment, while
+breadth tracks contemporaneous branching. Bounds on breadth as a function of tier
+yield a sharp envelope. Under scaling limits, Dyck-conditioned growth supports
+diffusion and wave propagation.
 
 \subsection{Interpretive status}
 Nothing in this appendix asserts a physical identity between recursive pairing
-and any particular physical process. The interpretations offered here are meant
-to guide intuition rather than to extend the formal claims of the paper. The
-central formal result remains unchanged: a single recursive constraint suffices
-to generate a structured possibility space exhibiting causal order, wave
-dynamics, and computational universality. The interpretive perspective suggests
-how these features may be interpreted as aspects of a unified underlying
-process, but the validity of the formal results does not depend on that
-reading.
+and any particular physical process. The central formal result remains
+unchanged: a single recursive constraint suffices to generate a structured
+possibility space exhibiting causal order, wave limits, and computational
+universality. The interpretive perspective suggests how these features may be
+read as aspects of a unified underlying process, but the validity of the formal
+results does not depend on that reading.
 
 \bibliographystyle{plain}
 \begin{thebibliography}{99}
