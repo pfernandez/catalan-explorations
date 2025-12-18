@@ -943,34 +943,56 @@ or curvature, provided the Dyck constraint is preserved.
 	\label{fig:dyck-walk-excursion}
 \end{figure}
 
-\subsection{Modal structure and Narayana classes}
+\subsection{Narayana stratification and structural modes}
+\label{subsec:narayana-modes}
 
-Beyond global observables such as height or area, Dyck paths admit a natural
-discrete modal decomposition. For a Dyck path $w\in\mathcal D_t$, define its
-\emph{Narayana index} $K(w)$ to be the number of peaks of $w$, i.e.\ the number
-of occurrences of an up-step immediately followed by a down-step. For fixed $t$,
-the Narayana numbers $N(t,k)$ count the number of Dyck paths with $K(w)=k$.
+Dyck paths admit a natural finite stratification by peak count. For $w\in\mathcal
+D_t$, define its \emph{peak count} $K(w)$ as the number of indices
+$k\in\{1,\dots,2t-1\}$ at which the Dyck word has an up-step immediately followed
+by a down-step (equivalently, the number of local maxima of the height profile
+$H_w(k)$). The Narayana numbers $N(t,k)$ count the number of Dyck paths with
+$K(w)=k$, yielding the partition
+\[
+\mathcal D_t = \bigsqcup_{k=1}^{t} \mathcal D_{t,k},
+\qquad
+\mathcal D_{t,k} := \{w\in\mathcal D_t : K(w)=k\}.
+\]
 
-Combinatorially, the Narayana index measures the number of local maxima of the
-height signal $H_w(k)$ along the path. Paths with the same $K$ therefore share
-a common oscillatory structure but may differ in the relative placement of their
-peaks along the word. This induces a refinement of the path ensemble into mode
-classes indexed by $k$.
+To make the notion of ``mode'' precise, embed each history into a finite
+inner-product space. Let
+\[
+V_t := \mathbb R^{2t+1}, \qquad
+H(w) := (H_w(0),\dots,H_w(2t)) \in V_t,
+\]
+with standard inner product
+\[
+\langle a,b\rangle := \sum_{j=0}^{2t} a_j b_j.
+\]
+Fix an orthonormal basis $\{\phi_m\}_{m=0}^{2t}$ of $V_t$ (for example, the
+discrete cosine basis or the eigenvectors of the discrete Laplacian on the path
+graph). The coefficients
+\[
+c_m(w) := \langle H(w), \phi_m\rangle
+\]
+define a spectral decomposition of the history $w$, with power spectrum
+$P_m(w):=|c_m(w)|^2$.
 
-At fixed tier $t$, these mode classes are orthogonal to radial observables such
-as area or mean height.  Distinct Narayana classes may contribute to the same
-observable outcome under a given projection, while paths within a fixed Narayana
-class may differ in the distribution of height over time and hence in the
-structural phase defined by~$A(w)$. Thus the Narayana index plays a role
-analogous to a discrete frequency, while the relative placement of peaks
-provides a phase offset within that mode.
+The peak count $K(w)$ does not label a single spectral mode. Rather, it provides
+a coarse combinatorial proxy for oscillatory complexity of the height signal.
+A natural summary statistic for how a Narayana class distributes spectral weight
+is the conditional mean spectrum
+\[
+\overline{P}_m(t,k) := \mathbb E\!\left[\,P_m(w)\mid w\in\mathcal D_{t,k}\right].
+\]
+Intuitively, larger $k$ tends to shift weight toward higher spectral indices
+$m$, reflecting more frequent alternation of slopes; this heuristic may be used
+as a discrete analogue of increased high-frequency content.
 
-This decomposition clarifies how interference structure arises prior to any
-continuum limit. Radial observables determine which coarse region of the outcome
-space a history contributes to, while Narayana classes and peak placement govern
-how those contributions interfere. In the scaling limit discussed below, these
-discrete mode classes converge to the familiar harmonic structure of continuum
-wave equations.
+Finally, since the phase functional used below depends on the full height
+profile (e.g.\ $\theta(w)=\alpha A(w)$), differences in peak placement within a
+fixed Narayana class generally change $A(w)$ and hence the phases appearing in
+coherent summation. Interference therefore depends both on coarse stratification
+by $K(w)$ and on finer structural variation within each class.
 
 \subsection{Discrete path-integral formulation}
 
@@ -1046,6 +1068,51 @@ For readers seeking a concrete intuition for how this discrete
 sum-over-histories mechanism produces interference,
 Appendix~\ref{appendix:doubleslit} sketches a finite thought experiment
 analogous to the double-slit experiment.
+
+\subsection{Scaling of the area phase in the continuum limit}
+\label{subsec:phase-scaling}
+
+The interference mechanism above assigns each history $w\in\mathcal D_n$ a
+complex weight $\psi(w)=e^{i\alpha A(w)}$ with discrete area functional
+\[
+A(w) := \sum_{k=0}^{2n-1} H_w(k),
+\]
+where $H_w(k)$ is the height after $k$ steps.
+
+To relate this discrete phase to the diffusion scaling limit, introduce the
+rescaled height process on $[0,1]$,
+\[
+X^{(n)}(\tau) := n^{-1/2} H_w(\lfloor 2n\tau\rfloor), \qquad 0\le \tau \le 1.
+\]
+Under the standard Dyck-to-Brownian-excursion scaling, $X^{(n)} \Rightarrow X$
+in distribution, where $X$ is a Brownian excursion on $[0,1]$.
+
+The discrete area rescales as a Riemann sum:
+\[
+\frac{1}{2n^{3/2}}A(w)
+= \frac{1}{2n}\sum_{k=0}^{2n-1} n^{-1/2}H_w(k)
+\;\Longrightarrow\;
+\int_0^1 X(\tau)\,d\tau.
+\]
+Consequently, a nontrivial continuum phase is obtained by scaling $\alpha$ with
+$n$ as
+\[
+\alpha_n := \frac{\lambda}{2n^{3/2}},
+\]
+so that
+\[
+e^{i\alpha_n A(w)}
+\;\Longrightarrow\;
+\exp\!\Big(i\lambda\int_0^1 X(\tau)\,d\tau\Big).
+\]
+
+This makes explicit that the discrete coherent sum with additive functional
+$A(w)$ converges to a continuum functional weight. In particular, when one
+passes from uniform counting of conditioned walks to diffusion limits, inserting
+the exponential of a time-integrated functional corresponds (at the PDE level)
+to adding a potential term (via the standard Feynman--Kac mechanism). Setting
+$\lambda=0$ recovers the unweighted scaling limit discussed in the next
+subsection.
 
 \subsection{Diffusion limit}
 \label{sec:continuum-limit}
@@ -1308,6 +1375,65 @@ N(x) = \#\{w\in\mathcal D_n : f(w)=x\},
 which cannot produce cancellation. The difference between $|\Psi(x)|^2$ and
 $N(x)$ is therefore entirely due to coherent summation over indistinguishable
 histories.
+
+% TODO: Replace above subsection with the below example?
+\subsection{A worked finite example}
+\label{subsec:doubleslit-worked}
+
+Take $n=4$ and choose two admissible Dyck prefixes of equal length and height,
+\[
+u_L=\texttt{(()(}, \qquad u_R=\texttt{()((},
+\]
+each of length $4$ and height $2$. Each prefix admits exactly three completions
+to a full Dyck word of length $8$, yielding six histories in the union of the
+two source cones.
+
+Define a coarse observable that discards source information by sampling the
+height at a fixed time step after the ``slits'':
+\[
+f(w) := H_w(6)\in\{0,2\}.
+\]
+This is a discrete analogue of recording transverse displacement at a detector
+time without access to which slit was taken.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+\hline
+cone & $w$ & $A(w)$ & $f(w)=H_w(6)$ \\
+\hline
+$L$ & \texttt{(()(()))} & $12$ & $2$ \\
+$L$ & \texttt{(()()())} & $10$ & $2$ \\
+$L$ & \texttt{(()())()} & $8$  & $0$ \\
+$R$ & \texttt{()((()))} & $10$ & $2$ \\
+$R$ & \texttt{()(()())} & $8$  & $2$ \\
+$R$ & \texttt{()(())()} & $6$  & $0$ \\
+\hline
+\end{tabular}
+\caption{Two equal-height source cones at $n=4$ and a coarse detector observable.}
+\end{table}
+
+With phase $\psi(w)=e^{i\alpha A(w)}$, the detector amplitudes are
+\[
+\Psi(2)=\sum_{f(w)=2} e^{i\alpha A(w)}
+= e^{i12\alpha}+2e^{i10\alpha}+e^{i8\alpha}
+= 2e^{i10\alpha}\bigl(1+\cos(2\alpha)\bigr),
+\]
+\[
+\Psi(0)=\sum_{f(w)=0} e^{i\alpha A(w)}
+= e^{i8\alpha}+e^{i6\alpha}
+= 2e^{i7\alpha}\cos(\alpha).
+\]
+Classically one would predict multiplicities $N(2)=4$ and $N(0)=2$. In contrast,
+the quantum intensities $|\Psi(x)|^2$ vary with $\alpha$ and can exhibit strong
+suppression. For example, at $\alpha=\pi/2$ one obtains $\Psi(2)=0$ (exact
+destructive interference at the outcome $x=2$), even though $N(2)=4$ histories
+contribute.
+
+This example is intentionally tiny: its purpose is to show, in finite
+combinatorial terms, how (i) multiple histories per outcome, (ii) an additive
+phase functional, and (iii) coarse observation together produce interference.
+Larger $n$ yields richer outcome sets and more intricate cancellation patterns.
 
 \subsection{Interpretation}
 
