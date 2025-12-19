@@ -37,15 +37,19 @@ A Recursive Substrate for Causal Geometry, Quantum Amplitudes, and Computation}
 	forms a discrete cone whose extremal configurations reproduce a
 	light-cone--like causal envelope. Classical invariance-principle results show
 	that constrained Dyck walks converge in the scaling limit to Brownian
-	excursions; the induced probability flow satisfies the heat equation and, under
-	Wick rotation, the free Schr\"odinger equation.
+	excursions. The associated continuum description is diffusive (governed by the
+	heat operator on the half-line with the Dyck conditioning encoded by boundary
+	conditions/conditioning), and under analytic continuation one recovers the free
+	Schr\"odinger equation.
 
 	Via a uniform structural mapping---the pairs expansion---Dyck trees are placed
-	in bijection with SKI and $\lambda$-calculus term graphs. Under this
-	identification, causal extension corresponds to functional application, while
-	local collapse corresponds to computational reduction. Structural equivalences
-	of the substrate induce gauge-like redundancies, and disjoint subtrees commute
-	analogously to spacelike-separated operators.
+	in correspondence with SKI and $\lambda$-calculus term graphs, in the sense
+	that Catalan tree shapes provide unlabeled application skeletons that can be
+	equipped with standard finite encodings of symbols. Under this reading, causal
+	extension aligns with functional application, while local collapse aligns with
+	computational reduction. Structural equivalences of the substrate induce
+	gauge-like redundancies, and disjoint subtrees commute analogously to
+	spacelike-separated operators.
 
 	The paper distinguishes rigorously established
 	correspondences---scaling limits, diffusion dynamics, prefix-causal structure,
@@ -428,7 +432,8 @@ Introduce discrete null coordinates (compare Definition~\ref{def:null-counts})
 \[
 u:=t+x,\qquad v:=t-x.
 \]
-In the continuum limit, a Lorentz boost with rapidity $\eta$ acts linearly as
+In continuum $(1+1)$-dimensional Minkowski space, a Lorentz boost with rapidity
+$\eta$ acts linearly as
 \begin{equation}
 u' = e^{\eta} u,\qquad v' = e^{-\eta} v,
 \label{eq:lightcone-boost}
@@ -448,8 +453,11 @@ in units $c=1$. The Minkowski interval
 \label{eq:minkowski}
 \end{equation}
 is invariant under~\eqref{eq:lorentz-tx}. In this sense the step rule supplies a
-microscopic “cone kinematics,” while the Dyck constraint supplies the boundary
-and return conditions selecting the Catalan ensemble.
+discrete null-step kinematics, while the Dyck constraint supplies the boundary
+and return conditions selecting the Catalan ensemble. We emphasize that generic
+nontrivial boosts do not preserve the discrete Dyck lattice itself (the counts
+$u,v$ are integers), so the Lorentz discussion here is a continuum comparison
+for the embedded coordinates rather than a discrete symmetry claim.
 
 \paragraph{Computational proper time.}
 A reduction history carries an intrinsic progress parameter given by the count
@@ -461,7 +469,7 @@ proper time}
 \label{eq:tau-discrete}
 \end{equation}
 where $\alpha>0$ is the characteristic scale associated with a single collapse.
-In a continuum description, a parametrized world-line $(t(s),x(s))$ admits a
+In continuum Minkowski space, a parametrized world-line $(t(s),x(s))$ admits a
 proper-time functional
 \begin{equation}
 \left(\frac{\mathrm{d}\tau}{\mathrm{d}s}\right)^{2}
@@ -471,10 +479,10 @@ proper-time functional
 \left(\frac{\mathrm{d}x}{\mathrm{d}s}\right)^{2},
 \label{eq:proper-time-continuum}
 \end{equation}
-so that $\tau$ is Lorentz-invariant. Equation~\eqref{eq:tau-discrete} may be read
-as a microscopic discretization: each local collapse contributes one quantum
-$\Delta\tau=\alpha$ of computational proper time, selecting a particular
-computational world-line within the Catalan substrate.
+which is Lorentz-invariant under~\eqref{eq:lorentz-tx}. In the present discrete
+setting, Equation~\eqref{eq:tau-discrete} is simply a well-defined event-count
+parameter; the analogy is that collapse count plays the role of a proper-time
+progress variable along a chosen computational history.
 
 \subsection{Recursive Self-Similarity and Local Re-Centering}
 \label{sec:selfsimilarity}
@@ -837,8 +845,9 @@ structure established in Section~\ref{sec:catalan_cone}. From the perspective
 of the Catalan lattice, reduction may be viewed as \emph{collapse}: a locally
 ambiguous structure is replaced by a simpler one consistent with the global
 constraint. Importantly, collapse does not alter causal ancestry; it refines an
-already-admissible history. Confluence of reduction in the $\lambda$-calculus
-ensures that independent local reductions commute. This computational fact will
+already-admissible history. For standard calculi (e.g.\ $\lambda$/SKI),
+confluence ensures uniqueness of normal forms when they exist, and more locally
+reductions supported on disjoint subtrees commute. This computational fact will
 later support an interpretation of spacelike commutativity.
 
 \subsection{Summary}
@@ -922,7 +931,9 @@ P(x) = \frac{|\Psi(x)|^2}{\sum_{x'\in\mathcal X}|\Psi(x')|^2}.
 \]
 Thus histories that are indistinguishable under the observable $f$ are combined
 prior to squaring, while distinguishable histories are not. Interference is
-therefore not postulated but forced by the structure of projection.
+therefore a generic consequence of assigning complex weights to histories and
+summing coherently over coarse-grained equivalence classes before applying the
+Born rule.
 
 \subsection{Entropy of coarse-graining and collapse energy}
 \label{sec:collapse-energy}
@@ -1216,15 +1227,18 @@ Let $n\to\infty$ and rescale time and height by
 \]
 
 Under this scaling, the probability density $\rho(\tau,x)$ for conditioned walks
-converges to that of a Brownian excursion on $x\ge0$. It follows from the
-invariance principle that $\rho$ satisfies the heat equation
+converges in law to that of a Brownian excursion on $x\ge0$. At the PDE level,
+the associated continuum evolution is governed by the heat operator on the
+half-line, with the Dyck conditioning encoded by appropriate
+boundary/conditioning at $x=0$. In particular, one obtains a heat equation of
+the form
 
 \begin{equation}
 	\partial_\tau \rho = \frac{1}{2}\,\partial_x^2 \rho,
 \end{equation}
 
-with boundary conditions enforcing reflection or absorption at $x=0$. Full
-derivations may be found in \cite{le-gall05,janson07}.
+with the boundary/conditioning determined by the chosen scaling limit and
+conditioning. Full derivations may be found in \cite{le-gall05,janson07}.
 
 \subsection{Schr\"odinger equation}
 
@@ -1317,7 +1331,7 @@ define the nontrivial branching structure of the multiway reduction graph.
 
 (See Appendix~\ref{appendix:computational-foundations}, and in particular
 Lemma~\ref{lem:causal-consistency}, for a formal statement and proof sketch
-of the corresponding causal-consistency and commutation property.)
+of the corresponding disjoint-commutation property.)
 
 \subsection{Collapse and selection}
 Both computation and amplitude propagation require selection:
@@ -1359,8 +1373,9 @@ substrate for causal geometry, quantum amplitude propagation, and computation.
 The Dyck constraint induces a natural causal order and a discrete cone-shaped
 geometry exhibiting light-cone--like bounds. Classical invariance principles
 show that ensembles of admissible histories converge in the continuum limit to
-Brownian excursions, yielding the heat equation and, under analytic
-continuation, the free Schr\"odinger equation. Through the pairs expansion, the
+Brownian excursions, leading to diffusive continuum limits governed by the heat
+operator (with the Dyck conditioning encoded on the half-line) and, under
+analytic continuation, the free Schr\"odinger equation. Through the pairs expansion, the
 same structures encode universal computation via $\lambda$-calculus and SKI
 combinators. These correspondences require no additional primitives beyond
 recursive pairing and constraint.
@@ -1718,7 +1733,7 @@ S-expression
 \[
 	\texttt{(()(()(()())))}.
 \]
-This S-expression can also be understood as \emph{looking up into} the
+This S-expression can also be understood as \emph{looking down into} the
 underlying Catalan tree: the outer parentheses form the root frame, while each
 \texttt{()} corresponds to a leaf. The corresponding unlabeled binary tree shape
 is shown below.
@@ -1816,16 +1831,13 @@ The Catalan substrate then becomes a \emph{combinator-free} calculus of pure
 application.
 
 Traditional functional calculi admit multiple evaluation strategies
-(normal-order, applicative-order, call-by-need, etc.), but the Catalan
-substrate removes that freedom. Collapse is a local, causally constrained
-rewrite: a redex may collapse only after its causal predecessors, and once
-permitted the rule determines its successor uniquely. Computations are
-precisely the causally admissible paths through the substrate, with Dyck paths
-as their one-dimensional projections. Evaluation order is therefore fixed by
-causality rather than chosen by convention. Formalizing collapse as a partial
-order on redexes yields a causal-consistency lemma and shows that standard
-evaluation strategies are coarse-grainings of this order
-(Appendix~\ref{appendix:computational-foundations}).
+(normal-order, applicative-order, call-by-need, etc.). The Catalan substrate
+makes explicit a natural causal preorder on redex positions (ancestor order),
+constraining dependencies between contractions. Collapse is local, and
+contractions supported on disjoint subtrees commute
+(Lemma~\ref{lem:causal-consistency}). Different evaluation strategies may then
+be viewed as different linearizations of the residual freedom to schedule
+causally independent contractions (Appendix~\ref{appendix:computational-foundations}).
 
 \paragraph{Historical Perspective.}
 
@@ -1951,43 +1963,29 @@ Intuitively, $p \preceq q$ means that the subtree at $q$ is causally downstream 
 \end{definition}
 
 
-\begin{lemma}[Causal Consistency of the Catalan Substrate]
+\begin{lemma}[Commutation of disjoint reductions]
 	\label{lem:causal-consistency}
-	Let $T_0$ be an initial Catalan tree, and let
+	Let $T$ be a Catalan tree (full binary tree) and let $p,q\in R(T)$ be two redex
+	positions that are \emph{incomparable} under the causal preorder $\preceq$
+	(i.e.\ neither lies on the path from the root to the other). Let $T_p$ denote
+	the result of contracting the redex at $p$, and similarly $T_q$.
+	Then $q$ remains a redex position in $T_p$ and $p$ remains a redex position in
+	$T_q$, and contracting both redexes yields the same tree regardless of order:
 	\[
-		T_0 \to T_1 \to \cdots \to T_m, 
-		\qquad
-		T_0 \to T'_1 \to \cdots \to T'_n
+		(T_p)_q \;\equiv\; (T_q)_p.
 	\]
-	be two causally admissible reduction sequences that both terminate in a normal
-	form (i.e.\ a tree with no redexes). Then:
-	\begin{enumerate}
-		\item The normal forms coincide: $T_m \equiv T'_n$.
-		\item The two sequences differ, if at all, only by permutations of
-			reductions at redexes that are pairwise incomparable under $\preceq$
-			(i.e.\ reductions occurring in disjoint causal subtrees).
-	\end{enumerate}
+	In particular, disjoint reductions form a commuting diamond as in
+	Figure~\ref{fig:disjoint-subtrees}.
 \end{lemma}
 
 \begin{proof}[Proof Sketch]
-	The first claim is a standard confluence argument: the underlying rewrite
-	system (e.g.\ $\beta$-reduction or SKI contraction) is known to be confluent
-on well-formed terms \cite{CurryFeys1958,barendregt84}. Since we never leave
-	the Catalan family, the usual diamond property implies uniqueness of normal
-	forms.
-
-	For the second claim, note that two redexes at positions $p$ and $q$ are
-	causally independent if neither $p \prec q$ nor $q \prec p$ holds, i.e.\ they
-	lie in disjoint subtrees. Contracting such redexes in either order yields the
-	same result, by locality of the rewrite rules. Causally admissible sequences
-	always contract redexes that are minimal in the causal order, so any
-	difference between two such sequences can only be due to different
-	interleavings of contractions at pairwise incomparable positions. This is the
-	usual ``causal consistency'' property familiar from event structures and
-	partial-order semantics of concurrency: linearizations of the same partial
-	order differ only by permuting independent events. Here the partial order is
-	given by the causal preorder on redex positions, and the corresponding linear
-	extensions are precisely the causally admissible evaluation histories.
+	Since $p$ and $q$ lie in disjoint subtrees, contracting at $p$ rewrites only
+	the subtree rooted at $p$ and leaves the subtree rooted at $q$ unchanged. Thus
+	the redex at $q$ is unaffected (and remains at the same position), so it may
+	still be contracted in $T_p$. Symmetrically, contracting at $q$ leaves the
+	subtree at $p$ unchanged. Because the two rewrite steps act on disjoint parts
+	of the tree, performing both contractions yields the same result regardless of
+	order.
 \end{proof}
 
 
