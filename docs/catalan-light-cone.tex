@@ -2082,101 +2082,10 @@ constrains redex selection more tightly.
 	normalizing on $T_0$. Thus $\mathcal{S}$ may be seen as a projection that
 	forgets the fine-grained causal structure of independent collapses while
 	preserving the global reduction behaviour.
-\end{proof}
+	\end{proof}
 
-\begin{corollary}[Universality of Structural Symbol Embedding]
-	\label{cor:structural-universality}
-	Let $\Sigma$ be any countable alphabet (finite or infinite), and let $\mathcal{L}(\Sigma)$ be the set
-	of all well-formed symbolic expressions over~$\Sigma$ with arbitrary syntactic
-	structure. Then there exists an injective map
-	\[
-		E : \mathcal{L}(\Sigma) \hookrightarrow \mathcal{C},
-	\]
-	where $\mathcal{C}$ is the Catalan family of full binary trees, such that
-	distinct symbols in $\Sigma$ correspond to pairwise non-isomorphic Catalan
-	motifs, and syntactic composition in $\mathcal{L}(\Sigma)$ corresponds to tree
-	composition in $\mathcal{C}$.
-
-	In particular, any symbolic system (including alphabets, identifiers, typed
-	terms, or abstract syntax trees) can be encoded as a system of
-	\emph{structural symbols} embedded within the Catalan substrate. Thus the
-	Catalan universe is universal for symbolic representation, with atoms
-	appearing only as designated structural shapes.
-\end{corollary}
-
-\begin{proof}[Proof Sketch]
-	Enumerate $\Sigma = \{s_1, s_2, \dots\}$ and assign to each $s_i$ a distinct
-	Catalan tree~$S_i$ not isomorphic to any previously assigned motif. Define
-	$E(s_i) = S_i$. Extend $E$ compositionally: if a symbolic expression is built
-	by forming a tree or sequence of symbols, map the compositional operation to
-	the corresponding binary-tree constructor in~$\mathcal{C}$. Injectivity
-	follows from injectivity on generators and the fact that full binary trees are
-	freely generated; well-formedness follows from closure of~$\mathcal{C}$ under
-	cons-pairing. Since $\mathcal{L}(\Sigma)$ is countable, such an embedding
-	exists for any countable symbolic system.
-\end{proof}
-
-\section{Interpretive Appendix: Void, Potential, and Recursive Actualization}
-\label{app:interpretive}
-
-This appendix records an interpretive perspective that motivates the formal
-development. It is not required for the results of the main text.
-
-\subsection{Void and first differentiation}
-Let \texttt{()} denote the null structure: a state with no internal distinction
-and no recursive content. Two minimally nontrivial tier-1 differentiations are
-\[
-  (()) \quad\text{and}\quad ()().
-\]
-They are the same ``event'' viewed in two complementary coordinates:
-\begin{itemize}
-  \item \textbf{depth-first (timelike) view:} \texttt{(())} is the first
-  nontrivial nesting, emphasizing commitment (depth);
-  \item \textbf{breadth-first (spacelike) view:} \texttt{()()} is the first
-  nontrivial separation, emphasizing multiplicity (breadth).
-\end{itemize}
-This is the smallest place where the $(t,r)$ picture begins to have content: a
-single step of ``time'' already admits a choice of ``space'' organization.
-
-\subsection{Possibility space from recursive expansion}
-Iterating the pairing rule generates the full Catalan family. Each construction
-step introduces new admissible extensions while preserving all previous
-structural commitments. The resulting set of Dyck paths may be read as a space
-of mutually compatible but not jointly realizable futures.
-
-\subsection{Temporal interpretation}
-The recursive construction index naturally induces an ordering. Each step
-corresponds to the introduction of new structure relative to what has already
-been fixed. At each stage, two complementary processes are present:
-\begin{itemize}
-  \item \textbf{expansion,} in which new admissible configurations are introduced;
-  \item \textbf{return of potential (collapse),} in which incompatible
-  possibilities are locally excluded by committing to one branch consistent with
-  prior structure.
-\end{itemize}
-Combinatorially, the number of admissible possibilities grows rapidly with tier
-(Catalan $\sim 4^t/t^{3/2}$), so ``possibilities outpace collapses'' in the sense
-that each new tier introduces many more admissible futures than can be realized
-along any single history.
-
-\subsection{Emergent spacetime properties}
-The causal and geometric features described in the main text arise directly
-from recursive constraint: depth tracks accumulated structural commitment, while
-breadth tracks contemporaneous branching. Bounds on breadth as a function of tier
-yield a sharp envelope. Under scaling limits, Dyck-conditioned growth supports
-diffusion and wave propagation.
-
-\subsection{Interpretive status}
-Nothing in this appendix asserts a physical identity between recursive pairing
-and any particular physical process. The central formal result remains
-unchanged: a single recursive constraint suffices to generate a structured
-possibility space exhibiting causal order, wave limits, and computational
-universality. The interpretive perspective suggests how these features may be
-read as aspects of a unified underlying process, but the validity of the formal
-results does not depend on that reading.
-
-\bibliographystyle{plain}
-\begin{thebibliography}{99}
+	\bibliographystyle{plain}
+	\begin{thebibliography}{99}
 
 	\bibitem{addario-berry13}
 	L.~Addario-Berry, L.~Devroye, and S.~Janson.
