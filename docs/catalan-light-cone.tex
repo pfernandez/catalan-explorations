@@ -2,7 +2,7 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{mathtools}
 \usepackage{geometry}
-\usepackage{hyperref}
+\usepackage[hypertexnames=false]{hyperref}
 \usepackage{enumitem}
 \usepackage{tikz}
 \usepackage{float}
@@ -107,13 +107,13 @@ Taken together, these results show that spacetime-like causal structure,
 quantum wave dynamics, and computation can be viewed as complementary
 manifestations of a single recursive substrate.
 
-The exposition proceeds as follows. Section~\ref{sec:catalan_cone} establishes
-the discrete causal geometry of the Catalan lattice and its interpretation as a
-light cone. Subsequent sections place amplitude propagation and computation on
-this structure, analyze continuum limits, and discuss collapse, locality, and
-interaction. Interpretive considerations concerning origin, vacuum structure,
-and time are collected in a clearly labeled appendix, separate from the formal
-claims.
+	The exposition proceeds as follows. Section~\ref{sec:catalan_cone} establishes
+	the discrete causal geometry of the Catalan lattice and its interpretation as a
+	light cone. Subsequent sections place amplitude propagation and computation on
+	this structure, analyze continuum limits, and discuss collapse, locality, and
+	interaction. Optional coordinate embeddings, technical notes, and illustrative
+	examples are collected in appendices, separate from the main formal
+	development.
 
 \section{The Catalan Light Cone as a Discrete Causal Geometry}
 \label{sec:catalan_cone}
@@ -247,7 +247,7 @@ and $d(\ell)$ denotes the depth of $\ell\in L$ (root at depth $0$), then
 \]
 Equivalently, the leaf depths form a complete binary prefix code. This gives a
 global constraint on allowable depth profiles beyond the crude level bound
-$r(w)\le 2^{h(w)}$.
+$r(w)\le 2^{h(w)}$; see \cite{cover-thomas}.
 \end{remark}
 
 \begin{figure}[h]
@@ -1476,7 +1476,7 @@ Interference arises precisely because histories originating from distinct cones
 may be rendered indistinguishable by the observable. If the observable were to
 retain source information, no interference would occur.
 
-\subsection{Enumeration of histories at $n=3$}
+\subsection{Enumeration of histories at \texorpdfstring{$n=3$}{n=3}}
 
 At semilength $n=3$, the set $\mathcal D_3$ consists of the five Dyck words
 \[
