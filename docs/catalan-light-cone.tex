@@ -460,15 +460,28 @@ programs is an encoding of symbols at leaves.
 \paragraph{Catalan shapes as program frames.}
 
 The Catalan family---Dyck paths, full binary trees, and balanced-parenthesis
-expressions---forms the free magma on a single binary constructor. As observed
-in foundational work on the $\lambda$-calculus and combinatory logic
-\cite{CurryFeys1958,barendregt84}, every computable program has a canonical
+expressions---forms the free magma on a single binary constructor: it is the
+space of all finite binary application frames. As observed in classical
+treatments of the $\lambda$-calculus and combinatory logic
+\cite{CurryFeys1958,barendregt84}, application is binary, so every SKI term (and
+every $\lambda$-term after fixing a binding convention) has a canonical
 representation as a finite binary application tree: internal nodes encode
-application; leaves encode atomic symbols or combinators. Conversely, any finite
-binary tree equipped with leaf labels denotes a unique program modulo surface
-syntax. Thus the infinite Catalan tree is not merely a combinatorial object but
-the structural possibility space of all programs expressible in any
-Turing-complete functional calculus.
+application; leaves encode atomic symbols (variables, constants, or combinators).
+Conversely, any finite binary tree equipped with leaf labels denotes a unique
+applicative term over that alphabet, modulo surface syntax. Since SKI is
+computationally universal, this yields an explicit embedding of all computable
+programs (as terms) within the Catalan substrate. The apparent choice of leaf
+alphabet can itself be internalized by representing symbols as distinguished
+Catalan motifs (Remark~\ref{rem:symbol-motifs}).
+
+\begin{remark}[Symbols as Distinguished Motifs]
+\label{rem:symbol-motifs}
+Although we sometimes describe leaf labels as an external choice, one may work
+in a purely structural setting: there is an injective encoding of labeled
+application trees (and in particular SKI terms) into unlabeled Catalan trees by
+tagging constructor nodes and representing each symbol by a fixed subtree motif.
+See Lemma~\ref{lem:symbol-motifs} in Appendix~\ref{appendix:computational-foundations}.
+\end{remark}
 
 This observation also extends to operational semantics. Standard reductions
 (such as $\beta$-reduction or SKI contraction) are local rewrite rules on binary
@@ -623,10 +636,11 @@ displaying, for the \emph{same} five Catalan shapes, the corresponding pairs
 
 \subsection{Connection to \texorpdfstring{$\lambda$}{lambda}-calculus and SKI}
 
-Binary trees are a standard representation of $\lambda$-terms and SKI
-combinators \cite{church33,CurryFeys1958,barendregt84}. Variables may be represented
-by leaf positions, abstraction by structural capture, and application by tree
-composition. Under the pairs expansion, each Dyck tree canonically determines an
+Full binary trees are a standard representation of SKI terms, and they capture
+the application skeleton of $\lambda$-terms \cite{church33,CurryFeys1958,barendregt84}.
+A full $\lambda$-encoding requires a binding convention (e.g.\ variables as leaf
+labels or positions, and abstraction as a structural marker), while application
+is encoded by the tree's binary node. Under the pairs expansion, each Dyck tree canonically determines an
 unlabeled application graph. When variables are suppressed, the resulting graphs
 coincide with the structure graphs used in combinatory logic. No additional
 primitives beyond recursive pairing are required to obtain this representation.
@@ -634,8 +648,9 @@ primitives beyond recursive pairing are required to obtain this representation.
 Choosing a finite set of tree patterns to represent the SKI combinators and
 interpreting local tree rewrites as SKI reduction therefore equips the Catalan
 substrate with a standard universal calculus: every partial recursive function
-can be encoded as an SKI term, and hence by a finite Dyck tree, and every
-computation corresponds to a sequence of local tree transformations. In this
+can be encoded as an SKI term \cite{CurryFeys1958,barendregt84}, and hence by a
+finite Dyck tree, and every computation corresponds to a sequence of local tree
+transformations. In this
 sense, the Catalan substrate is \emph{computationally universal}. What is new
 here is that the same underlying objects simultaneously carry a causal and
 geometric interpretation.
@@ -670,7 +685,7 @@ The key inputs are (i) a coarse-graining/observable $f$ identifying which
 histories are regarded as the same outcome, and (ii) a choice of additive phase
 functional on histories. Given these, we define amplitudes by coherent summation
 over preimages and probabilities by normalized squared magnitudes, in analogy
-with the Born rule.
+with the Born rule \cite{feynman-hibbs65}.
 
 \subsection{Histories as paths}
 
@@ -756,7 +771,8 @@ for coarse-grainings and collapse counts.
 Dyck paths are random walks conditioned to remain nonnegative and return to
 zero. Classical results show that, when rescaled appropriately, ensembles of
 such paths converge to Brownian excursions \cite{le-gall05,janson07}.
-Assigning equal weight to all admissible paths yields a discrete path integral.
+Assigning equal weight to all admissible paths yields a discrete analogue of a
+path integral \cite{feynman-hibbs65}.
 More general amplitude assignments may depend on local features such as height
 or curvature, provided the Dyck constraint is preserved.
 
@@ -813,11 +829,12 @@ an observable outcome $x\in\mathcal X$ is then
 \]
 
 
-This expression is formally identical to a path integral: the amplitude is a sum
-over all admissible histories compatible with the observable outcome, with each
-history contributing a phase determined by an additive functional. No continuum
-limit, action functional, or variational principle is assumed at this stage; the
-structure arises purely from discrete combinatorics.
+This expression is formally analogous to a path integral \cite{feynman-hibbs65}:
+the amplitude is a sum over all admissible histories compatible with the
+observable outcome, with each history contributing a phase determined by an
+additive functional. No continuum limit, action functional, or variational
+principle is assumed at this stage; the structure arises purely from discrete
+combinatorics.
 
 Several features commonly associated with continuum path integrals are already
 present:
@@ -899,9 +916,9 @@ This makes explicit that the discrete coherent sum with additive functional
 $A(w)$ converges to a continuum functional weight. In particular, when one
 passes from uniform counting of conditioned walks to diffusion limits, inserting
 the exponential of a time-integrated functional corresponds (at the PDE level)
-to adding a potential term (via the standard Feynman--Kac mechanism). Setting
-$\lambda=0$ recovers the unweighted scaling limit discussed in the next
-subsection.
+to adding a potential term (via the standard Feynman--Kac mechanism
+\cite{kac49}). Setting $\lambda=0$ recovers the unweighted scaling limit
+discussed in the next subsection.
 
 \subsection{Diffusion limit}
 \label{sec:continuum-limit}
@@ -990,15 +1007,15 @@ nontrivial branching structure of the multiway reduction graph.
     \draw[->] (Ta) -- node[left]        {$b$} (Tab);
     \draw[->] (Tb) -- node[right]       {$a$} (Tab);
   \end{tikzpicture}
-  \caption{Local diamond for commuting disjoint updates. Starting from a
-  common state $T$, two spacelike-separated reductions $a$ and $b$ can be
-  applied in either order, yielding intermediate states $T_a$ and $T_b$
-  but the same final state $T_{ab}=T_{ba}$. The two intermediate events
-  are spacelike-separated: they share a common past ($T$) and a common
-	  future ($T_{ab}$) but no causal edge between them. This expresses
-	  microcausality on the Catalan substrate: local updates supported on
-	  disjoint subtrees commute and differ only by temporal ordering.}
-	  \label{fig:disjoint-subtrees}
+  \caption{Local diamond for commuting disjoint updates. Starting from a common
+  state $T$, two spacelike-separated reductions $a$ and $b$ can be applied in
+  either order, yielding intermediate states $T_a$ and $T_b$ but the same final
+  state $T_{ab}=T_{ba}$. The two intermediate events are spacelike-separated:
+  they share a common past ($T$) and a common future ($T_{ab}$) but no causal edge
+  between them. This expresses a microcausality analogue on the Catalan substrate:
+  local updates supported on disjoint subtrees commute and differ only by temporal
+  ordering.}
+  \label{fig:disjoint-subtrees}
 \end{figure}
 
 (See Appendix~\ref{appendix:computational-foundations}, and in particular
@@ -1427,10 +1444,28 @@ main text, including Proposition~\ref{prop:catalan-programs} and the
 disjoint-commutation property of Lemma~\ref{lem:causal-consistency}. For a lean
 v1, extended examples and additional formal development are omitted.
 
+\begin{lemma}[Internalizing Symbols as Motifs]
+\label{lem:symbol-motifs}
+Let $\Sigma$ be a finite (or countable) alphabet of atomic symbols, and consider
+finite applicative terms over $\Sigma$ (binary application with atoms). There
+is an injective encoding of such labeled application trees into the Catalan
+family $\mathcal{C}$ of unlabeled full binary trees. One explicit construction
+fixes two distinct tag trees $A,B\in\mathcal{C}$, assigns each
+$\sigma\in\Sigma$ a distinct motif $S_\sigma\in\mathcal{C}\setminus\{A,B\}$, and
+defines
+\[
+	E(\sigma)\;:=\;\bullet(A,S_\sigma),\qquad
+	E(t\cdot u)\;:=\;\bullet\bigl(B,\bullet(E(t),E(u))\bigr),
+\]
+where $t\cdot u$ denotes application and $\bullet(\,\cdot\,,\,\cdot\,)$ denotes
+binary pairing of subtrees. The left tag distinguishes atoms from applications,
+so $E$ is recursively decodable and therefore injective.
+\end{lemma}
+
 
 \begin{proof}[Proof Sketch (of Proposition~\ref{prop:catalan-programs})]
-		As described in classical treatments of combinatory logic and the
-		$\lambda$-calculus \cite{CurryFeys1958,barendregt84}, application is a
+			As described in classical treatments of combinatory logic and the
+			$\lambda$-calculus \cite{CurryFeys1958,barendregt84}, application is a
 		binary operation, and every term therefore possesses a unique representation
 		as a full binary tree: internal nodes encode application, and leaves encode
 	variables, constants, or combinators.  This establishes a canonical embedding
