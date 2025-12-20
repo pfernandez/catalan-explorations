@@ -940,6 +940,9 @@ on $x>0$ one has a heat equation of the form
 \end{equation}
 
 See \cite{le-gall05,janson07} for standard derivations and precise statements.
+Appendix~\ref{appendix:coordinate-charts}, Section~\ref{subsec:projection-correlation}
+records a complementary view of the same limit through the covariance structure of
+the height observable and its Karhunen--Lo\`eve modes.
 
 \subsection{Schr\"odinger equation}
 
@@ -950,6 +953,18 @@ complex-valued kernel $\psi(t,x)$ satisfying the free Schr\"odinger equation
 \begin{equation}
 	i\partial_t \psi = -\frac{1}{2}\,\partial_x^2 \psi.
 \end{equation}
+
+\paragraph{Mode-wise phase.}
+Appendix~\ref{appendix:coordinate-charts}, Section~\ref{subsec:projection-correlation}
+shows that, after projecting Dyck histories to the height observable, the resulting
+signals admit a canonical eigenmode decomposition (Karhunen--Lo\`eve modes) of their
+correlation structure. In the continuum limit, the heat equation is diagonalized by
+the spectral decomposition of the half-line Laplacian (sine/cosine modes depending
+on boundary conditions), so each mode evolves by a real decay factor
+$e^{-k^{2}\tau/2}$. Under $\tau\mapsto it$ these become pure phases
+$e^{-ik^{2}t/2}$. In this sense, analytic continuation replaces diffusive decay by
+unit-modulus phase rotation of modal coefficients, making coherent cancellation and
+reinforcement stable under time evolution.
 
 Boundary conditions at $x=0$ are carried over from the diffusive regime (e.g.\
 reflecting or absorbing), and the choice of boundary does not affect the
@@ -1280,6 +1295,96 @@ setting, Equation~\eqref{eq:tau-discrete} is simply a well-defined event-count
 parameter; the analogy is that collapse count plays the role of a proper-time
 progress variable along a chosen computational history.
 
+\subsection{Projection to Height Dynamics and Correlation Structure}
+\label{subsec:projection-correlation}
+
+Let $\mathcal{C}$ denote the set of Dyck prefixes, i.e.\ finite words in
+$\{(,)\}$ whose height never falls below zero. Each prefix
+$p \in \mathcal{C}$ has an associated height
+$h(p) \in \mathbb Z_{\ge 0}$ given by the net excess of opening over closing
+parentheses. Completed Dyck words of semilength $n$ form the subset
+$\mathcal D_n \subset \mathcal{C}$ of prefixes of length $2n$ with
+$h=0$.
+
+The Catalan growth rule specifies admissible extensions: from a prefix $p$,
+one may append ``$(\,$'' unconditionally, or ``$)\,$'' provided $h(p)>0$.
+To describe this probabilistically, it is convenient to separate the base
+process from the Dyck-conditioned ensemble.
+
+\paragraph{Base height process.}
+Let $(H_t)_{t\ge0}$ be a simple symmetric random walk on $\mathbb Z$ with
+increments $\pm1$. This walk is time-homogeneous and Markov. Its sample paths
+may be viewed as unconstrained height sequences, without regard to the Dyck
+condition.
+
+\paragraph{Dyck conditioning.}
+The Dyck ensemble of length $T=2n$ is obtained by conditioning the base walk on
+the event
+\[
+\{ H_t \ge 0 \text{ for all } t \le T,\; H_T = 0 \}.
+\]
+Under this conditioning, the law of $(H_t)_{t=0}^T$ is uniform on Dyck paths of
+semilength $n$. Equivalently, the conditioned process may be represented via a
+Doob $h$-transform (or bridge kernel) of the base walk. In this representation,
+the height process remains Markov but becomes time-inhomogeneous due to the
+global conditioning. Each completed Dyck word
+$p \in \mathcal D_n$ corresponds uniquely to a sample path
+\[
+(h_0,h_1,\dots,h_T), \qquad h_0=h_T=0,\; h_t\ge0,
+\]
+drawn from this conditioned law.
+
+\paragraph{Correlation structure.}
+Consider the ensemble of height paths of fixed length $T$, distributed
+according to the Dyck-conditioned law. Define the mean and covariance functions
+\[
+\mu_t := \mathbb E[H_t], \qquad
+C(s,t) := \mathbb E\!\left[(H_s-\mu_s)(H_t-\mu_t)\right],
+\qquad 0\le s,t\le T .
+\]
+The covariance kernel $C$ is a symmetric positive operator on the finite-dimensional
+space $\mathbb R^{T+1}$ and captures the second-order temporal structure induced
+by the Dyck constraint. It admits an eigen-decomposition
+\[
+\sum_{t=0}^{T} C(s,t)\,v^{(k)}_t = \lambda_k\, v^{(k)}_s ,
+\]
+yielding an orthogonal family of temporal modes. Any centered height profile
+admits the expansion
+\[
+H_t-\mu_t = \sum_k \xi_k\, v^{(k)}_t ,
+\qquad \mathbb E[\xi_k\xi_\ell]=\lambda_k\,\delta_{k\ell}.
+\]
+In this precise sense, the eigenvalues $\lambda_k$ constitute the spectrum of
+temporal correlations induced by the Dyck-conditioned dynamics, and the
+associated eigenvectors provide a canonical modal decomposition
+(Karhunen--Lo\`eve expansion) of Dyck height signals.
+
+\paragraph{Scaling limit.}
+Under diffusive scaling, the base random walk converges to Brownian motion on
+$\mathbb R$. The Dyck-conditioned law converges to Brownian excursion, which may
+be described equivalently as Brownian motion conditioned to remain nonnegative
+and return to zero, or via a Doob transform / Bessel-bridge representation
+\cite{takacs1991,pitman1999}. The resulting continuum evolution is governed by a
+second-order differential operator on $\mathbb R_{\ge0}$ whose drift and boundary
+behavior encode the conditioning. In related unconditioned or bridge settings,
+the associated covariance eigenfunctions are explicitly sinusoidal; for the
+excursion case, the exact eigenstructure is more subtle, though the dominant
+modes often resemble sine-like functions away from boundaries.
+
+Thus, the appearance of modal structure follows directly from the projection of
+Catalan growth dynamics to the height observable and the standard spectral
+analysis of the resulting correlation kernel, without the introduction of
+additional physical assumptions.
+
+\begin{remark}[Self-similarity and reference frames]
+The Dyck prefix structure is recursively self-similar: every prefix is itself
+the root of a complete Catalan subtree. Consequently, distinctions such as
+parent and child, past and future, or global and local history are not
+intrinsic to the substrate but arise only after fixing a reference root, which
+induces a causal orientation. The projected height dynamics, their conditioning,
+and their scaling limits are invariant under such re-rootings.
+\end{remark}
+
 \section{Additional Technical Notes}
 \label{appendix:technical-notes}
 
@@ -1577,19 +1682,29 @@ so $E$ is recursively decodable and therefore injective.
 
 		\bibitem{orus14}
 		R.~Or\'us.
-		\newblock A practical introduction to tensor networks: Matrix product states and
-		projected entangled pair states.
-		\newblock {\em Annals of Physics}, 349:117--158, 2014.
+			\newblock A practical introduction to tensor networks: Matrix product states and
+			projected entangled pair states.
+			\newblock {\em Annals of Physics}, 349:117--158, 2014.
 
-	\bibitem{rovelli04}
-	C.~Rovelli.
-	\newblock {\em Quantum Gravity}.
-	\newblock Cambridge University Press, 2004.
+		\bibitem{pitman1999}
+		J.~Pitman.
+		\newblock Brownian motion, bridge, excursion, and meander revisited.
+		\newblock {\em Electronic Journal of Probability}, 4:1--32, 1999.
 
-		\bibitem{stanley-catalan}
-		R.~P. Stanley.
-		\newblock {\em Catalan Numbers}.
-		\newblock Cambridge University Press, 2015.
+		\bibitem{rovelli04}
+		C.~Rovelli.
+		\newblock {\em Quantum Gravity}.
+		\newblock Cambridge University Press, 2004.
 
-\end{thebibliography}
+			\bibitem{stanley-catalan}
+			R.~P. Stanley.
+			\newblock {\em Catalan Numbers}.
+			\newblock Cambridge University Press, 2015.
+
+		\bibitem{takacs1991}
+		L.~Tak{\'a}cs.
+		\newblock A {B}ernoulli excursion and its various applications.
+		\newblock {\em Advances in Applied Probability}, 23(3):557--585, 1991.
+
+	\end{thebibliography}
 \end{document}
