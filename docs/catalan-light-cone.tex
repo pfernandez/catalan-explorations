@@ -921,7 +921,9 @@ formal development.
 For readers seeking a concrete intuition for how this discrete
 sum-over-histories mechanism produces interference,
 Appendix~\ref{appendix:doubleslit} sketches a finite thought experiment
-analogous to the double-slit experiment.
+analogous to the double-slit experiment. The worked example also makes
+explicit that coherent phase-weighted summation can shift $|\Psi(x)|^2$
+substantially away from the raw multiplicities $N(x)$, even at finite tier.
 
 \subsection{Scaling of the area phase in the continuum limit}
 \label{subsec:phase-scaling}
@@ -1462,6 +1464,15 @@ The information eliminated by selecting outcome $x$ is the entropy drop
 \]
 (Any logarithm base may be used; base $2$ yields units of bits.)
 
+\begin{remark}[Retrospective vs.\ prospective counts]
+The multiplicity entropy $S(x)=\log N(x)$ measures how many fine-grained
+histories are identified as the same outcome at tier $n$. A complementary
+forward-looking quantity is the number of admissible continuations of a
+realized prefix into higher tiers (the size of its local cone; see
+Section~\ref{sec:multiplecones}), which may be studied by analogous counting of
+completions.
+\end{remark}
+
 \paragraph{Information rate as rate of possibility reduction.}
 Let $m$ denote the number of selection events (local contractions) along a
 history, and let computational proper time be $\tau=\tau_0 m$ for a fixed scale
@@ -1472,6 +1483,9 @@ R(x)\;:=\;\frac{\Delta S(x)}{\tau}.
 \]
 In the simplest case of a single event ($m=1$), this reduces to
 $R(x)=\Delta S(x)/\tau_0$.
+One may also adopt a coarser tier-wise selection model in which $m$ is
+identified with the tier index $n$ (one selection per tier boundary), but we
+keep these notions separate in general.
 
 \paragraph{Gauge-invariant counting.}
 When histories admit a redundancy under commuting spacelike-separated updates,
@@ -1495,6 +1509,9 @@ exhibits interference in a setting analogous to the double-slit experiment.
 The construction is entirely combinatorial and finite. No new assumptions,
 dynamical rules, or continuum limits are introduced; the purpose is solely to
 instantiate the formalism in a familiar narrative.
+Throughout, we take the phase functional to be the Dyck area $A(w)$ introduced
+in Section~\ref{sec:amplitudes}, i.e.\ $\psi(w)=e^{i\alpha A(w)}$ (a special
+case of Proposition~\ref{prop:phase-classification}).
 
 \subsection{Two sources as boundary-conditioned cones}
 
