@@ -2284,6 +2284,24 @@ In particular, the conditional drift is
 \]
 \end{remark}
 
+\begin{remark}[Doob transform and completion weighting]
+\label{rem:dyck-conditioned-kernel-doob}
+Let $P$ be the simple random-walk kernel on $\mathbb Z_{\ge 0}$ with a forbidden
+down-step at $0$ (equivalently, the walk killed upon hitting $-1$). Writing again
+$r:=T-t$, the function $h_r(h):=B(r,h)$ is the number of admissible completions
+from height $h$ in $r$ remaining steps and satisfies the backward recursion of
+Lemma~\ref{lem:ballot-recurrence}. The conditioned chain in
+Lemma~\ref{lem:dyck-conditioned-kernel} is exactly the time-inhomogeneous Doob
+$h$-transform of $P$ with $h_r$:
+\[
+\mathbb P(H_{t+1}=h\pm 1 \mid H_t=h,\; \mathcal{E})
+= P(h,h\pm 1)\,\frac{h_{r-1}(h\pm 1)}{h_r(h)}
+= \frac{B(r-1,h\pm 1)}{B(r,h)},
+\]
+so the next step is chosen with probability proportional to the number of
+admissible futures after taking that step.
+\end{remark}
+
 \begin{proof}[Proof sketch]
 Because the base walk is simple symmetric, all length-$T$ paths have equal
 probability $2^{-T}$, so conditioning yields the uniform distribution on
