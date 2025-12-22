@@ -417,9 +417,9 @@ as the unique consistent measure under Gleason/Dutch-book–style assumptions (t
 **Paper:** `docs/catalan-light-cone.tex` (height-projection covariance + Karhunen--Lo\`eve modes; mode-wise phase discussion in Schr\"odinger subsection). Shift-operator/Fourier-basis and tree-Laplacian programs remain here.
 
 The paper now also records explicit ballot-number formulas for the nonnegative
-bridge counts $B(r;a\!\to\!b)$ and hence for the height mean and two-time covariance
-via the Catalan-triangle factorization (so the correlation kernel is not just
-abstractly defined; it is explicitly computable).
+bridge counts $B(r;a\!\to\!b)$, the Dyck-conditioned one-step kernel, and hence
+for the height mean and two-time covariance via the Catalan-triangle factorization
+(so the correlation kernel is not just abstractly defined; it is explicitly computable).
 
 This dossier collects ways to treat the Catalan tiers as a state space for dynamics, and how continuum PDEs emerge.
 

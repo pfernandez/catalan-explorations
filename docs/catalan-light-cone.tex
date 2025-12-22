@@ -2266,6 +2266,24 @@ $h=0$). Moreover, $B(r,h)$ is given explicitly by the ballot-number formula of
 Lemma~\ref{lem:ballot-completions} (taking $r$ as the remaining step budget).
 \end{lemma}
 
+\begin{remark}[Closed form]
+\label{rem:dyck-conditioned-kernel-closed}
+Writing $r:=T-t$ and assuming $B(r,h)>0$, Lemma~\ref{lem:ballot-completions}
+gives the explicit probabilities
+\[
+\mathbb P(H_{t+1}=h+1 \mid H_t=h,\; \mathcal{E})
+=\frac{(h+2)(r-h)}{2r(h+1)},
+\qquad
+\mathbb P(H_{t+1}=h-1 \mid H_t=h,\; \mathcal{E})
+=\frac{h(r+h+2)}{2r(h+1)}.
+\]
+In particular, the conditional drift is
+\[
+\mathbb E[H_{t+1}-H_t \mid H_t=h,\; \mathcal{E}]
+=\frac{r-h(h+2)}{r(h+1)}.
+\]
+\end{remark}
+
 \begin{proof}[Proof sketch]
 Because the base walk is simple symmetric, all length-$T$ paths have equal
 probability $2^{-T}$, so conditioning yields the uniform distribution on
