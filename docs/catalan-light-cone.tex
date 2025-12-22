@@ -2336,6 +2336,33 @@ In particular, the conditional drift is
 \]
 \end{remark}
 
+\begin{remark}[Drift scaling and the Bessel-bridge limit]
+\label{rem:dyck-conditioned-drift-scaling}
+Fix semilength $n$ so that $T=2n$. Consider the rescaled time parameter
+$\tau:=t/n\in[0,2]$ and the rescaled height $X^{(n)}(\tau):=n^{-1/2}H_{\lfloor n\tau\rfloor}$.
+If $H_t$ is of order $\sqrt{n}$, write $h=\lfloor \sqrt{n}\,x\rfloor$ and note that
+$r=T-t\approx n(2-\tau)$. Substituting into the exact drift formula in
+Remark~\ref{rem:dyck-conditioned-kernel-closed} gives the formal approximation
+\[
+\mathbb E\!\left[X^{(n)}\!\left(\tau+\tfrac1n\right)-X^{(n)}(\tau)\mid X^{(n)}(\tau)\approx x,\ \mathcal E\right]
+\approx \frac{1}{n}\left(\frac{1}{x}-\frac{x}{2-\tau}\right),
+\]
+exhibiting a repulsive term $1/x$ from the hard wall at $0$ together with an
+attractive term $-x/(2-\tau)$ enforcing return to $0$ at time horizon $2$.
+This matches the time-inhomogeneous drift of the $3$-dimensional Bessel bridge
+representation of Brownian excursion \cite{pitman1999,takacs1991}.
+\par
+More explicitly, a $3$-dimensional Bessel bridge $(X_\tau)_{0\le \tau <2}$ from
+$0$ to $0$ over time horizon $2$ solves the SDE
+\[
+\mathrm{d}X_\tau
+= \mathrm{d}B_\tau
+\;+\;\left(\frac{1}{X_\tau}-\frac{X_\tau}{2-\tau}\right)\mathrm{d}\tau,
+\]
+where the singular drift $1/X_\tau$ encodes conditioning to stay nonnegative and
+the term $-X_\tau/(2-\tau)$ encodes the bridge-to-$0$ constraint.
+\end{remark}
+
 \begin{remark}[Doob transform and completion weighting]
 \label{rem:dyck-conditioned-kernel-doob}
 Let $P$ be the simple random-walk kernel on $\mathbb Z_{\ge 0}$ with a forbidden
@@ -2511,7 +2538,8 @@ Under diffusive scaling, the base random walk converges to Brownian motion on
 $\mathbb R$. The Dyck-conditioned law converges to Brownian excursion, which may
 be described equivalently as Brownian motion conditioned to remain nonnegative
 and return to zero, or via a Doob transform / Bessel-bridge representation
-\cite{takacs1991,pitman1999}. The resulting continuum evolution is governed by a
+\cite{takacs1991,pitman1999} (compare Remark~\ref{rem:dyck-conditioned-drift-scaling}).
+The resulting continuum evolution is governed by a
 second-order differential operator on $\mathbb R_{\ge0}$ whose drift and boundary
 behavior encode the conditioning. In related unconditioned or bridge settings,
 the associated covariance eigenfunctions are explicitly sinusoidal; for the

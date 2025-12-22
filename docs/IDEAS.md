@@ -415,7 +415,7 @@ as the unique consistent measure under Gleason/Dutch-book–style assumptions (t
 
 ### 6) Modes, fields, and continuum limits: spectral view, PDEs, dispersion **[PARTIAL]**
 
-**Paper:** `docs/catalan-light-cone.tex` (height-projection covariance + Karhunen--Lo\`eve modes; mode-wise phase discussion in Schr\"odinger subsection). Shift-operator/Fourier-basis and tree-Laplacian programs remain here.
+**Paper:** `docs/catalan-light-cone.tex` (height-projection covariance + Karhunen--Lo\`eve modes; Dyck-conditioned one-step kernel with explicit drift and its scaling to the Bessel-bridge/Brownian-excursion drift; mode-wise phase discussion in Schr\"odinger subsection). Shift-operator/Fourier-basis and tree-Laplacian programs remain here.
 
 The paper now also records explicit ballot-number formulas for the nonnegative
 bridge counts $B(r;a\!\to\!b)$, the Dyck-conditioned one-step kernel (including its
