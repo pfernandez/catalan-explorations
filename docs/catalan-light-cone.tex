@@ -353,8 +353,38 @@ $\mathcal{C}_h$ denotes the Dyck-prefix tree conditioned to start at height $h$
 height $h$ we have a canonical isomorphism
 
 \[
-	\mathcal{C}(u) \;\cong\; \mathcal{C}_h.
+		\mathcal{C}(u) \;\cong\; \mathcal{C}_h.
 \]
+
+In particular, for fixed remaining length, the number of completions depends
+only on the current height.
+
+\begin{lemma}[Ballot-number completion count]
+\label{lem:ballot-completions}
+Let $u$ be a Dyck prefix of length $k$ with height $h\ge 0$, and fix a target
+semilength $n$ with $2n\ge k$ for which $u$ admits at least one completion
+(equivalently $h\le 2n-k$). Let $r:=2n-k$ be the remaining number of steps. Then
+the number of Dyck words $w\in\mathcal D_n$ having prefix $u$ is
+\[
+\#\{w\in\mathcal D_n : u\preceq w\}
+=
+\binom{r}{\frac{r-h}{2}}-\binom{r}{\frac{r-h}{2}-1}
+=
+\frac{h+1}{\frac{r+h}{2}+1}\binom{r}{\frac{r-h}{2}}.
+\]
+For $h=0$ (i.e.\ $u$ is itself a Dyck prefix rooted at the axis), this reduces
+to the Catalan number $C_{n-k/2}$.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+The completion corresponds to a length-$r$ path of $\pm 1$ steps starting at
+height $h$ and ending at $0$ while staying nonnegative. Writing $r=2m+h$
+(so $m=(r-h)/2$), there are $\binom{r}{m}$ unconstrained sequences with $m$ up
+steps and $m+h$ down steps. By the reflection principle / Bertrand ballot
+theorem, the sequences that ever hit $-1$ are counted by $\binom{r}{m-1}$, so the
+nonnegative ones are $\binom{r}{m}-\binom{r}{m-1}$, which yields the stated
+forms; see \cite{stanley-catalan}.
+\end{proof}
 
 Thus every node of the global Catalan possibility tree is the root of a scaled
 copy of the entire admissible-future structure, with scaling determined solely
@@ -2081,8 +2111,8 @@ The multiplicity entropy $S(x)=\log N(x)$ measures how many fine-grained
 histories are identified as the same outcome at tier $n$. A complementary
 forward-looking quantity is the number of admissible continuations of a
 realized prefix into higher tiers (the size of its local cone; see
-Section~\ref{sec:multiplecones}), which may be studied by analogous counting of
-completions.
+Section~\ref{sec:multiplecones}), which may be studied by counting completions
+as a function of current height (Lemma~\ref{lem:ballot-completions}).
 \end{remark}
 
 \paragraph{Information rate as rate of possibility reduction.}
