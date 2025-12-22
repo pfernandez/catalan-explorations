@@ -262,7 +262,7 @@ Once reentry edges are allowed, the structure is a directed graph, not a planar 
 
 ### 5) Amplitudes: structural action, Born-like measures, and Catalan path integrals **[PARTIAL]**
 
-**Paper:** `docs/catalan-light-cone.tex` (amplitudes from additive phase functionals; coherent summation + squaring; Dyck area scaling and diffusion/Schr\"odinger limits; worked double-slit appendix). Any derivation/uniqueness of a Born rule remains open.
+**Paper:** `docs/catalan-light-cone.tex` (formal Catalan amplitude model definition; amplitudes from additive phase functionals; coherent summation + squaring; Dyck area scaling and diffusion/Schr\"odinger limits; $q$-Catalan/area-refinement remark; worked double-slit appendix). Any derivation/uniqueness of a Born rule remains open.
 
 This dossier collects the “global sum over histories” side: assign actions/amplitudes to Dyck histories (and/or collapse-decorated histories) to recover continuum dynamics and probability rules.
 
@@ -277,6 +277,8 @@ A natural structural action is
 $$S[w]:=\alpha A[w] + \beta h_{\max}(w) + \cdots.$$
 
 Assign amplitudes $\psi(w)\propto \exp(iS[w])$ (or $\exp(-S[w])$) and sum over histories to obtain a discrete path integral. In Brownian-excursion scaling limits, this connects to heat/Schrödinger-like dynamics.
+
+**Note.** The paper now makes this explicit as a self-contained “Catalan amplitude model” definition, and records that area-weighted sums are a specialization of the standard area-refined ($q$-)Catalan generating function.
 
 #### Toward a discrete action on collapse-decorated worldlines (interpretive → speculative) **[IDEA ONLY]**
 

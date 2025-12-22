@@ -2183,6 +2183,39 @@ prefix and suffix yields a Dyck path with $H_t=h$, and this factorization is
 bijective.
 \end{proof}
 
+\begin{definition}[Nonnegative bridge counts]
+\label{def:nonnegative-bridge}
+For $r\ge 0$ and $a,b\in\mathbb Z_{\ge 0}$, write $B(r; a\!\to\! b)$ for the
+number of length-$r$ $\pm 1$ paths that start at height $a$, end at height $b$,
+and remain nonnegative throughout. In particular, the completion counts in
+Lemma~\ref{lem:dyck-conditioned-kernel} are $B(r,h)=B(r;h\!\to\!0)$.
+\end{definition}
+
+\begin{lemma}[Two-time height marginal]
+\label{lem:two-time-height-marginal}
+Let $T=2n$ and consider the uniform measure on Dyck paths of semilength $n$.
+For $0\le s\le t\le T$ and $a,b\ge 0$, the number of Dyck paths with
+$H_s=a$ and $H_t=b$ factors as
+\[
+\#\{w\in\mathcal D_n : H_w(s)=a,\ H_w(t)=b\}
+= B(s;0\!\to\!a)\,B(t-s;a\!\to\!b)\,B(T-t;b\!\to\!0),
+\]
+and hence
+\[
+\mathbb P(H_s=a,\ H_t=b)
+=\frac{B(s;0\!\to\!a)\,B(t-s;a\!\to\!b)\,B(T-t;b\!\to\!0)}{C_n},
+\qquad C_n=B(T;0\!\to\!0).
+\]
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+Split a Dyck path into three segments: from time $0$ to $s$ (height $0\to a$),
+from $s$ to $t$ (height $a\to b$), and from $t$ to $T$ (height $b\to 0$). The
+Dyck constraint implies that each segment stays nonnegative, so concatenation
+gives a bijection between Dyck paths realizing $(H_s,H_t)=(a,b)$ and triples of
+nonnegative segments counted by the product above.
+\end{proof}
+
 \paragraph{Correlation structure.}
 Consider the ensemble of height paths of fixed length $T$, distributed
 according to the Dyck-conditioned law. Define the mean and covariance functions
