@@ -849,13 +849,101 @@ the height profile,
 		\]
 		In particular, any analytic information about the distribution of Dyck area
 		and its generating functions may be transferred directly to these phase-weighted
-		sums \cite{stanley-catalan,janson07}.
+			sums \cite{stanley-catalan,janson07}.
+			\end{remark}
+
+		\begin{definition}[Area-weighted nonnegative bridge kernel]
+		\label{def:area-weighted-bridge}
+		Fix $\alpha\in\mathbb R$. For $r\ge 0$ and $a,b\in\mathbb Z_{\ge 0}$, define
+		$K_\alpha^{(r)}(a,b)$ to be the complex weight-sum over all length-$r$
+		$\pm 1$ paths $(h_0,\dots,h_r)$ such that $h_0=a$, $h_r=b$, $h_t\ge 0$ for all
+		$t$, and $h_{t+1}-h_t\in\{\pm 1\}$, with weight
+		\[
+		\exp\!\Big(i\alpha\sum_{t=0}^{r-1} h_t\Big).
+		\]
+		\end{definition}
+
+		\begin{lemma}[Transfer recursion and composition for the area phase]
+		\label{lem:area-transfer}
+		The kernels $K_\alpha^{(r)}$ satisfy:
+		\begin{enumerate}[label=(\roman*)]
+		\item \textbf{Initial condition:} $K_\alpha^{(0)}(a,b)=\mathbf 1_{\{a=b\}}$.
+		\item \textbf{One-step recursion:} for $r\ge 0$ and $a,b\ge 0$,
+		\[
+		K_\alpha^{(r+1)}(a,b)
+		=
+		e^{i\alpha a}\Big(K_\alpha^{(r)}(a+1,b)+K_\alpha^{(r)}(a-1,b)\Big),
+		\]
+		with the convention $K_\alpha^{(r)}(-1,b)=0$.
+		\item \textbf{Chapman--Kolmogorov (semigroup) property:} for $r,s\ge 0$ and
+		$a,c\ge 0$,
+		\[
+		K_\alpha^{(r+s)}(a,c)=\sum_{b\ge 0} K_\alpha^{(r)}(a,b)\,K_\alpha^{(s)}(b,c).
+		\]
+		\end{enumerate}
+		In particular, the area-phase partition function at tier $n$ is
+		\[
+		Z_n(\alpha):=\sum_{w\in\mathcal D_n} e^{i\alpha A(w)} = K_\alpha^{(2n)}(0,0),
+		\]
+		so $Z_n(0)=C_n$.
+		\end{lemma}
+
+		\begin{proof}[Proof sketch]
+		For (ii), condition on the first step from height $a$ to $a\pm 1$: the first
+		step contributes the factor $e^{i\alpha a}$, and the remaining $r$ steps are
+		counted by $K_\alpha^{(r)}(a\pm 1,b)$. The boundary convention encodes the
+		forbidden down-step at $a=0$.
+
+		For (iii), split a length-$(r+s)$ path at time $r$. The area functional
+		$\sum_{t=0}^{r+s-1} h_t$ is additive under this concatenation, so the weight
+		factors as the product of the two segment weights. Summing over the
+		intermediate height $b=h_r$ yields the stated composition law.
+		\end{proof}
+
+		\begin{lemma}[First-return recursion for the area phase]
+		\label{lem:area-first-return}
+		Let $Z_n(\alpha):=\sum_{w\in\mathcal D_n} e^{i\alpha A(w)}$ as in
+		Lemma~\ref{lem:area-transfer}. Then $Z_0(\alpha)=1$, and for $n\ge 1$,
+		\[
+		Z_n(\alpha)
+		=
+		\sum_{k=0}^{n-1} e^{i\alpha(2k+1)}\,Z_k(\alpha)\,Z_{n-1-k}(\alpha).
+		\]
+		Equivalently, writing $q:=e^{2i\alpha}$ and
+		$C_n(q):=\sum_{w\in\mathcal D_n} q^{\mathrm{area}(w)}$, one has $C_0(q)=1$ and
+		for $n\ge 1$,
+		\[
+		C_n(q)=\sum_{k=0}^{n-1} q^{k}\,C_k(q)\,C_{n-1-k}(q),
+		\]
+		the Carlitz--Riordan recursion for the area-refined Catalan numbers.
+		\end{lemma}
+
+		\begin{proof}[Proof sketch]
+		Every nonempty Dyck word $w\in\mathcal D_n$ admits a unique first-return
+		decomposition
+		\[
+		w=\texttt{(}\,u\,\texttt{)}\,v,
+		\]
+		where $u\in\mathcal D_k$ and $v\in\mathcal D_{n-1-k}$ for a unique
+		$k\in\{0,\dots,n-1\}$. A direct height bookkeeping shows
+		$A(w)=A(u)+A(v)+(2k+1)$, so $e^{i\alpha A(w)}=e^{i\alpha(2k+1)}e^{i\alpha A(u)}e^{i\alpha A(v)}$.
+		Summing over $u$ and $v$ at fixed $k$ yields the stated recursion for $Z_n$.
+		The $q$-form follows from $\mathrm{area}(w)=(A(w)-n)/2$ and the same
+		decomposition; see \cite{stanley-catalan}.
+		\end{proof}
+
+		\begin{remark}[Discrete Feynman--Kac viewpoint]
+		The recursion in Lemma~\ref{lem:area-transfer} is a transfer-matrix
+		formulation for a nearest-neighbour walk with a multiplicative potential
+		term $e^{i\alpha h}$. Under diffusive scaling, this is the discrete analogue
+		of inserting an exponential of a time-integrated potential, as discussed in
+		Section~\ref{subsec:phase-scaling} \cite{kac49}.
 		\end{remark}
 
-	More generally, one may use any \emph{additive} functional on Dyck histories as
-	a phase source, provided it is computable online from prefix-local growth
-	information. The following proposition records the general form of such
-	functionals.
+		More generally, one may use any \emph{additive} functional on Dyck histories as
+		a phase source, provided it is computable online from prefix-local growth
+		information. The following proposition records the general form of such
+		functionals.
 
 	\begin{proposition}[Additive phase functionals computable along Dyck growth]
 	\label{prop:phase-classification}

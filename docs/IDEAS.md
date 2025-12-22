@@ -262,7 +262,7 @@ Once reentry edges are allowed, the structure is a directed graph, not a planar 
 
 ### 5) Amplitudes: structural action, Born-like measures, and Catalan path integrals **[PARTIAL]**
 
-**Paper:** `docs/catalan-light-cone.tex` (formal Catalan amplitude model definition; amplitudes from additive phase functionals; coherent summation + squaring; Dyck area scaling and diffusion/Schr\"odinger limits; $q$-Catalan/area-refinement remark; worked double-slit appendix). Any derivation/uniqueness of a Born rule remains open.
+**Paper:** `docs/catalan-light-cone.tex` (formal Catalan amplitude model definition; amplitudes from additive phase functionals; coherent summation + squaring; Dyck area scaling and diffusion/Schr\"odinger limits; $q$-Catalan/area-refinement remark; transfer-kernel recursion/semigroup property for the area phase; worked double-slit appendix). Any derivation/uniqueness of a Born rule remains open.
 
 This dossier collects the “global sum over histories” side: assign actions/amplitudes to Dyck histories (and/or collapse-decorated histories) to recover continuum dynamics and probability rules.
 
@@ -279,6 +279,36 @@ $$S[w]:=\alpha A[w] + \beta h_{\max}(w) + \cdots.$$
 Assign amplitudes $\psi(w)\propto \exp(iS[w])$ (or $\exp(-S[w])$) and sum over histories to obtain a discrete path integral. In Brownian-excursion scaling limits, this connects to heat/Schrödinger-like dynamics.
 
 **Note.** The paper now makes this explicit as a self-contained “Catalan amplitude model” definition, and records that area-weighted sums are a specialization of the standard area-refined ($q$-)Catalan generating function.
+
+#### Transfer kernel / discrete Feynman--Kac for the area phase (solid; [IN PAPER])
+
+Fix a phase scale $\alpha$. Define a kernel $K_\alpha^{(r)}(a,b)$ as the sum of
+weights $\exp\!\big(i\alpha \sum_{t=0}^{r-1}h_t\big)$ over all nonnegative
+nearest-neighbour height paths of length $r$ from $a$ to $b$.
+
+This admits:
+
+- a one-step transfer recursion (condition on the first step), and
+- a Chapman–Kolmogorov/semigroup composition law (split at an intermediate time),
+
+and in particular the tier-$n$ area-phase partition function is
+$Z_n(\alpha)=K_\alpha^{(2n)}(0,0)=\sum_{w\in\mathcal D_n} e^{i\alpha A(w)}$.
+
+#### Carlitz--Riordan recursion for $q$-Catalan / first-return decomposition (solid; [IN PAPER])
+
+By the unique first-return decomposition $w=\texttt{(}u\texttt{)}v$ with
+$u\in\mathcal D_k$ and $v\in\mathcal D_{n-1-k}$, the Dyck-area functional satisfies
+
+$$A(w)=A(u)+A(v)+(2k+1),$$
+
+so the weighted partition function obeys
+
+$$Z_n(\alpha)=\sum_{k=0}^{n-1} e^{i\alpha(2k+1)} Z_k(\alpha)\,Z_{n-1-k}(\alpha).$$
+
+Equivalently, for $q=e^{2i\alpha}$ and $C_n(q)=\sum q^{\mathrm{area}(w)}$ this yields the
+Carlitz--Riordan recurrence
+
+$$C_n(q)=\sum_{k=0}^{n-1} q^k\,C_k(q)\,C_{n-1-k}(q).$$
 
 #### Toward a discrete action on collapse-decorated worldlines (interpretive → speculative) **[IDEA ONLY]**
 
@@ -341,6 +371,11 @@ which matches the structure of:
 * path integrals,
 * transfer matrices,
 * tensor network contractions.
+
+**Solid subcase now in paper.** There is already an explicit semigroup kernel at
+the level of the \emph{height projection} (nonnegative walk) for the area phase
+$\exp(i\alpha A)$; the “cone-level propagator” idea is the generalization to richer
+state spaces (full Catalan histories, collapse-decorated histories, motif states).
 
 ### Special Cases
 
