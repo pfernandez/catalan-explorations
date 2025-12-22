@@ -2151,6 +2151,21 @@ Section~\ref{sec:multiplecones}), which may be studied by counting completions
 as a function of current height (Lemma~\ref{lem:ballot-completions}).
 \end{remark}
 
+\paragraph{Completion multiplicity and future-cone entropy.}
+Fix a Dyck prefix $u$ of length $k$ and height $h$. For a target tier $n$ with
+$2n\ge k$, define the completion multiplicity
+\[
+M_n(u)\;:=\;\#\{w\in \mathcal D_n : u\preceq w\},
+\]
+the number of completed histories at tier $n$ consistent with the partial
+history $u$. This is the finite-tier size of the local cone rooted at $u$.
+It depends only on the remaining step budget $r:=2n-k$ and the current height
+$h$, and admits the explicit ballot-number formula of
+Lemma~\ref{lem:ballot-completions}. The associated future-cone entropy is
+\[
+S^{\mathrm{cone}}_n(u)\;:=\;\log M_n(u).
+\]
+
 \paragraph{Information rate as rate of possibility reduction.}
 Let $m$ denote the number of selection events (local contractions) along a
 history, and let computational proper time be $\tau=\tau_0 m$ for a fixed scale
