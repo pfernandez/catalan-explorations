@@ -932,6 +932,37 @@ the height profile,
 		decomposition; see \cite{stanley-catalan}.
 		\end{proof}
 
+		\begin{corollary}[Functional equation for the area-refined generating function]
+		\label{cor:q-catalan-functional-equation}
+		Let $C(q;z):=\sum_{n\ge 0} C_n(q)\,z^n$, where $C_n(q)$ is as in
+		Lemma~\ref{lem:area-first-return}. Then
+		\[
+		C(q;z)=1+z\,C(q;z)\,C(q;qz).
+		\]
+		\end{corollary}
+
+		\begin{proof}
+		Multiply the recurrence for $C_n(q)$ in Lemma~\ref{lem:area-first-return} by
+		$z^n$ and sum over $n\ge 1$. Writing $n-1=k+m$ gives
+		\[
+		C(q;z)-1
+		= \sum_{k,m\ge 0} q^k\,C_k(q)\,C_m(q)\,z^{k+m+1}
+		= z\,C(q;qz)\,C(q;z).
+		\]
+		\end{proof}
+
+		\begin{remark}
+		Equivalently, define $Z(\alpha;z):=\sum_{n\ge 0} Z_n(\alpha)\,z^n$. Since
+		$Z_n(\alpha)=e^{i\alpha n}C_n(e^{2i\alpha})$, one has
+		\[
+		Z(\alpha;z)=C(e^{2i\alpha};e^{i\alpha}z),
+		\]
+		and therefore $Z(\alpha;z)$ satisfies
+		\[
+		Z(\alpha;z)=1+e^{i\alpha}z\,Z(\alpha;z)\,Z(\alpha;e^{2i\alpha}z).
+		\]
+		\end{remark}
+
 		\begin{remark}[Discrete Feynman--Kac viewpoint]
 		The recursion in Lemma~\ref{lem:area-transfer} is a transfer-matrix
 		formulation for a nearest-neighbour walk with a multiplicative potential
@@ -2312,6 +2343,20 @@ according to the Dyck-conditioned law. Define the mean and covariance functions
 C(s,t) := \mathbb E\!\left[(H_s-\mu_s)(H_t-\mu_t)\right],
 \qquad 0\le s,t\le T .
 \]
+\begin{remark}[Explicit mean and covariance formulas]
+By Lemma~\ref{lem:height-marginal},
+\[
+\mu_t
+=\sum_{h\ge 0} h\,\frac{B(t,h)\,B(T-t,h)}{C_n}.
+\]
+By Lemma~\ref{lem:two-time-height-marginal},
+\[
+\mathbb E[H_s H_t]
+=\sum_{a,b\ge 0} a b\,
+\frac{B(s;0\!\to\! a)\,B(t-s;a\!\to\! b)\,B(T-t;b\!\to\! 0)}{C_n},
+\]
+and hence $C(s,t)=\mathbb E[H_s H_t]-\mu_s\mu_t$.
+\end{remark}
 The covariance kernel $C$ is a symmetric positive operator on the finite-dimensional
 space $\mathbb R^{T+1}$ and captures the second-order temporal structure induced
 by the Dyck constraint. It admits an eigen-decomposition

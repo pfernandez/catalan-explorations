@@ -310,6 +310,11 @@ Carlitz--Riordan recurrence
 
 $$C_n(q)=\sum_{k=0}^{n-1} q^k\,C_k(q)\,C_{n-1-k}(q).$$
 
+At the generating-function level, $C(q;z)=\sum_{n\ge 0}C_n(q)z^n$ satisfies the
+functional equation
+
+$$C(q;z)=1+z\,C(q;z)\,C(q;qz).$$
+
 #### Toward a discrete action on collapse-decorated worldlines (interpretive → speculative) **[IDEA ONLY]**
 
 A collapse-decorated Catalan history can be treated as
@@ -405,6 +410,10 @@ as the unique consistent measure under Gleason/Dutch-book–style assumptions (t
 ### 6) Modes, fields, and continuum limits: spectral view, PDEs, dispersion **[PARTIAL]**
 
 **Paper:** `docs/catalan-light-cone.tex` (height-projection covariance + Karhunen--Lo\`eve modes; mode-wise phase discussion in Schr\"odinger subsection). Shift-operator/Fourier-basis and tree-Laplacian programs remain here.
+
+The paper now also records explicit ballot-number formulas for the height mean and
+two-time covariance via the Catalan-triangle factorization (so the correlation
+kernel is not just abstractly defined; it is explicitly computable).
 
 This dossier collects ways to treat the Catalan tiers as a state space for dynamics, and how continuum PDEs emerge.
 
