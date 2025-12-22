@@ -835,6 +835,16 @@ P(x)\propto N(x)^2.
 \]
 Destructive/constructive interference occurs only when $\Phi$ varies within the
 fibers $f^{-1}(x)$.
+
+At the opposite extreme, if one models the phases within each fiber as
+independent uniform random variables (a purely mathematical phase-scrambling
+toy model), then the unnormalized weights revert to multiplicity in expectation:
+writing $\Psi(x)=\sum_{j=1}^{N(x)} e^{i\Theta_j}$ with $\Theta_j\stackrel{\mathrm{iid}}{\sim}\mathrm{Unif}[0,2\pi)$,
+one has
+\[
+\mathbb E\bigl[|\Psi(x)|^2\bigr]=N(x),
+\]
+since the cross terms average to $0$ by independence and rotational symmetry.
 \end{remark}
 Even with uniform weight on histories, the induced distribution on $\mathcal X$
 is generically non-uniform, reflecting the combinatorial geometry of the
