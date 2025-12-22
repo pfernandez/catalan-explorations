@@ -1070,9 +1070,16 @@ the height observable and its Karhunen--Lo\`eve modes.
 
 \subsection{Schr\"odinger equation}
 
-More formally, if $\rho(\tau,x)$ denotes the real heat kernel on $x\ge 0$,
-analytic continuation in the diffusion parameter, $\tau \mapsto it$, produces a
-complex-valued kernel $\psi(t,x)$ satisfying the free Schr\"odinger equation
+More formally, let $L$ denote the diffusion generator on $x\ge 0$ with a chosen
+boundary condition at $x=0$ (e.g.\ reflecting/Neumann or absorbing/Dirichlet),
+\[
+L := \frac{1}{2}\,\partial_x^2.
+\]
+The diffusion limit is governed by the heat equation $\partial_\tau \rho = L\rho$.
+Because $-L$ is (under these standard boundary conditions) a self-adjoint
+nonnegative operator, it generates a unitary group
+$U_t:=e^{-it(-L)}=e^{itL}$. Writing $\psi(t)=U_t\psi(0)$ yields the free
+Schr\"odinger equation
 
 \begin{equation}
 	i\partial_t \psi = -\frac{1}{2}\,\partial_x^2 \psi.
@@ -1093,8 +1100,10 @@ reinforcement stable under time evolution.
 Boundary conditions at $x=0$ are carried over from the diffusive regime (e.g.\
 reflecting or absorbing), and the choice of boundary does not affect the
 existence of the continuum limit itself. Thus, quantum wave dynamics arises here
-as the analytic continuation of diffusive propagation on the Catalan lattice, in
-line with the classical connection between diffusion and Schr\"odinger evolution
+from the same Laplacian generator by passing from a dissipative semigroup to a
+unitary group; mode-wise, this is the replacement $\tau\mapsto it$ in the spectral
+representation. This is in line with the classical connection between diffusion
+and Schr\"odinger evolution
 \cite{feynman-hibbs65,kac49}. No separate quantization procedure is required;
 the wave equation is inherited from the scaling limit of constrained
 combinatorial growth.
