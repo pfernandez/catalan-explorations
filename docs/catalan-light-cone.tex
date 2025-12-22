@@ -1408,8 +1408,8 @@ emphasized:
 		\item Physical constants and interactions are not derived.
 		\item Only free (noninteracting) wave dynamics appears explicitly.
 		\item Collapse probabilities are not fixed uniquely by the structure.
-		\item Lorentz symmetry is discussed only via continuum embeddings; no discrete
-			boost invariance is claimed.
+			\item Lorentz symmetry is discussed only via continuum embeddings; no discrete
+				boost invariance is claimed (Remark~\ref{rem:no-lattice-boost}).
 		\item The choice of phase/action functional (e.g.\ Dyck area) is not shown to
 			be unique.
 	\end{itemize}
@@ -2206,6 +2206,17 @@ and return conditions selecting the Catalan ensemble. We emphasize that generic
 nontrivial boosts do not preserve the discrete Dyck lattice itself (the counts
 $u,v$ are integers), so the Lorentz discussion here is a continuum comparison
 for the embedded coordinates rather than a discrete symmetry claim.
+
+\begin{remark}[No nontrivial boost preserves the Dyck lattice]
+\label{rem:no-lattice-boost}
+In the embedded chart, $u$ and $v$ are integer-valued null counts. A Lorentz
+boost acts by $(u,v)\mapsto (e^{\eta}u,e^{-\eta}v)$ as in
+Equation~\eqref{eq:lightcone-boost}. If such a boost maps $\mathbb Z^2$ to itself,
+then $e^{\eta}$ and $e^{-\eta}$ must both be integers, hence
+$e^{\eta}e^{-\eta}=1$ forces $e^{\eta}=1$ and $\eta=0$. Thus there is no exact
+discrete boost invariance of the integer lattice of null counts (beyond the
+identity; discrete reflections correspond to separate, non-boost symmetries).
+\end{remark}
 
 \paragraph{Computational proper time.}
 A reduction history carries an intrinsic progress parameter given by the count
