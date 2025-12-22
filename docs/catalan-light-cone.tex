@@ -46,8 +46,8 @@ The same Catalan shapes also serve as unlabeled application skeletons for
 $\lambda$-calculus and SKI terms (after choosing a standard finite encoding of
 symbols). Under this reading, causal extension aligns with functional
 application while local collapse aligns with computational reduction. We also
-present a minimal amplitude construction: given an observable/coarse-graining
-$f$ and an additive phase functional (e.g.\ Dyck area), coherent summation over
+present a minimal Catalan amplitude model: given an observable/coarse-graining
+$f$ and a phase functional (e.g.\ Dyck area), coherent summation over
 the preimages $f^{-1}(x)$ produces interference under Born-style squaring.
 
 Throughout, we distinguish rigorously established statements (combinatorics,
@@ -103,9 +103,9 @@ The paper isolates a common structural core shared by three domains:
 			skeletons for standard Turing-complete functional calculi (after choosing a
 			finite encoding of symbols), and local reductions remain internal to the same
 			family \cite{church33,CurryFeys1958,barendregt84}.
-	\item \textbf{Amplitudes:} given a coarse-graining (observable) and an additive
-		phase functional, coherent summation over indistinguishable histories produces
-		interference under Born-style squaring.
+		\item \textbf{Amplitudes:} we define a minimal Catalan amplitude model in which
+			a coarse-graining (observable) and a phase functional determine a coherent sum
+			over indistinguishable histories, producing interference under Born-style squaring.
 \end{enumerate}
 We do not attempt to derive interactions, constants, or a unique measurement
 postulate; where additional structure is introduced (e.g.\ complex phases and
@@ -740,7 +740,7 @@ ambiguous structure is replaced by a simpler one consistent with the global
 constraint. Importantly, collapse does not alter causal ancestry; it refines an
 already-admissible history. For standard calculi (e.g.\ $\lambda$/SKI),
 confluence ensures uniqueness of normal forms when they exist, and more locally
-reductions supported on disjoint subtrees commute. This computational fact will
+reductions supported on disjoint subtrees commute \cite{barendregt84}. This computational fact will
 later support an interpretation of spacelike commutativity.
 
 \subsection{Summary}
@@ -760,6 +760,30 @@ histories are regarded as the same outcome, and (ii) a choice of additive phase
 functional on histories. Given these, we define amplitudes by coherent summation
 over preimages and probabilities by normalized squared magnitudes, in analogy
 with the Born rule \cite{feynman-hibbs65}.
+
+\begin{definition}[Catalan amplitude model at fixed tier]
+\label{def:catalan-amplitude-model}
+Fix a tier $n$ and an observable (coarse-graining) $f:\mathcal D_n\to\mathcal X$
+to a finite outcome set $\mathcal X$. Fix a real phase functional
+$\Phi:\mathcal D_n\to\mathbb R$, a scale $\alpha\in\mathbb R$, and (optionally)
+a magnitude function $\rho:\mathcal D_n\to\mathbb R_{\ge 0}$. Define per-history
+amplitudes
+\[
+\psi(w):=\rho(w)\,e^{i\alpha \Phi(w)}\in\mathbb C,
+\]
+where the minimal unit-modulus case is $\rho\equiv 1$.
+The outcome amplitude and normalized probability are
+\[
+\Psi(x):=\sum_{w:\,f(w)=x}\psi(w),
+\qquad
+P(x):=\frac{|\Psi(x)|^2}{\sum_{x'\in\mathcal X}|\Psi(x')|^2},
+\]
+whenever the denominator is nonzero.
+\end{definition}
+
+In what follows we specialize Definition~\ref{def:catalan-amplitude-model} to
+unit magnitude $\rho\equiv 1$ and emphasize additive phase functionals, with the
+Dyck area $A(w)$ as the main example.
 
 \subsection{Histories as paths}
 
@@ -804,12 +828,29 @@ projection rather than any imposed dynamics.
 
 A discrete analogue of an integral along a history is given by the step-sum of
 the height profile,
-	\[
-		A(w) := \sum_{k=0}^{2n-1} H_w(k),
-	\]
-	which measures the cumulative dwell time at nonzero height. This quantity
-	depends on the full distribution of height along the path, not merely on
-	extrema such as maximum height or peak count.
+		\[
+			A(w) := \sum_{k=0}^{2n-1} H_w(k),
+		\]
+		which measures the cumulative dwell time at nonzero height. This quantity
+		depends on the full distribution of height along the path, not merely on
+		extrema such as maximum height or peak count.
+
+		\begin{remark}[Area refinement and $q$-Catalan weights]
+		Under the standard identification of Dyck paths with lattice paths from
+		$(0,0)$ to $(n,n)$ staying above the diagonal, the usual \emph{area} statistic
+		$\mathrm{area}(w)$ (counting unit squares between the path and the diagonal)
+		satisfies $\mathrm{area}(w)=(A(w)-n)/2$, i.e.\ $A(w)=n+2\,\mathrm{area}(w)$.
+		Consequently, the weighted sum of the area phase is a specialization of the
+		area-refined Catalan generating function:
+		\[
+		\sum_{w\in\mathcal D_n} e^{i\alpha A(w)}
+		=
+		e^{i\alpha n}\sum_{w\in\mathcal D_n}\bigl(e^{2i\alpha}\bigr)^{\mathrm{area}(w)}.
+		\]
+		In particular, any analytic information about the distribution of Dyck area
+		and its generating functions may be transferred directly to these phase-weighted
+		sums \cite{stanley-catalan,janson07}.
+		\end{remark}
 
 	More generally, one may use any \emph{additive} functional on Dyck histories as
 	a phase source, provided it is computable online from prefix-local growth
