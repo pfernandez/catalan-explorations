@@ -420,8 +420,9 @@ as the unique consistent measure under Gleason/Dutch-book–style assumptions (t
 The paper now also records explicit ballot-number formulas for the nonnegative
 bridge counts $B(r;a\!\to\!b)$, the Dyck-conditioned one-step kernel (including its
 Doob-transform / “probability proportional to remaining completions” interpretation),
-and hence for the height mean and two-time covariance via the Catalan-triangle
-factorization (so the correlation kernel is not just abstractly defined; it is explicitly computable).
+as well as a general multi-time factorization / time-inhomogeneous Markov kernel for
+the Dyck-conditioned height process. Consequently the height mean and covariance
+are not just abstractly defined: they are explicitly computable from bridge counts.
 
 This dossier collects ways to treat the Catalan tiers as a state space for dynamics, and how continuum PDEs emerge.
 

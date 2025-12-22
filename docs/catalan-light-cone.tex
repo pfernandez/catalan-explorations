@@ -2516,6 +2516,34 @@ gives a bijection between Dyck paths realizing $(H_s,H_t)=(a,b)$ and triples of
 nonnegative segments counted by the product above.
 \end{proof}
 
+\begin{lemma}[Multi-time factorization and Markov kernel]
+\label{lem:multi-time-factorization}
+Let $T=2n$ and consider the uniform measure on Dyck paths of semilength $n$.
+Fix times $0=t_0\le t_1\le \cdots \le t_m\le T$ and heights
+$h_0:=0,h_1,\dots,h_m\in\mathbb Z_{\ge 0}$. Then
+\[
+\#\{w\in\mathcal D_n : H_w(t_j)=h_j\ \text{for all }j=1,\dots,m\}
+=
+\Big(\prod_{j=1}^m B(t_j-t_{j-1}; h_{j-1}\!\to\! h_j)\Big)\,B(T-t_m;h_m\!\to\!0).
+\]
+In particular, $(H_t)_{0\le t\le T}$ under the uniform Dyck measure is a
+time-inhomogeneous Markov chain on $\mathbb Z_{\ge 0}$ with transition
+probabilities, for $0\le s\le t\le T$,
+\[
+\mathbb P(H_t=b \mid H_s=a)
+=
+\frac{B(t-s; a\!\to\! b)\,B(T-t; b\!\to\! 0)}{B(T-s; a\!\to\! 0)},
+\]
+whenever $B(T-s;a\!\to\!0)>0$.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+Split a Dyck path into consecutive nonnegative bridge segments between the
+prescribed times; concatenation is bijective and multiplies counts. The Markov
+kernel follows by dividing the two-time count by the one-time marginal
+(Lemma~\ref{lem:height-marginal}).
+\end{proof}
+
 \paragraph{Correlation structure.}
 Consider the ensemble of height paths of fixed length $T$, distributed
 according to the Dyck-conditioned law. Define the mean and covariance functions
