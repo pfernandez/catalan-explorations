@@ -1,12 +1,12 @@
 # IDEAS
 
-_Living consolidation for the Catalan Light Cone / Basis project._  
+_Living consolidation for the Catalan Light Cone / Basis project._
 _Last refactor: 2025-12-13._
 
 **What this file is for**
 
 - Keep each coherent idea **in one place**, so its maturity is visible at a glance.
-- Make it easy to mine for the main paper (`docs/catalan-light-cone.latex`) without missing scattered pieces.
+- Make it easy to mine for the main paper (`docs/catalan-light-cone.tex`) without missing scattered pieces.
 - Preserve ideas even if wording changes.
 
 **Structure**
@@ -17,16 +17,25 @@ _Last refactor: 2025-12-13._
 
 ---
 
+## Paper integration tags (current)
+
+Legend:
+- **[IN PAPER]**: already integrated into `docs/catalan-light-cone.tex` at arXiv-rigorous strength
+- **[PARTIAL]**: some pieces integrated; remainder stays here
+- **[IDEA ONLY]**: not in the paper yet (or intentionally excluded for rigor/scope)
+
 ## INBOX
 
-_Empty for now._  
+_Empty for now._
 (When you have a new thought, drop it here; the next refactor folds it into CANON.)
 
 ---
 
 ## CANON
 
-### 1) The substrate as coordinate systems on one Catalan object
+### 1) The substrate as coordinate systems on one Catalan object **[IN PAPER]**
+
+**Paper:** `docs/catalan-light-cone.tex` (Catalan light-cone geometry + coordinate charts appendix).
 
 Dyck words, full binary trees, and unlabeled S-expressions are canonically bijective Catalan families:
 
@@ -65,18 +74,18 @@ t' = \gamma (t - v_L x), \qquad x' = \gamma (x - v_L t),
 
 This makes it natural to treat “Dyck geometry” as a discrete light cone, and “tree coordinates” as alternative projections of the same cone.
 
-**Narayana sectors as a discrete angular coordinate (speculative geometry).**  
+**Narayana refinement by peak count (solid; [IN PAPER]).**
 Narayana numbers $N(n,k)$ refine Catalan tiers:
 
 $$C_n = \sum_{k=1}^n N(n,k).$$
 
-Interpreting $k$ (e.g., peak count) as a breadth statistic suggests an “angle” parameter at fixed tier:
+Interpreting $k$ (e.g., peak count) as a breadth-adjacent statistic suggests an “angle” parameter at fixed tier:
 
 $$\phi_k \approx 2\pi \frac{k-1}{n-1},\quad k=1,\dots,n.$$
 
-This is not required by the Catalan combinatorics, but it is a clean way to package “breadth sector” structure when building a more geometric picture.
+The Narayana refinement itself is standard. Treating $k$ as a literal angular coordinate is optional packaging (**[IDEA ONLY]**), not a derived geometric fact.
 
-**Helical slices / phase time (interpretive).**  
+**Helical slices / phase time (interpretive; [IDEA ONLY]).**
 In addition to tier time $n$ (“causal time”), one can attach a shape-dependent phase:
 
 $$ \tau(w) = \frac{h_{\max}(w)}{n},\qquad \theta(w)=(\omega n + \beta\,\tau(w))\bmod 2\pi. $$
@@ -85,9 +94,11 @@ Constant-$\theta$ histories trace helices through the cone (useful as a visualiz
 
 ---
 
-### 2) Depth–breadth tradeoff, discrete uncertainty, and information capacity
+### 2) Depth–breadth tradeoff, discrete uncertainty, and information capacity **[IN PAPER]**
 
-**Depth–breadth inequality (solid combinatorics).**  
+**Paper:** `docs/catalan-light-cone.tex` (breadth/depth tradeoff + Kraft remark; entropy appendix).
+
+**Depth–breadth inequality (solid combinatorics).**
 For any full binary tree with leaf depths $d_1,\dots,d_m$:
 
 $$\sum_{i=1}^m 2^{-d_i}=1.$$
@@ -99,14 +110,14 @@ This implies a hard tradeoff: many shallow leaves (large breadth) forces small a
 
 yields a natural **discrete uncertainty principle** on the Catalan substrate. (This is combinatorial; the physics interpretation is optional.)
 
-**Entropy per tier and Bekenstein-like bounds (solid counts; speculative calibration).**  
+**Entropy per tier (solid; [IN PAPER]) and Bekenstein-like bounds (speculative calibration; [IDEA ONLY]).**
 The number of histories at tier $n$ is the Catalan number:
 
 $$ C_n = \frac{1}{n+1}\binom{2n}{n}. $$
 
 Thus each tier has finite combinatorial entropy and well-controlled asymptotics. One can compare the growth of admissible boundary configurations to “area-like” measures under coarse-graining, motivating analogies to holographic/Bekenstein bounds (the analogy becomes physical only after a separate calibration step).
 
-**Lorentz structure from Dyck geometry (solid as geometry; interpretive as physics).**  
+**Lorentz structure from Dyck geometry (solid as geometry; interpretive as physics; [IN PAPER as continuum comparison]).**
 Dyck steps satisfy $|\Delta x|=\Delta t$, so admissible histories lie inside a discrete cone:
 
 $$|x|\le t.$$
@@ -115,11 +126,13 @@ Under diffusive scaling, Dyck ensembles converge to Brownian excursions; this su
 
 ---
 
-### 3) Collapse dynamics: potential, work, locality, and proper time
+### 3) Collapse dynamics: potential, work, locality, and proper time **[PARTIAL]**
+
+**Paper:** `docs/catalan-light-cone.tex` (selection/collapse discussion; computational proper time as event-count parameter; entropy appendix; collapse-size bookkeeping lemma).
 
 This dossier is the “local rule” side of the global cone picture: collapse/actualization provides an irreversible arrow and a natural notion of proper time.
 
-#### Structural potential and collapse work
+#### Structural potential and collapse work **[PARTIAL]**
 
 For a finite rooted binary tree $T$, define the **structural potential**
 
@@ -133,9 +146,9 @@ Under a “keep the more structured side” collapse, the potential drop for col
 
 $$\Delta U = \big(1+U(L)+U(R)\big) - \max\{U(L),U(R)\}=1+\min\{U(L),U(R)\}.$$
 
-Interpreting $\Delta U$ as irreversible work (and $F_{\text{app}}$ as a force scale) is optional, but the functionals themselves are well-defined and behave like an energy bookkeeping on tree space.
+The internal-node bookkeeping and size drops under subtree selection are now recorded in the paper; interpreting $\Delta U$ as irreversible work (and $F_{\text{app}}$ as a force scale) remains optional and is not claimed as physics.
 
-#### Chronons, locality, and a discrete interval (interpretive bridge to relativity)
+#### Chronons, locality, and a discrete interval (interpretive bridge to relativity) **[IDEA ONLY]**
 
 Assume evolution proceeds in **chronons**, each consisting of:
 
@@ -151,7 +164,7 @@ A corresponding discrete Minkowski-style interval can be defined by counting how
 - **proper time** is “collapse time”: the number of collapse events experienced along a history,
 - motion uses up update budget, so moving structures accumulate less collapse time (time dilation analog).
 
-#### Computational proper time as collapse count (solid definition; interpretive mapping)
+#### Computational proper time as collapse count (solid definition; interpretive mapping) **[IN PAPER]**
 
 Let $k$ be the number of collapse events along a history. Define **computational proper time**
 
@@ -161,7 +174,7 @@ Let $k$ be the number of collapse events along a history. Define **computational
 
 with $\alpha$ a characteristic time-per-collapse. This is an invariantly defined discrete parameter; treating it as physical proper time is the hypothesis.
 
-#### Actualization weight and actualization-biased collapse
+#### Actualization weight and actualization-biased collapse **[IDEA ONLY]**
 
 Define an **actualization weight** $aw:T\to\mathbb{N}$ inductively:
 
@@ -181,7 +194,7 @@ $$
 
 This yields a concrete, local “memory” of which structures have repeatedly won in the past.
 
-#### SI calibration via Casimir effect (speculative)
+#### SI calibration via Casimir effect (speculative) **[IDEA ONLY]**
 
 Introduce a fundamental edge length $\ell_0$ and chronon duration $\tau$. Set
 
@@ -202,11 +215,13 @@ suggesting a possible way to tie units to vacuum-pressure magnitudes (conjectura
 
 ---
 
-### 4) Computation from collapse: application order, combinators, reentry, and motifs
+### 4) Computation from collapse: application order, combinators, reentry, and motifs **[PARTIAL]**
+
+**Paper:** `docs/catalan-light-cone.tex` (Catalan universality for SKI/$\\lambda$ term structure; local reduction and disjoint commutation). Collapse-driven emergence, actualization weights, and motifs remain future work.
 
 This dossier collects the computational substrate: how lambda/SKI-like behavior emerges from structure + local collapse + reinforcement.
 
-#### Why “left applies to right” (causal orientation)
+#### Why “left applies to right” (causal orientation) **[PARTIAL]**
 
 Given a pair $(L,R)$, interpret $L$ as earlier / already-actualized structure and $R$ as later / newly expanded possibility. Then “earlier interprets later” is the causal choice:
 
@@ -215,7 +230,7 @@ Given a pair $(L,R)$, interpret $L$ as earlier / already-actualized structure an
 
 This motivates a left-spine / curried encoding as the causally aligned normal form.
 
-#### Emergent I, K, S, Y (internal derivations; interpretive external mapping)
+#### Emergent I, K, S, Y (internal derivations; interpretive external mapping) **[IDEA ONLY]**
 
 With actualization-biased collapse, one can realize behaviors analogous to SKI combinators and fixed points (Y-like reentry), without installing them as primitives. The key pattern is: repeated collapse wins reinforce a subtree (increasing $aw$), which then dominates later choices and can recreate its own collapse conditions (“reentry kernels”).
 
@@ -227,7 +242,7 @@ The fixed-point flavor is captured by a “self-sourcing” loop:
 
 Formally: the tree dynamics can generate stable motifs behaving like identity, constant, sharing/duplication, and self-application motifs.
 
-#### Motif ecology and reentry kernels
+#### Motif ecology and reentry kernels **[IDEA ONLY]**
 
 A **motif** is a small subtree pattern that recurs with non-negligible frequency under stochastic expansion + collapse. A **reentry kernel** is a motif that, when it collapses, recreates conditions for its own future collapse—local self-sourcing.
 
@@ -239,17 +254,19 @@ This motivates an “ecology” picture:
 
 Early simulation hints suggest symmetry/antisymmetry-like behavior for certain nested kernels (speculative).
 
-#### Minimal embedding dimension for honest reentry pictures (solid graph fact; speculative physics link)
+#### Minimal embedding dimension for honest reentry pictures (solid graph fact; speculative physics link) **[IDEA ONLY]**
 
 Once reentry edges are allowed, the structure is a directed graph, not a planar tree. Nonplanarity arguments (e.g. $K_{3,3}$) show that **2D drawings must introduce spurious crossings** for generic reentrant structure. **3D is sufficient** to embed generic finite graphs without forced crossings. The leap from “needs 3D to draw without lies” to “explains 3 spatial dimensions” is conjectural, but the combinatorial pressure toward higher-dimensional faithful embeddings is real.
 
 ---
 
-### 5) Amplitudes: structural action, Born-like measures, and Catalan path integrals
+### 5) Amplitudes: structural action, Born-like measures, and Catalan path integrals **[PARTIAL]**
+
+**Paper:** `docs/catalan-light-cone.tex` (amplitudes from additive phase functionals; coherent summation + squaring; Dyck area scaling and diffusion/Schr\"odinger limits; worked double-slit appendix). Any derivation/uniqueness of a Born rule remains open.
 
 This dossier collects the “global sum over histories” side: assign actions/amplitudes to Dyck histories (and/or collapse-decorated histories) to recover continuum dynamics and probability rules.
 
-#### Structural action as Dyck area (solid definition; open uniqueness)
+#### Structural action as Dyck area (solid definition; open uniqueness) **[IN PAPER]**
 
 For a Dyck path $w$ of semilength $n$ with height process $(H_k)_{k=0}^{2n}$, define the area
 
@@ -261,7 +278,7 @@ $$S[w]:=\alpha A[w] + \beta h_{\max}(w) + \cdots.$$
 
 Assign amplitudes $\psi(w)\propto \exp(iS[w])$ (or $\exp(-S[w])$) and sum over histories to obtain a discrete path integral. In Brownian-excursion scaling limits, this connects to heat/Schrödinger-like dynamics.
 
-#### Toward a discrete action on collapse-decorated worldlines (interpretive → speculative)
+#### Toward a discrete action on collapse-decorated worldlines (interpretive → speculative) **[IDEA ONLY]**
 
 A collapse-decorated Catalan history can be treated as
 
@@ -283,7 +300,7 @@ with:
 
 This is the bridge point where causality (Dyck), computation (collapse), and “energy” (motif structure) become one action principle.
 
-#### Path-integral over Catalan histories (solid form; open evaluation)
+#### Path-integral over Catalan histories (solid form; open evaluation) **[IN PAPER]**
 
 A partition function between boundary configurations $A\to B$ takes the form
 
@@ -294,7 +311,7 @@ A partition function between boundary configurations $A\to B$ takes the form
 
 summing over Dyck paths, collapse schedules, and motif evolutions consistent with locality/causality. Special cases (e.g. “massless” $V=0$) may admit closed Catalan/Narayana expressions.
 
-#### Propagator kernel on the cone (speculative but sharply stated)
+#### Propagator kernel on the cone (speculative but sharply stated) **[IDEA ONLY]**
 
 # Propagator Kernel on the Catalan Cone
 
@@ -338,7 +355,7 @@ This allows you to define scattering processes, tunneling amplitudes, and decohe
 
 ---
 
-#### Born-like measure from structural coherence (near-solid sketch)
+#### Born-like measure from structural coherence (near-solid sketch) **[IDEA ONLY]**
 
 Coherence requirements (refinement under splitting, invariance under regrouping of structurally equivalent histories / gauge-like redundancy) push toward a quadratic probability rule:
 
@@ -348,11 +365,13 @@ as the unique consistent measure under Gleason/Dutch-book–style assumptions (t
 
 ---
 
-### 6) Modes, fields, and continuum limits: spectral view, PDEs, dispersion
+### 6) Modes, fields, and continuum limits: spectral view, PDEs, dispersion **[PARTIAL]**
+
+**Paper:** `docs/catalan-light-cone.tex` (height-projection covariance + Karhunen--Lo\`eve modes; mode-wise phase discussion in Schr\"odinger subsection). Shift-operator/Fourier-basis and tree-Laplacian programs remain here.
 
 This dossier collects ways to treat the Catalan tiers as a state space for dynamics, and how continuum PDEs emerge.
 
-#### Hilbert-space / spectral picture (solid framing)
+#### Hilbert-space / spectral picture (solid framing) **[PARTIAL]**
 
 ### 2.1. Basis, shift operator, and Fourier modes
 
@@ -371,7 +390,7 @@ $$ |\tilde{k}\rangle = \frac{1}{\sqrt{C_n}}\sum_{j=0}^{C_n-1} e^{2\pi i jk/C_n}
 
 with eigenvalues
 
-$$ S|\tilde{k}\rangle = e^{-i 2\pi k / C_n} |\tilde{k}\rangle. $$ 
+$$ S|\tilde{k}\rangle = e^{-i 2\pi k / C_n} |\tilde{k}\rangle. $$
 
 One can then introduce an effective Hamiltonian $H$ and time step $\Delta$ by
 setting:
@@ -381,7 +400,7 @@ $$ S = e^{-i H\Delta / \hbar}, $$
 so that each eigenmode satisfies
 
 $$ H|\tilde{k}\rangle = E_k|\tilde{k}\rangle,\quad S|\tilde{k}\rangle =
-e^{-iE_k\Delta/\hbar}|\tilde{k}\rangle.  $$ 
+e^{-iE_k\Delta/\hbar}|\tilde{k}\rangle.  $$
 
 This realizes each tier as a finite-dimensional Hilbert space with a unitary
 "around-the-rim" evolution step.
@@ -395,7 +414,7 @@ This realizes each tier as a finite-dimensional Hilbert space with a unitary
 
 ---
 
-#### Fields on words, prefixes, and nodes (solid definitions)
+#### Fields on words, prefixes, and nodes (solid definitions) **[IDEA ONLY]**
 
 ### 21.1. Fields on words, prefixes, and nodes
 
@@ -443,7 +462,7 @@ below uses the third, but is compatible with the first two.
 
 ---
 
-### 21.2. Subtree modes as a multiscale basis
+### 21.2. Subtree modes as a multiscale basis **[IDEA ONLY]**
 
 Every Dyck tree $T(w)$ admits a canonical hierarchy of subtrees:
 
@@ -492,7 +511,7 @@ ecology).
 
 ---
 
-### 21.3. Static decomposition vs dynamic evolution
+### 21.3. Static decomposition vs dynamic evolution **[IDEA ONLY]**
 
 At a fixed tier $n$, the field $`\Phi_n(w)`$ (or $`\phi_w(v)`$) is a **static
 snapshot**. Dynamics arise in two distinct ways:
@@ -534,7 +553,7 @@ In the continuum limit, tier-growth dynamics give rise to **Brownian excursion
 
 ---
 
-### 21.4. Tree Laplacians and discrete heat/Schrödinger equations
+### 21.4. Tree Laplacians and discrete heat/Schrödinger equations **[IDEA ONLY]**
 
 Given a Dyck tree $T(w)$ with node set $V$ and edges $E$, define a discrete
 **tree Laplacian** $L_T$ acting on node fields $\phi_w : V \to \mathbb{C}$ by
@@ -566,7 +585,7 @@ $$
 
 with a Hamiltonian
 
-$$ H_T := \alpha L_T + V_T, $$ 
+$$ H_T := \alpha L_T + V_T, $$
 
 where $V_T$ is a potential term depending on local features (height, breadth,
 motif labels, etc.). In discrete steps:
@@ -583,7 +602,7 @@ In large-$n$ limits:
 * $T(w)$ for typical random Dyck words converges (in an appropriate sense) to
   the **Continuum Random Tree (CRT)** / Brownian excursion object.
 * Spectral properties of $L_T$ are expected to converge to Laplacian-type
-  operators on the limiting continuum tree.  
+  operators on the limiting continuum tree.
 * The discrete heat/Schrödinger equations on $T(w)$ should then approximate
   continuum differential equations on that limiting object, paralleling the
   Dyck $\to$ Brownian excursion $\to$ heat/Schr chain already used for
@@ -600,7 +619,7 @@ In large-$n$ limits:
 
 ---
 
-### 21.5. Relation to global spectral view and gauge/field ideas
+### 21.5. Relation to global spectral view and gauge/field ideas **[IDEA ONLY]**
 
 This mode-decomposition and tree-Laplacian picture connects several earlier
 ideas:
@@ -786,7 +805,9 @@ This gives you:
 
 ---
 
-### 7) Symmetry, gauge, and Noether-type correspondences
+### 7) Symmetry, gauge, and Noether-type correspondences **[PARTIAL]**
+
+**Paper:** `docs/catalan-light-cone.tex` (gauge-like redundancy from commuting disjoint updates; gauge-invariant counting note). Noether-type claims stay here.
 
 Gauge-like structure is already present at the combinatorial level: many representations encode the same “observable” outcome.
 
@@ -798,7 +819,7 @@ etc.):
 * Each node or edge carries an element of some set $F$ (field values).
 * Local update rules couple structural collapse and field updates: when a
   subtree collapses, the labels on its surviving parts are updated by a local
-  rule. 
+  rule.
 
 Repeated localized excitations in a region of the tree correspond to **field
 configurations**.
@@ -807,7 +828,7 @@ configurations**.
 
 Many different labelled trees represent the same coarse-grained geometry or
 computation. Structural equivalences (rotations, α-equivalent λ-terms,
-relabelings that do not affect observables) form **gauge symmetries**: 
+relabelings that do not affect observables) form **gauge symmetries**:
 
 * A gauge transformation is a local rewrite that preserves observable outcomes.
 * Gauge fixing corresponds to picking canonical representatives (e.g.
@@ -867,7 +888,7 @@ E^2 - p^2 = m^2
 
 ---
 
-### 8) Interpretation layer: reinforcement, agency, multicomputation, constants
+### 8) Interpretation layer: reinforcement, agency, multicomputation, constants **[IDEA ONLY]**
 
 These are explicitly interpretive readings of the same substrate—useful as a conceptual compass, not as claims.
 
@@ -880,7 +901,7 @@ In the actualization-weight picture, **quantum vs classical** is graded:
 
 Thus, decoherence becomes a matter of **reinforcement**: as a motif wins
 repeatedly, its actualization weight increases, and its effective behaviour
-loses sensitivity to delicate phase cancellations. 
+loses sensitivity to delicate phase cancellations.
 
 **Status**
 
@@ -897,12 +918,12 @@ $$ \text{global} = \text{distribution of possibilities},\qquad \text{local} =
 
 with global behaviour described spectrally (Hilbert-space, shift operators,
 Brownian limits) and local behaviour described by actualization-weighted
-collapse. 
+collapse.
 
 This is strongly reminiscent of **multicomputation**:
 
 * Many possible histories evolve in parallel (Dyck tiers; global view).
-* A particular actualization path selects one realized history (local view). 
+* A particular actualization path selects one realized history (local view).
 
 **Status**
 
@@ -918,7 +939,7 @@ The Catalan Rule notes extend the motif story into cognition:
 * Actualization weight functions as a kind of **memory**: how often the
   universe has passed through that structural pattern.
 * Reentry kernels that maintain coherent self-reference over long histories are
-  candidates for minimal **agents**. 
+  candidates for minimal **agents**.
 
 Awareness is described as what it feels like when a reentrant structure not
 only persists but also refers to its own past actualizations—experience as the
@@ -935,7 +956,7 @@ Finally, the Catalan Rule document proposes:
 
 * Dimensionless physical constants (e.g. $\alpha$) may correspond to **fixed
   points of motif statistics**: asymptotic ratios of kernel frequencies in
-  long-running motif ecologies. 
+  long-running motif ecologies.
 
 In this view:
 
@@ -947,7 +968,7 @@ In this view:
 * **Speculative.** This is a research program outline; no explicit derivation
   is given.
 
---- 
+---
 
 Taken together, these extended notes form a library of ideas that sit around
 the trimmed Catalan Light Cone paper:
@@ -965,7 +986,7 @@ the trimmed Catalan Light Cone paper:
 
 ---
 
-### 9) Catalog of additional “nearby” ideas and research targets
+### 9) Catalog of additional “nearby” ideas and research targets **[IDEA ONLY]**
 
 This final dossier is a compact catalog of additional ideas that may (or may not) end up in papers, but are worth keeping visible because they connect multiple threads.
 
@@ -1204,15 +1225,15 @@ If a consistent continuum limit exists, it may resemble a toy model of **quantum
 #### Stability map (what currently looks most claimable vs most exploratory)
 
 - **Core combinatorics (solid):**
-  - Dyck/tree/S-expr equivalences; Catalan and Narayana counts.
-  - Depth–breadth (Kraft equality / coding constraints).
-  - Dyck cone geometry and Brownian-excursion scaling.
-  - Hilbert-space state space over tiers; adjacency/shift operators (as a framework).
-  - Definitions: $U(T)$, $F_{\text{app}}$, $aw$, chronons (as combinatorial constructs).
+  - Dyck/tree/S-expr equivalences; Catalan counts; Narayana refinement by peak count (**[IN PAPER]**).
+  - Depth–breadth (including Kraft equality) (**[IN PAPER]**).
+  - Dyck cone geometry and Brownian-excursion scaling (**[IN PAPER]**).
+  - Hilbert-space state space over tiers (basis/superpositions in paper; shift-operator program is **[IDEA ONLY]**).
+  - Size bookkeeping $U(T)$ and subtree-selection drops (**[PARTIAL]**); $F_{\text{app}}$, $aw$, chronons remain **[IDEA ONLY]**.
 
 - **Near-solid but still “needs a clean proof/derivation”:**
-  - Born-like uniqueness from structural coherence.
-  - A well-motivated discrete action $S[\gamma]$ that yields a tractable propagator $\mathcal{K}$.
+  - Born-like uniqueness from structural coherence (**[IDEA ONLY]**).
+  - A well-motivated discrete action $S[\gamma]$ that yields a tractable propagator $\mathcal{K}$ (**[IDEA ONLY]**).
 
 - **Exploratory / program direction:**
   - Mass/energy/momentum analogues for motifs: $E^2-p^2=m(\sigma)^2$ as an effective invariant.

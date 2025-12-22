@@ -181,10 +181,24 @@ All other configurations interpolate between these extremes. Together, the set
 of Dyck paths at tier $n$ forms a discrete envelope bounded by the chain and
 the star.
 
+\begin{remark}[Narayana refinement by peak count]
+In addition to coarse parameters such as depth or breadth, there is a canonical
+refinement of the tier by the number of \emph{peaks} of a Dyck path (equivalently,
+the number of occurrences of the pattern \texttt{()}). The Narayana numbers
+$N(n,k)$ count Dyck paths of semilength $n$ with exactly $k$ peaks and admit the
+closed form
+\[
+N(n,k)=\frac{1}{n}\binom{n}{k}\binom{n}{k-1},\qquad 1\le k\le n,
+\]
+with $\sum_{k=1}^{n} N(n,k)=C_n$ \cite{stanley-catalan}. The chain has one peak
+($k=1$) and the star has $n$ peaks ($k=n$). This gives a natural stratification
+of the tier into $k$-sectors that interpolate between the two extremes.
+\end{remark}
+
 \begin{figure}[h]
-	\centering
-	% Placeholder: schematic light-cone diagram
-	\begin{tikzpicture}[scale=1.1]
+		\centering
+		% Placeholder: schematic light-cone diagram
+		\begin{tikzpicture}[scale=1.1]
 		% axes
 			\draw[->] (0,0) -- (0,4) node[left] {$n$};
 			\draw[->] (0,0) -- (4,0) node[below] {$r$};
@@ -2097,6 +2111,42 @@ gauge-invariant (constant on $\sim_g$-orbits), define
 \]
 and use $\bar{\Delta S}$ in place of $\Delta S$. This removes overcounting due
 solely to reordering of independent collapses.
+
+\subsection{Size bookkeeping for subtree-selection collapses}
+\label{subsec:collapse-size}
+
+In addition to ensemble-level multiplicities, some collapse rules admit a simple
+size bookkeeping at the level of individual trees. Let $T$ be a finite full
+binary tree. Define its \emph{internal size} $U(T)$ (number of internal nodes)
+recursively by
+\[
+U(\texttt{()}) := 0,\qquad
+U(\bullet(L,R)) := 1 + U(L) + U(R),
+\]
+where $\texttt{()}$ denotes a leaf and $\bullet(L,R)$ denotes a binary pair.
+
+\begin{lemma}[Size drop under subtree selection]
+\label{lem:subtree-selection-drop}
+Consider the local collapse that replaces a pair $\bullet(L,R)$ by one of its
+children:
+\[
+\bullet(L,R)\;\rightsquigarrow\; L
+\qquad\text{or}\qquad
+\bullet(L,R)\;\rightsquigarrow\; R.
+\]
+Then the size drop is
+\[
+U(\bullet(L,R)) - U(L) = 1 + U(R),
+\qquad
+U(\bullet(L,R)) - U(R) = 1 + U(L).
+\]
+In particular, if the collapse rule keeps the larger child in $U$ (i.e.\ keeps
+$\arg\max\{U(L),U(R)\}$), then the drop is $1+\min\{U(L),U(R)\}$.
+\end{lemma}
+
+\begin{proof}
+Immediate from the defining recursion $U(\bullet(L,R))=1+U(L)+U(R)$.
+\end{proof}
 
 \section{A Double-Slit Thought Experiment on the Catalan Light Cone}
 \label{appendix:doubleslit}
