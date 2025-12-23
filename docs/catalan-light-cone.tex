@@ -600,11 +600,23 @@ full binary tree:
     only atom.
 \end{itemize}
 
-In particular, in the \emph{pairs} encoding, the smallest object is the empty
-pair \texttt{()}, and the smallest nontrivial \emph{binary} object is
-\texttt{(()())}, i.e.\ a root pair whose two children are leaves.  In the Dyck
-encoding, the semilength-$1$ object is \texttt{()}, since Dyck words begin only
-after the first matched pair exists.
+	In particular, in the \emph{pairs} encoding, the smallest object is the empty
+	pair \texttt{()}, and the smallest nontrivial \emph{binary} object is
+	\texttt{(()())}, i.e.\ a root pair whose two children are leaves.  In the Dyck
+	encoding, the semilength-$1$ object is \texttt{()}, since Dyck words begin only
+	after the first matched pair exists.
+
+\paragraph{Handedness and path selection.}
+The Dyck constraint (including return to height $0$ at completion) is a
+well-bracketing discipline: it constrains which histories are admissible, but
+it does not by itself impose a within-tier ordering of alternatives or select a
+dynamic among them. By contrast, the applicative reading of Catalan trees as
+programs requires that internal nodes represent \emph{ordered} pairs
+(function, argument), i.e.\ one must fix a convention (e.g.\ ``left applies to
+right''). This handedness determines syntax, but not which computational history
+is realized among many permissible ones: selecting a computation corresponds to
+choosing a reduction strategy (or, in a stochastic formulation, a transition
+kernel) on the same Catalan substrate.
 
 \subsection{A small tier shown three ways (Dyck / tree / pairs)}
 Figure~\ref{fig:trees-n3-tikz} augments the standard Dyck-$n=3$ list by
