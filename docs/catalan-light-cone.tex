@@ -609,7 +609,9 @@ after the first matched pair exists.
 \subsection{A small tier shown three ways (Dyck / tree / pairs)}
 Figure~\ref{fig:trees-n3-tikz} augments the standard Dyck-$n=3$ list by
 displaying, for the \emph{same} five Catalan shapes, the corresponding pairs
-(S-expression) encodings.
+(S-expression) encodings. For concreteness, the five shapes are listed
+left-to-right in lexicographic order on Dyck words (with \texttt{(} $<$ \texttt{)}),
+and the tree and pairs rows are obtained by the standard bijection.
 
 \begin{figure}[H]
   \centering
@@ -701,8 +703,8 @@ displaying, for the \emph{same} five Catalan shapes, the corresponding pairs
     \end{scope}
   \end{tikzpicture}
   \vspace{-2.5em}
-  \caption{The five Catalan shapes at tier $n=3$ shown as (i) Dyck words,
-  (ii) full binary trees, and (iii) pairs (S-expression) encodings in which each
+  \caption{The five Catalan shapes at tier $n=3$ shown as (i) full binary trees,
+  together with (ii) Dyck words and (iii) pairs (S-expression) encodings in which each
   leaf is \texttt{()} and each internal node is a parenthesized pair of its two
   children (as if one were looking "down into" the tree). These are three
   coordinate systems for the same underlying Catalan objects.}
