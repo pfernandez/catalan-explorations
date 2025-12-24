@@ -1389,6 +1389,19 @@ each equivalence class as a single abstract history (a partial order of events)
 while reserving genuinely different choices of which reductions occur for the
 nontrivial branching structure of the multiway reduction graph.
 
+\paragraph{Remark (Diamonds vs.\ linear intervals).}
+In poset language, a commuting diamond is a local obstruction to an interval
+being chain-like: when two local moves can be performed in either order, the
+Hasse diagram contains a square and the corresponding interval admits multiple
+maximal chains. Conversely, ``diamond-free'' regions correspond to intervals
+with a unique maximal chain, called \emph{linear intervals} in the
+Tamari/Dyck/alt-Tamari literature. Thus the gauge quotient advocated here may be
+viewed as collapsing the redundant permutational degrees of freedom generated
+by diamonds, while the remaining (non-gauge) branching structure records
+genuinely different causal dependency patterns. The prevalence of linear
+intervals---and their invariance across the Tamari, Dyck, and alt-Tamari posets
+at fixed tier---is analyzed in detail by Chenevi\`ere \cite{cheneviere2022linear}.
+
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}[>=stealth]
@@ -2851,7 +2864,46 @@ Let $G_n=(\mathcal D_n,E_n)$ be any finite undirected graph on $\mathcal D_n$.
 The choice of $G_n$ is additional structure: different graphs induce different
 notions of locality on the tier. A canonical example is the rotation graph (the
 associahedron adjacency) on full binary trees, where edges correspond to single
-associativity rotations \cite{stanley-catalan}.
+associativity rotations \cite{cheneviere2022linear}.
+
+\paragraph{Associahedra and planar tree amplitudes (scattering-amplitude tie-in).}
+The associahedron adjacency on $\mathcal D_n$ is also natural from the
+perspective of scattering amplitudes. For the planar tree-level sector of
+bi-adjoint cubic scalar theory ($\phi^3$), Arkani-Hamed, Bai, He, and Yan
+identify an associahedron in planar kinematic space and show that the tree
+amplitude is the corresponding canonical form of this positive geometry
+\cite{abhy2018scatteringforms}. From this viewpoint, the Catalan enumeration of
+planar cubic tree diagrams is not merely counting: the associahedron organizes
+factorization channels geometrically, and different triangulations correspond to
+different diagrammatic expansions of the same canonical form (see, e.g., the
+review \cite{herrmann2022positivegeometry}). For quartic interactions, an
+analogous positive-geometry description involves Stokes polytopes rather than
+associahedra \cite{banerjee2018stokes}.
+
+\paragraph{Tamari/Dyck/alt-Tamari choices on the same tier.}
+The point of introducing an auxiliary graph $G_n$ is that the underlying state
+set $\mathcal D_n$ supports multiple natural notions of tier-locality coming
+from classical Catalan posets. The rotation graph is the undirected adjacency
+underlying the Tamari order; one may likewise equip $\mathcal D_n$ with
+adjacency induced by the Dyck (``Stanley'') lattice on Dyck paths, or more
+generally by the family of $\delta$-Tamari (alt-Tamari) posets interpolating
+between these extremes. These alternatives use different covering relations on
+the same Catalan tier and therefore induce different graph Laplacians
+$\Delta_{G_n}$ and different ``free'' tier Hamiltonians, but they live on a
+common configuration space $\mathcal D_n$ \cite{stanley-catalan,cheneviere2022linear}.
+
+\paragraph{Linear intervals as ``1D corridors'' in Catalan posets.}
+A useful robustness fact is that certain one-dimensional substructures are
+invariant across these Catalan posets: Chenevi\`ere proves that, for each fixed
+$n$ and each height parameter $k$ (in the sense of \cite{cheneviere2022linear}),
+the Tamari lattice and the Dyck lattice have the same number of \emph{linear
+intervals} (intervals whose Hasse diagram is a chain), and moreover all
+alt-Tamari posets share this same count at each height
+\cite{cheneviere2022linear}. In the present language, this says that the number
+of ``diamond-free corridors'' (regions with a unique maximal chain) is stable
+under a wide class of tier-local adjacency choices, reinforcing the theme that
+many distinct dynamics can be layered on a single Catalan substrate without
+changing its most rigid combinatorial invariants.
 
 \paragraph{Adjacency and Laplacian.}
 Define the adjacency operator $A_{G_n}$ and the degree operator $D_{G_n}$ on
@@ -3165,6 +3217,29 @@ so $E$ is recursively decodable and therefore injective.
 		L.~Tak{\'a}cs.
 		\newblock A {B}ernoulli excursion and its various applications.
 		\newblock {\em Advances in Applied Probability}, 23(3):557--585, 1991.
+
+		\bibitem{abhy2018scatteringforms}
+		N.~Arkani-Hamed, Y.~Bai, S.~He, and G.~Yan.
+		\newblock Scattering forms and the positive geometry of kinematics, color and
+		the worldsheet.
+		\newblock {\em JHEP} \textbf{05} (2018) 096.
+		\newblock arXiv:1711.09102.
+
+		\bibitem{banerjee2018stokes}
+		P.~Banerjee, A.~Laddha, and P.~Raman.
+		\newblock Stokes polytopes: The positive geometry for $\phi^4$ interactions.
+		\newblock arXiv:1811.05904, 2018.
+
+		\bibitem{cheneviere2022linear}
+		C.~Chenevi\`ere.
+		\newblock Linear intervals in the Tamari and the Dyck lattices and in the
+		alt-Tamari posets.
+		\newblock arXiv:2209.00418v2, 2022.
+
+		\bibitem{herrmann2022positivegeometry}
+		E.~Herrmann and J.~Trnka.
+		\newblock Positive geometry of scattering amplitudes.
+		\newblock arXiv:2203.13018, 2022.
 
 	\end{thebibliography}
 \end{document}
