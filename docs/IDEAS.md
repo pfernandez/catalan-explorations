@@ -610,7 +610,7 @@ In the continuum limit, tier-growth dynamics give rise to **Brownian excursion
 
 ### 21.4. Tree Laplacians and discrete heat/Schrödinger equations **[PARTIAL]**
 
-**Paper:** `docs/catalan-light-cone.tex` (optional tier-slice operator framework: adjacency/Laplacian on a chosen graph on $\mathcal D_n$, plus discrete heat and Schr\"odinger evolution; see Appendix “Additional Technical Notes”, subsection “Operators on tier slices (optional)”).
+**Paper:** `docs/catalan-light-cone.tex` (optional operator frameworks: (i) within-history node operators on $\mathrm{Int}(T(w))$ for a fixed $w\in\mathcal D_n$ and (ii) tier-slice operators on $\mathcal D_n$ via a chosen adjacency graph; both give Laplacian-based heat/Schr\"odinger evolutions. The tier-slice subsection also records Catalan-poset adjacency choices (Tamari/Dyck/alt-Tamari) and a short associahedron/scattering-amplitude motivation.)
 
 Given a Dyck tree $T(w)$ with node set $V$ and edges $E$, define a discrete
 **tree Laplacian** $L_T$ acting on node fields $\phi_w : V \to \mathbb{C}$ by

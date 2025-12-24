@@ -2846,6 +2846,46 @@ choice of orthonormalization yields an orthonormal basis adapted to the rooted
 tree geometry.
 \end{remark}
 
+\subsection{Operators on a fixed history tree (optional)}
+\label{subsec:tree-operators}
+
+In addition to tier-wise state spaces (fields on $\mathcal D_n$), one may also
+consider dynamics \emph{within} a fixed realized history by placing operators on
+the internal nodes of its tree.
+
+\paragraph{Node Hilbert space.}
+Fix $w\in\mathcal D_n$ and let $T(w)$ be its associated full binary tree. Write
+$V_w:=\mathrm{Int}(T(w))$ and consider $\ell^2(V_w)$ with inner product
+$\langle \psi,\phi\rangle := \sum_{v\in V_w}\overline{\psi(v)}\,\phi(v)$.
+
+\paragraph{Adjacency and Laplacian.}
+Let $G_w=(V_w,E_w)$ be any finite undirected graph on $V_w$ (for example, connect
+each internal node to its internal children). Define $A_{G_w}$, $D_{G_w}$, and
+the graph Laplacian and generator by
+\[
+\Delta_{G_w}:=D_{G_w}-A_{G_w},
+\qquad
+L_{G_w}:=-\Delta_{G_w}.
+\]
+
+\paragraph{Heat and Schr\"odinger evolutions.}
+The corresponding ``internal-time'' heat equation is
+\[
+\partial_\tau u = L_{G_w}u,
+\]
+and the corresponding unitary Schr\"odinger evolution is
+\[
+i\,\partial_t \psi = -L_{G_w}\psi = \Delta_{G_w}\psi.
+\]
+
+\begin{remark}
+This within-history operator framework is independent of the tier-growth Markov
+dynamics and of coherent summation over histories: it simply records that, once
+a graph structure is specified on the internal nodes of a fixed Catalan tree,
+standard graph-Laplacian constructions yield discrete diffusion and
+Schr\"odinger-type evolutions on that fixed combinatorial background.
+\end{remark}
+
 \subsection{Operators on tier slices (optional)}
 \label{subsec:tier-operators}
 
