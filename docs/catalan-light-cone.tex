@@ -518,8 +518,8 @@ relation by fiat, it yields:
 	\item intrinsic bounds on spatial extension,
 	\item well-defined constant-time layers.
 \end{itemize}
-Subsequent sections place dynamical rules---quantum amplitudes and
-computational reduction---on this geometry.
+Subsequent sections place dynamical rules---computational reduction and a
+minimal amplitude calculus---on this geometry.
 
 \section{Recursive Pairing and Universal Computation}
 \label{sec:computation}
@@ -1130,8 +1130,9 @@ zero. Classical results show that, when rescaled appropriately, ensembles of
 such paths converge to Brownian excursions \cite{le-gall05,janson07}.
 Assigning equal weight to all admissible paths yields a discrete analogue of a
 path integral \cite{feynman-hibbs65}.
-More general amplitude assignments may depend on local features such as height
-or curvature, provided the Dyck constraint is preserved.
+More general amplitude assignments may depend on other prefix-local features
+(e.g.\ height, step type, or other additive functionals), provided the Dyck
+constraint is preserved.
 
 \begin{figure}[h]
 	\centering
@@ -1218,11 +1219,12 @@ summed coherently, while those distinguished by the observable are not.
 From this perspective, the Catalan lattice provides a discrete realization of
 the sum-over-histories principle in which both the space of histories and the
 phase functional are combinatorially well defined. In the next subsection we
-show that, under appropriate scaling limits, this discrete formulation
-converges to familiar continuum descriptions governed by diffusion and
-Schr\"odinger dynamics.
+show that, under appropriate scaling limits, this discrete formulation admits a
+diffusion (heat) continuum limit (Section~\ref{sec:continuum-limit}); the same
+Laplacian generator also yields the free Schr\"odinger equation under analytic
+continuation (Section~\ref{subsec:schrodinger}).
 
-Concrete physical measurements may be modeled by choosing observables that
+Measurement-like coarse observations may be modeled by choosing observables that
 retain geometric features of a history (such as transverse displacement at a
 fixed tier). No such spatial interpretation, however, is required for the
 formal development.
@@ -1322,6 +1324,7 @@ records a complementary view of the same limit through the covariance structure 
 the height observable and its Karhunen--Lo\`eve modes.
 
 \subsection{Schr\"odinger equation}
+\label{subsec:schrodinger}
 
 More formally, let $L$ denote the diffusion generator on $x\ge 0$ with a chosen
 boundary condition at $x=0$ (e.g.\ reflecting/Neumann or absorbing/Dirichlet),
@@ -1354,14 +1357,15 @@ reinforcement stable under time evolution.
 
 	Boundary conditions at $x=0$ are carried over from the diffusive regime (e.g.\
 	reflecting or absorbing), and the choice of boundary does not affect the
-	existence of the continuum limit itself. Thus, quantum wave dynamics arises here
+	existence of the continuum limit itself. Thus, a free Schr\"odinger-type unitary
+	evolution arises here
 	from the same Laplacian generator by passing from a dissipative semigroup to a
 	unitary group; mode-wise, this is the replacement $\tau\mapsto it$ in the spectral
 	representation. This is in line with the classical connection between diffusion
 	and Schr\"odinger evolution
-	\cite{feynman-hibbs65,kac49}. No separate quantization procedure is required at
-	this level: the same scaling-limit Laplacian that governs diffusion also
-	generates unitary Schr\"odinger evolution under analytic continuation.
+	\cite{feynman-hibbs65,kac49}. No separate quantization postulate is required to
+	obtain this unitary evolution from the diffusion generator; interpreting this
+	unitary group as physical quantum dynamics is an additional modeling choice.
 
 \section{Locality and Disjoint Commutation}
 \label{sec:locality}
@@ -1468,14 +1472,14 @@ scope of this paper and is treated here only structurally.
 \subsection{Summary}
 Locality and disjoint commutation emerge directly from the causal and recursive
 structure of the Catalan lattice. The same principles underlie both
-computational reduction and quantum amplitude constructions on the Catalan
+computational reduction and amplitude constructions on the Catalan
 history space.
 
 \section{Discussion and Limitations}
 \label{sec:discussion}
 
-The results presented here establish a shared structural basis for causal
-geometry, quantum dynamics, and computation. Several limitations should be
+The results presented here develop a shared structural framework for causal
+geometry, a minimal amplitude calculus, and computation. Several limitations should be
 emphasized:
 	\begin{itemize}
 		\item Physical constants and interactions are not derived.
@@ -2643,7 +2647,8 @@ modes often resemble sine-like functions away from boundaries.
 Thus, the appearance of modal structure follows directly from the projection of
 Catalan growth dynamics to the height observable and the standard spectral
 analysis of the resulting correlation kernel, without the introduction of
-additional physical assumptions.
+additional postulates beyond the Dyck-conditioned height process and standard
+spectral analysis.
 
 \begin{remark}[Self-similarity and reference frames]
 The Dyck prefix structure is recursively self-similar: every prefix is itself
@@ -3092,8 +3097,8 @@ With phase $\psi(w)=e^{i\alpha A(w)}$, the detector amplitudes are
 = e^{i8\alpha}+e^{i6\alpha}
 = 2e^{i7\alpha}\cos(\alpha).
 \]
-Classically one would predict multiplicities $N(2)=4$ and $N(0)=2$. In contrast,
-the quantum intensities $|\Psi(x)|^2$ vary with $\alpha$ and can exhibit strong
+By counting alone one would predict multiplicities $N(2)=4$ and $N(0)=2$. In contrast,
+the Born-style intensities $|\Psi(x)|^2$ vary with $\alpha$ and can exhibit strong
 suppression. For example, at $\alpha=\pi/2$ one obtains $\Psi(2)=0$ (exact
 destructive interference at the outcome $x=2$), even though $N(2)=4$ histories
 contribute.
