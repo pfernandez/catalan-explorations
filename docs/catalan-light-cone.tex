@@ -2742,6 +2742,72 @@ $\arg\max\{U(L),U(R)\}$), then the drop is $1+\min\{U(L),U(R)\}$.
 Immediate from the defining recursion $U(\bullet(L,R))=1+U(L)+U(R)$.
 \end{proof}
 
+\subsection{Fields on words, prefixes, and nodes (optional)}
+\label{subsec:fields}
+
+We use the word ``field'' as shorthand for a complex-valued function on one of
+the Catalan objects already in play. Several closely related state spaces are
+useful in different contexts.
+
+\paragraph{Fields on completed histories (fixed tier).}
+Fix $n$ and consider a function $\Phi_n:\mathcal D_n\to\mathbb{C}$ assigning an
+amplitude (or observable value) to each completed history $w\in\mathcal D_n$.
+The associated Hilbert space is $\ell^2(\mathcal D_n)$ with inner product
+\[
+\langle \psi,\phi\rangle := \sum_{w\in\mathcal D_n} \overline{\psi(w)}\,\phi(w).
+\]
+
+\paragraph{Fields on prefixes (the full cone).}
+Let $\mathcal P$ denote the set of Dyck prefixes (admissible partial histories).
+A prefix field is a function $\Phi:\mathcal P\to\mathbb{C}$, which may be
+restricted to a fixed length (tier) slice $\mathcal P_k:=\{p\in\mathcal P:
+|p|=k\}$ when needed.
+
+\paragraph{Fields on nodes of a fixed tree.}
+Given $w\in\mathcal D_n$, let $T(w)$ be its associated full binary tree. A
+node field is a function $\phi_w:\mathrm{Int}(T(w))\to\mathbb{C}$ on the internal
+nodes of that tree.
+
+\begin{remark}
+These notions live on different objects (tiers, the prefix poset, or a single
+tree) and are independent of any within-tier ordering convention on
+$\mathcal D_n$.
+\end{remark}
+
+\subsection{Subtree indicators as a multiscale spanning family (optional)}
+\label{subsec:subtree-indicators}
+
+Let $T$ be a finite rooted tree and write $\mathrm{Int}(T)$ for its internal
+nodes. Each $v\in\mathrm{Int}(T)$ determines a rooted subtree $T_v$, and hence a
+subset $\mathrm{Int}(T_v)\subseteq \mathrm{Int}(T)$. Define the subtree indicator
+\[
+\chi_v:\mathrm{Int}(T)\to\{0,1\},
+\qquad
+\chi_v(u):=\mathbf{1}\{u\in \mathrm{Int}(T_v)\}.
+\]
+
+\begin{lemma}[Subtree indicators form a basis]
+\label{lem:subtree-indicator-basis}
+The family $\{\chi_v: v\in \mathrm{Int}(T)\}$ is a basis of the vector space of
+complex-valued functions on $\mathrm{Int}(T)$.
+\end{lemma}
+
+\begin{proof}
+Order the internal nodes by nonincreasing depth (deepest first), and let $M$ be
+the square matrix with entries $M_{uv}:=\chi_v(u)$. Then $M_{vv}=1$ for all $v$,
+while $M_{uv}=0$ whenever $u$ precedes $v$ in this order (a node cannot be a
+descendant of a deeper node). Thus $M$ is triangular with ones on the diagonal,
+hence invertible. Therefore the indicators are linearly independent and, since
+their number equals $\#\mathrm{Int}(T)$, they form a basis.
+\end{proof}
+
+\begin{remark}
+This basis is ``multiscale'': indicators of deep subtrees localize to fine
+regions of $T$, while indicators near the root encode coarse structure. Any
+choice of orthonormalization yields an orthonormal basis adapted to the rooted
+tree geometry.
+\end{remark}
+
 \subsection{Operators on tier slices (optional)}
 \label{subsec:tier-operators}
 
@@ -2751,14 +2817,9 @@ also consider \emph{slice dynamics} on a fixed tier by endowing the finite set
 $\mathcal D_n$ with an auxiliary adjacency graph. This subsection records the
 standard operator framework for such constructions.
 
-\paragraph{Fields on a tier.}
-Fix $n$ and consider the Hilbert space $\ell^2(\mathcal D_n)$ of complex-valued
-functions on $\mathcal D_n$ with inner product
-\[
-\langle \psi,\phi\rangle := \sum_{w\in\mathcal D_n} \overline{\psi(w)}\,\phi(w).
-\]
-Vectors $\psi\in \ell^2(\mathcal D_n)$ may be interpreted as ``fields on a tier''
-or as amplitude assignments on completed histories.
+\paragraph{Tier Hilbert space.}
+We take the tier state space to be $\ell^2(\mathcal D_n)$ as in
+Section~\ref{subsec:fields}.
 
 \paragraph{Adjacency graphs.}
 Let $G_n=(\mathcal D_n,E_n)$ be any finite undirected graph on $\mathcal D_n$.

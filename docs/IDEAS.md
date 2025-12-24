@@ -469,7 +469,7 @@ This realizes each tier as a finite-dimensional Hilbert space with a unitary
 
 ---
 
-#### Fields on words, prefixes, and nodes (solid definitions) **[IDEA ONLY]**
+#### Fields on words, prefixes, and nodes (solid definitions) **[IN PAPER]**
 
 ### 21.1. Fields on words, prefixes, and nodes
 
@@ -510,14 +510,14 @@ below uses the third, but is compatible with the first two.
 
 **Status**
 
-* **Solid (definitions).** All three views are straightforward structures on
-  the Catalan objects already in use.
+* **In paper.** `docs/catalan-light-cone.tex` (Appendix “Additional Technical Notes”, subsection “Fields on words, prefixes, and nodes (optional)”).
+* **Solid (definitions).** All three views are straightforward structures on the Catalan objects already in use.
 * **Speculative.** Identifying these fields with physical fields (e.g. scalar,
   gauge) is an interpretive layer, not derived.
 
 ---
 
-### 21.2. Subtree modes as a multiscale basis **[IDEA ONLY]**
+### 21.2. Subtree modes as a multiscale basis **[PARTIAL]**
 
 Every Dyck tree $T(w)$ admits a canonical hierarchy of subtrees:
 
@@ -559,8 +559,8 @@ ecology).
 
 **Status**
 
-* **Solid (structural).** The hierarchy of subtrees and the finite mode
-  expansion are exact combinatorial facts.
+* **Partial in paper.** `docs/catalan-light-cone.tex` (Appendix “Additional Technical Notes”, subsection “Subtree indicators as a multiscale spanning family (optional)” + Lemma “Subtree indicators form a basis”).
+* **Solid (structural).** The hierarchy of subtrees and the basis/spanning facts are exact combinatorial statements.
 * **Speculative.** The particular choice of mode family $\{\psi_v\}$ or
   $\{\psi_\alpha\}$, and any claim of uniqueness, is model-dependent.
 
