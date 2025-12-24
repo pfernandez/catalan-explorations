@@ -559,7 +559,7 @@ ecology).
 
 **Status**
 
-* **Partial in paper.** `docs/catalan-light-cone.tex` (Appendix “Additional Technical Notes”, subsection “Subtree indicators as a multiscale spanning family (optional)” + Lemma “Subtree indicators form a basis”).
+* **Partial in paper.** `docs/catalan-light-cone.tex` (Appendix “Additional Technical Notes”, subsection “Subtree indicators as a multiscale spanning family (optional)”, Lemma “Subtree indicators form a basis”, and Corollary “Explicit inversion”).
 * **Solid (structural).** The hierarchy of subtrees and the basis/spanning facts are exact combinatorial statements.
 * **Speculative.** The particular choice of mode family $\{\psi_v\}$ or
   $\{\psi_\alpha\}$, and any claim of uniqueness, is model-dependent.

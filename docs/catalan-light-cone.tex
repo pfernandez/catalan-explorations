@@ -2801,6 +2801,31 @@ hence invertible. Therefore the indicators are linearly independent and, since
 their number equals $\#\mathrm{Int}(T)$, they form a basis.
 \end{proof}
 
+\begin{corollary}[Explicit inversion]
+\label{cor:subtree-indicator-inversion}
+Let $f:\mathrm{Int}(T)\to\mathbb{C}$ be any function. There is a unique family
+of coefficients $\{a_v\}_{v\in\mathrm{Int}(T)}$ such that
+\[
+f \;=\; \sum_{v\in\mathrm{Int}(T)} a_v\,\chi_v.
+\]
+Writing $\mathrm{par}(v)$ for the parent of $v$ (for $v\neq \mathrm{root}(T)$),
+these coefficients are given by
+\[
+a_{\mathrm{root}(T)} = f(\mathrm{root}(T)),
+\qquad
+a_v = f(v)-f(\mathrm{par}(v)) \quad (v\neq \mathrm{root}(T)).
+\]
+\end{corollary}
+
+\begin{proof}
+For each $u\in\mathrm{Int}(T)$,
+$(\sum_v a_v\chi_v)(u)=\sum_{v:\,u\in\mathrm{Int}(T_v)} a_v
+=\sum_{v\preceq u} a_v$, where $v\preceq u$ means that $v$ is an ancestor of
+$u$. With the stated choice of coefficients, this ancestor sum telescopes along
+the unique root-to-$u$ chain to yield $f(u)$. Uniqueness follows from
+Lemma~\ref{lem:subtree-indicator-basis}.
+\end{proof}
+
 \begin{remark}
 This basis is ``multiscale'': indicators of deep subtrees localize to fine
 regions of $T$, while indicators near the root encode coarse structure. Any
